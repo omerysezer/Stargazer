@@ -1,13 +1,10 @@
 package com.omerygouw.stargazer;
 
-import lombok.*;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.nio.DoubleBuffer;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 @Getter
-@Setter
 @Builder
 @ToString
 public class AstronomicalObject {
