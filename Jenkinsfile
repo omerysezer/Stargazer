@@ -2,15 +2,10 @@ pipeline {
 	agent any
 	
 	stages{
-		stage("Stage 1"){
+		stage("Run Dockerfile"){
 			steps{
-				echo "Do something"
-			}
-		}
-		
-		stage("Stage 2"){
-			steps{
-				echo "Do something else"
+				sh("docker build -t stargazer-web:1.0 .")
+				sh("docker run -p 80:8080 stargazer-web:1.0")
 			}
 		}
 	}
