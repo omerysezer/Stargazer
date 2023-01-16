@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>Star-Gazer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<style>
+     
+body{
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.popup{
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: "Poppins",sans-serif;
+    display: none; 
+    text-align: center;
+}
+.popup button{
+    display: block;
+    margin:  0 0 20px auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #ffffff;
+    background: #03549a;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.popup h2{
+  margin-top: -20px;
+}
+.popup p{
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 25px;
+}
+a{
+    display: block;
+    width: 150px;
+    position: relative;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #0f72e5;
+    border-radius: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 0;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="popup">
+        <h2>Before The Fun Can Begin:</h2>
+        <p>Before we can start please click the following button so we know where we are: <br> </p>
+        <a id="find-me">Show my location</a><br>
+        <p id="status"></p>
+        <a id="map-link" target="_blank"></a>
+    </div>
+    <!--Script-->
+    <script type="text/javascript">
+window.addEventListener("load", function(){
+    setTimeout(
+        function open(event){
+            document.querySelector(".popup").style.display = "block";
+        },
+        500 
+    )
+});
+
+function geoFindMe() {
+
+const status = document.querySelector('#status');
+const mapLink = document.querySelector('#map-link');
+
+mapLink.href = '';
+mapLink.textContent = '';
+
+function success(position) {
+  const latitude  = position.coords.latitude;
+  const longitude = position.coords.longitude;
+
+  status.textContent = '';
+  mapLink.href = "stargazer.html";
+  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+}
+
+function error() {
+  status.textContent = 'Unable to retrieve your location';
+}
+
+if (!navigator.geolocation) {
+  status.textContent = 'Geolocation is not supported by your browser';
+} else {
+  status.textContent = 'Locating…';
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+
+}
+
+document.querySelector('#find-me').addEventListener('click', geoFindMe);
+    </script>
+</body>
+</html>

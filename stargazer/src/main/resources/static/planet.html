@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<head>
+<title>Star-Gazer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<style>
+body {font-family: "Lato", sans-serif}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: Grey;
+}
+
+img:hover {
+  opacity: 0.6;
+}
+
+.popup{
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: "Poppins",sans-serif;
+    display: none; 
+    text-align: center;
+}
+.popup button{
+    display: block;
+    margin:  0 0 20px auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #ffffff;
+    background: #03549a;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.popup h2{
+  margin-top: -20px;
+}
+.popup p{
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 25px;
+}
+</style>
+</head>
+<body>
+  
+<!-- Navbar -->
+<ul>
+  <li><a href="stargazer.html">Home</a></li>
+  <li><a class="active" href="planet.html">Planets</a></li>
+  <li><a href="star.html">Stars</a></li>
+  <li><a href="galaxy.html">Galaxies</a></li>
+</ul>
+
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+  <h3 class="w3-wide">PLANETS</h3>
+  </div>
+
+  <div class="w3-black">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+      <h2 class="w3-wide w3-center">Pick A Planet</h2>
+      <p class="w3-opacity w3-center"><i>And Watch The Magic Happen</i></p><br>
+
+     
+
+      <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+        <div class="w3-third w3-margin-bottom">
+          <img src="planet.jpg" alt="Planet" style="width:100%">
+          <div class="w3-container w3-white">  
+            <br>
+            <button class="w3-button w3-black w3-margin-bottom" onclick="loadPopUp()">Planet</button>
+            <br>
+            <br>
+          </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+          <img src="planet.jpg" alt="Planet" style="width:100%" >
+          <div class="w3-container w3-white">
+            <br>
+            <button class="w3-button w3-black w3-margin-bottom" onclick="loadPopUp()">Planet</button>
+            <br>
+            <br>
+          </div>
+        </div>
+        <div class="w3-third w3-margin-bottom">
+          <img src="planet.jpg" alt="Planet" style="width:100%" >
+          <div class="w3-container w3-white">
+            <br>
+            <button class="w3-button w3-black w3-margin-bottom" onclick="loadPopUp()">Planet</button>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="myDIV">
+    <button id="close">&times;</button>
+    <h2>Wow its doing its thing</h2>
+</div>
+ 
+
+
+<script>
+function loadPopUp() {
+  var x = document.getElementById('myDIV');
+  
+    x.style.display = 'block';
+
+}
+
+document.querySelector("#close").addEventListener("click", function(){
+    document.querySelector(".popup").style.display = "none";
+});
+
+</script>
+
+</body>
+</html>
