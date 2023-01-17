@@ -1,7 +1,10 @@
 package com.omerygouw.stargazer.Service;
 
-import com.omerygouw.stargazer.AstronomicalObject;
+import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
@@ -16,10 +19,13 @@ import java.util.regex.Pattern;
 
 import static java.lang.Math.*;
 
+@Service
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CoordinateService {
-        private final double longitude;
-        private final double latitude;
+        private double longitude;
+        private double latitude;
 
         private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name){
                 Map<String, Double> coords = new HashMap<String, Double>();
@@ -147,7 +153,7 @@ public class CoordinateService {
                         azimuth = 360 - A;
                 }
 
-                Map<String, Double> convertedCoords = new HashMap<String, Double>();
+                Map<String, Double> convertedCoords = new HashMap<>();
                 convertedCoords.put("Azimuth", azimuth);
                 convertedCoords.put("Altitude", altitude);
 
