@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-
-public class Response {
-    private String response;
+public class PointToObjectWrapper {
+    private String objectName;
+    private boolean isInsideSolarSystem;
 }
