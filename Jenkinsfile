@@ -2,15 +2,10 @@ pipeline {
 	agent any
 	
 	stages{
-		stage("Stage 1"){
+		stage("Update code with new code"){
 			steps{
-				echo "Do something"
-			}
-		}
-		
-		stage("Stage 2"){
-			steps{
-				echo "Do something else"
+			    sh("sudo rm -rf /usr/src/stargazer/*")
+				sh("sudo cp -a /usr/src/stargazer")
 			}
 		}
 	}
