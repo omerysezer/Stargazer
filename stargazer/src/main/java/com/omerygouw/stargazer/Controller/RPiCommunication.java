@@ -1,22 +1,29 @@
 package com.omerygouw.stargazer.Controller;
 
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
+import com.omerygouw.stargazer.Entity.UnsolicitedMessage;
+import com.omerygouw.stargazer.Service.PiToWebBridgeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.sql.SQLOutput;
+
 
 @Controller
 public class RPiCommunication extends Thread {
+    @Autowired
+    PiToWebBridgeService piToWebBridgeService;
+
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
+    private boolean rPiIsConnected;
 
     public RPiCommunication(){
+        rPiIsConnected = false;
         this.start();
     }
 
@@ -44,13 +51,13 @@ public class RPiCommunication extends Thread {
 
             if(recievedMessage.startsWith("Unsolicited:")){
                 recievedMessage = recievedMessage.replaceAll("Unsolicited:", "");
+                UnsolicitedMessage message = new UnsolicitedMessage(recievedMessage);
 
                 if(recievedMessage.startsWith("Bad Calibration:")){
-                    String calibrationLevels = recievedMessage.replaceAll("Bad Calibration:", "");
-                    System.out.println("Call bridge service bad calibration function");
+                    piToWebBridgeService.warnBadCalibration(message);
                 }
                 else if(recievedMessage.startsWith("Bad Orientation:")){
-                    System.out.println("Call bridge service bad orientation function");
+                    piToWebBridgeService.warnBadCalibration(message);
                 }
             }
         }
@@ -62,6 +69,7 @@ public class RPiCommunication extends Thread {
             socket = serverSocket.accept();
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            rPiIsConnected = true;
         }
         catch (Exception e){
             throw new RuntimeException("Could not establish a socket connection with raspberry pi");
@@ -71,29 +79,33 @@ public class RPiCommunication extends Thread {
     public String instructToPointToObject(AstronomicalObject astronomicalObject) throws IOException {
         String message = "{\"point\": {\"Azimuth\":" + astronomicalObject.getAzimuth() + ", \"Altitude:\":" + astronomicalObject.getAltitude() + "}}";
         writer.write(message);
+        writer.flush();
         return reader.readLine();
     }
 
     public String instructToTurnOnLaser() throws IOException {
         String message = "Laser On";
         writer.write(message);
+        writer.flush();
         return reader.readLine();
     }
 
-    public String stopLaser() throws IOException {
+    public String instructToTurnOffLaser() throws IOException {
         String message = "Laser Off";
         writer.write(message);
+        writer.flush();
         return reader.readLine();
     }
 
-    public String reset() throws IOException {
+    public String instructToResetLaserPosition() throws IOException {
         String message = "reset";
         writer.write(message);
+        writer.flush();
         return reader.readLine();
     }
 
-    public boolean isTheRPiConnected(){
-        return false;
+    public boolean theRaspberryPiIsConnected(){
+        return rPiIsConnected;
     }
 }
 
