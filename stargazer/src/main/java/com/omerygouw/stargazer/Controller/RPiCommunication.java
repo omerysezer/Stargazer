@@ -57,7 +57,7 @@ public class RPiCommunication extends Thread {
                     piToWebBridgeService.warnBadCalibration(message);
                 }
                 else if(recievedMessage.startsWith("Bad Orientation:")){
-                    piToWebBridgeService.warnBadCalibration(message);
+                    piToWebBridgeService.warnBadOrientation(message);
                 }
             }
         }
