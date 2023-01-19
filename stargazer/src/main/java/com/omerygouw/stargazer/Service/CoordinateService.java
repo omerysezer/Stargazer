@@ -174,9 +174,9 @@ public class CoordinateService {
 
                 try {
                         if (object.isInsideSolarSystem()) {
-                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.getObjectName());
-                        } else {
                                 absoluteCoords = findCoordinatesOfSolarObjectByName(object.getObjectName());
+                        } else {
+                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.getObjectName());
                         }
                 }
                 catch (Exception e){
