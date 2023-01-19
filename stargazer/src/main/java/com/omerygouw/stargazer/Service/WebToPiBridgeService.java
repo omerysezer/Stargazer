@@ -2,7 +2,7 @@ package com.omerygouw.stargazer.Service;
 
 import com.omerygouw.stargazer.Controller.RPiCommunication;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
-import com.omerygouw.stargazer.Entity.PointToObjectWrapper;
+import com.omerygouw.stargazer.Entity.ObjectToPointAt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +14,20 @@ public class WebToPiBridgeService {
     @Autowired
     RPiCommunication rPiCommunicator;
 
-    public String instructPiToPointLaserAtObject(PointToObjectWrapper objectToPointTo){
+    public String instructPiToPointLaserAtObject(ObjectToPointAt objectToPointTo){
         if(!rPiCommunicator.theRaspberryPiIsConnected()){
             return "The raspberry pi is not yet connected";
         }
 
         // TODO: Check plane service to make sure that there are no planes in the area currently
 
-        AstronomicalObject astronomicalObject = coordinateService.findObjectByName(objectToPointTo.getObjectName());
+        AstronomicalObject astronomicalObject;
+        try{
+            astronomicalObject = coordinateService.findObjectCoordinates(objectToPointTo);
+        }
+        catch (Exception e){
+            return "Fail: " + e.getMessage();
+        }
 
         try{
             return rPiCommunicator.instructToPointToObject(astronomicalObject);

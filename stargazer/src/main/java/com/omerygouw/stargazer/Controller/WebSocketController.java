@@ -1,16 +1,13 @@
 package com.omerygouw.stargazer.Controller;
-import com.omerygouw.stargazer.Entity.LongAndLat;
-import com.omerygouw.stargazer.Entity.Message;
-import com.omerygouw.stargazer.Entity.PointToObjectWrapper;
+
+import com.omerygouw.stargazer.Entity.LocationCoordinates;
+import com.omerygouw.stargazer.Entity.ObjectToPointAt;
 import com.omerygouw.stargazer.Entity.Response;
 import com.omerygouw.stargazer.Service.WebToPiBridgeService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-
-import java.awt.*;
 
 @Controller
 public class WebSocketController {
@@ -20,7 +17,7 @@ public class WebSocketController {
 
     @MessageMapping("/pointToObject")
     @SendTo("/topic/response")
-    public Response pointToObject(PointToObjectWrapper object){
+    public Response pointToObject(ObjectToPointAt object){
         String answer = webToPiBridgeService.instructPiToPointLaserAtObject(object);
         return new Response(answer);
     }
@@ -49,7 +46,7 @@ public class WebSocketController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/response")
-    public Response saveUserLocation(LongAndLat dohicky) {
+    public Response saveUserLocation(LocationCoordinates dohicky) {
         return new Response();
     }
 }

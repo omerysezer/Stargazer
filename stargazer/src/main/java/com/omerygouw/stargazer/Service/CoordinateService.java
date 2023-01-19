@@ -1,6 +1,7 @@
 package com.omerygouw.stargazer.Service;
 
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
+import com.omerygouw.stargazer.Entity.ObjectToPointAt;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,12 +21,20 @@ import java.util.regex.Pattern;
 import static java.lang.Math.*;
 
 @Service
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CoordinateService {
         private double longitude;
         private double latitude;
+        private boolean hasSavedLocation;
+
+        public CoordinateService(){
+                this.hasSavedLocation = false;
+        }
+
+        public CoordinateService(double longitude, double latitude){
+                this.hasSavedLocation = true;
+                this.longitude = longitude;
+                this.latitude = latitude;
+        }
 
         private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name){
                 Map<String, Double> coords = new HashMap<String, Double>();
@@ -49,13 +58,13 @@ public class CoordinateService {
                 String response = responseSpec.bodyToMono(String.class).block();
 
                 if(response == null){
-                        throw new RuntimeException("Recieved no response from api");
+                        throw new RuntimeException("Received no response from SIMBAD API.");
                 }
 
                 String[] responseSplitByLine = response.split("\n");
 
                 if(responseSplitByLine.length == 1) {
-                        throw new RuntimeException("Invalid object name.");
+                        throw new RuntimeException("Could not find an extrasolar object with identifier \"" + name + "\".");
                 }
 
                 String[] coordinates = responseSplitByLine[1].split(",");
@@ -95,17 +104,17 @@ public class CoordinateService {
                 String response = responseSpec.bodyToMono(String.class).block();
 
                 if(response == null){
-                        throw new RuntimeException("No response from api");
+                        throw new RuntimeException("No response from JPL HORIZONS API.");
                 }
                 if(response.contains("API ERROR")){
-                        throw new RuntimeException("API error");
+                        throw new RuntimeException("Received error message from JPL HORIZONS API.");
                 }
 
                 Pattern pattern = Pattern.compile("\\$\\$SOE(.*?)\\$\\$EOE", Pattern.DOTALL);
                 Matcher matcher = pattern.matcher(response);
 
                 if(!matcher.find()){
-                    throw new RuntimeException("Could not extract coordinates from API response");
+                    throw new RuntimeException("Could not extract coordinates from JPL HORIZONS API response");
                 }
 
                 String coordinatesLine = matcher.group(1);
@@ -160,23 +169,38 @@ public class CoordinateService {
                 return convertedCoords;
         }
 
-        public AstronomicalObject findObjectByName(String name){
+        public AstronomicalObject findObjectCoordinates(ObjectToPointAt object){
                 Map<String, Double> absoluteCoords;
 
-                try{
-                        absoluteCoords = findCoordinatesOfExtraSolarObjectByName(name);
+                try {
+                        if (object.isInsideSolarSystem()) {
+                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.getObjectName());
+                        } else {
+                                absoluteCoords = findCoordinatesOfSolarObjectByName(object.getObjectName());
+                        }
                 }
-                catch(RuntimeException error){
-                        absoluteCoords = findCoordinatesOfSolarObjectByName(name);
+                catch (Exception e){
+                        throw new RuntimeException(e);
                 }
 
                 Map<String, Double> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"), absoluteCoords.get("Declination"));
 
                 return AstronomicalObject.builder()
-                        .name(name)
+                        .name(object.getObjectName())
                         .rightAscension(absoluteCoords.get("Right Ascension"))
                         .declination(absoluteCoords.get("Declination"))
                         .azimuth(relativeCoords.get("Azimuth"))
-                        .altitude(relativeCoords.get("Altitude")).build();
+                        .altitude(relativeCoords.get("Altitude"))
+                        .build();
+        }
+
+        public void saveLocation(double longitude, double latitude){
+                if(this.hasSavedLocation){
+                        throw new RuntimeException("Fail: User coordinates have already been saved.");
+                }
+
+                this.longitude = longitude;
+                this.latitude = latitude;
+                this.hasSavedLocation = true;
         }
 }

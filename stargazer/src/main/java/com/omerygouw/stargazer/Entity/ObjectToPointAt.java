@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class LongAndLat {
-        private double longitude;
-        private double latitude;
+public class ObjectToPointAt {
+    private String objectName;
+    private boolean isInsideSolarSystem;
 }
