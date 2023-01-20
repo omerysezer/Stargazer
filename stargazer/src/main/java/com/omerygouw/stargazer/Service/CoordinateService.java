@@ -1,10 +1,13 @@
 package com.omerygouw.stargazer.Service;
 
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
+import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
+import com.omerygouw.stargazer.Entity.UserLocation;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
@@ -22,21 +25,11 @@ import static java.lang.Math.*;
 
 @Service
 public class CoordinateService {
-        private double longitude;
-        private double latitude;
-        private boolean hasSavedLocation;
+        @Autowired
+        UserLocation userLocation;
 
-        public CoordinateService(){
-                this.hasSavedLocation = false;
-        }
 
-        public CoordinateService(double longitude, double latitude){
-                this.hasSavedLocation = true;
-                this.longitude = longitude;
-                this.latitude = latitude;
-        }
-
-        private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name){
+        private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
                 String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + name + "'";
 
@@ -76,7 +69,7 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> findCoordinatesOfSolarObjectByName(String name){
+        private Map<String, Double> findCoordinatesOfSolarObjectByName(String name) throws RuntimeException{
                 Map<String, Integer> planetToIdMap = new HashMap<>();
                 planetToIdMap.put("Mercury", 199);
                 planetToIdMap.put("Venus", 299);
@@ -131,7 +124,7 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> convertRightAscensionAndDeclinationToAzimuthAndAltitude(double rightAscension, double declination){
+        private Map<String, Double> convertRightAscensionAndDeclinationToAzimuthAndAltitude(double rightAscension, double declination) throws RuntimeException{
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss:SS");
                 LocalDateTime datetime = LocalDateTime.now(ZoneOffset.UTC);
                 LocalDateTime jan1st2000 = LocalDateTime.parse("2000-01-01 00:00:00:00", dtf);
@@ -139,14 +132,24 @@ public class CoordinateService {
                 double daysSinceJan1st2000 = (double) Duration.between(jan1st2000, datetime).toHours() / 24;
                 double currentTimeInHours = (double) datetime.toLocalTime().toSecondOfDay() / 3600;
 
-                double localSiderealTime = (100.46 + 0.985647 * daysSinceJan1st2000 + this.longitude + 15*currentTimeInHours) % 360;
+                LocationCoordinates location;
+                try{
+                        location = userLocation.getUserLocation();
+                }
+                catch(Exception e){
+                        throw new RuntimeException("Could not convert absolute coordinates to relative coordinates because user location is unknown.");
+                }
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+
+                double localSiderealTime = (100.46 + 0.985647 * daysSinceJan1st2000 + longitude + 15*currentTimeInHours) % 360;
                 double hourAngle = localSiderealTime - rightAscension < 0 ? localSiderealTime - rightAscension + 360 : localSiderealTime - rightAscension;
 
                 double sinOfDeclination = sin(toRadians(declination));
-                double sinOfLatitude = sin(toRadians(this.latitude));
+                double sinOfLatitude = sin(toRadians(latitude));
                 double sinOfHourAngle = sin(toRadians(hourAngle));
                 double cosOfDeclination = cos(toRadians(declination));
-                double cosOfLatitude = cos(toRadians(this.latitude));
+                double cosOfLatitude = cos(toRadians(latitude));
                 double cosOfHourAngle = cos(toRadians(hourAngle));
 
                 double sinOfAltitude = (sinOfDeclination * sinOfLatitude) + (cosOfDeclination * cosOfLatitude * cosOfHourAngle);
@@ -169,7 +172,7 @@ public class CoordinateService {
                 return convertedCoords;
         }
 
-        public AstronomicalObject findObjectCoordinates(ObjectToPointAt object){
+        public AstronomicalObject findObjectCoordinates(ObjectToPointAt object) throws RuntimeException{
                 Map<String, Double> absoluteCoords;
 
                 try {
@@ -180,7 +183,7 @@ public class CoordinateService {
                         }
                 }
                 catch (Exception e){
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Could not find coordinates of object with identifier \"" + object.getObjectName() + "\"");
                 }
 
                 Map<String, Double> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"), absoluteCoords.get("Declination"));
@@ -192,15 +195,5 @@ public class CoordinateService {
                         .azimuth(relativeCoords.get("Azimuth"))
                         .altitude(relativeCoords.get("Altitude"))
                         .build();
-        }
-
-        public void saveLocation(double longitude, double latitude){
-                if(this.hasSavedLocation){
-                        throw new RuntimeException("Fail: User coordinates have already been saved.");
-                }
-
-                this.longitude = longitude;
-                this.latitude = latitude;
-                this.hasSavedLocation = true;
         }
 }

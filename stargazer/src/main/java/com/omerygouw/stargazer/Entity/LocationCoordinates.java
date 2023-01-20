@@ -1,15 +1,11 @@
 package com.omerygouw.stargazer.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class LocationCoordinates {
-        private double longitude;
-        private double latitude;
+        private final double longitude;
+        private final double latitude;
 }
