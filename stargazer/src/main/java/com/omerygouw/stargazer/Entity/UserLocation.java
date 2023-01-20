@@ -13,7 +13,6 @@ public class UserLocation {
             throw new RuntimeException("User's location has already been saved.");
         }
 
-        // creates a copy of the location so that its members cannot be changed
         userLocation = location;
         userLocationHasBeenSaved = true;
     }
