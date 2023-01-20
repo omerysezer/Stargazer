@@ -46,7 +46,8 @@ public class WebSocketController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/response")
-    public Response saveUserLocation(LocationCoordinates dohicky) {
-        return new Response();
+    public Response saveUserLocation(LocationCoordinates location) {
+        String answer = webToPiBridgeService.saveUserLocation(location);
+        return new Response(answer);
     }
 }

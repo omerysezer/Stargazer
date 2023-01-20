@@ -2,7 +2,10 @@ package com.omerygouw.stargazer.Service;
 
 import com.omerygouw.stargazer.Controller.RPiCommunication;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
+import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
+import com.omerygouw.stargazer.Entity.UserLocation;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +13,10 @@ import org.springframework.stereotype.Service;
 public class WebToPiBridgeService {
     @Autowired
     CoordinateService coordinateService;
-
     @Autowired
     RPiCommunication rPiCommunicator;
-
+    @Autowired
+    UserLocation userLocation;
     public String instructPiToPointLaserAtObject(ObjectToPointAt objectToPointTo){
         if(!rPiCommunicator.theRaspberryPiIsConnected()){
             return "The raspberry pi is not yet connected";
@@ -75,6 +78,16 @@ public class WebToPiBridgeService {
         }
         catch(Exception e){
             return "Fail: Could not send message to raspberry pi";
+        }
+    }
+
+    public String saveUserLocation(LocationCoordinates location){
+        try{
+            userLocation.saveUserLocation(location);
+            return "Success";
+        }
+        catch (Exception e){
+            return "Fail: " + e.getMessage();
         }
     }
 }
