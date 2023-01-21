@@ -4,8 +4,15 @@ pipeline {
 	stages{
 		stage("Update code with new code"){
 			steps{
-			    sh("sudo rm -rf /usr/src/stargazer/*")
-				sh("sudo cp -a ./stargazer/. /usr/src/stargazer")
+			    sh("""
+			        virtualenv venv
+			        . venv/bin/activate
+			        pip install -r ./stargazer/requirements.txt
+			    """)
+			    sh("sudo rm -rf /stargazer/*")
+				sh("sudo mv ./stargazer /stargazer")
+				sh("sudo mv ./venv /stargazer")
+
 			}
 		}
 	}
