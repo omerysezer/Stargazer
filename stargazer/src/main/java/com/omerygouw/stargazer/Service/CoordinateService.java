@@ -1,12 +1,23 @@
 package com.omerygouw.stargazer.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
+import netscape.javascript.JSObject;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -20,6 +31,17 @@ import static java.lang.Math.*;
 
 @Service
 public class CoordinateService {
+
+        Map<String, Integer> solarNameToIdMap;
+
+        public CoordinateService() throws IOException {
+                String fileName = "stargazer/src/main/java/com/omerygouw/stargazer/Service/SolarObjectIds.json";
+                String contents = Files.readString(Paths.get(fileName), Charset.defaultCharset());
+                Gson gson = new Gson();
+                Type mapType = new TypeToken<Map<String, Integer>>(){}.getType();
+                this.solarNameToIdMap = gson.fromJson(contents, mapType);
+        }
+
         private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
                 String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + name + "'";
