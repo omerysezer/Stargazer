@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Stargazer.iml" filepath="$PROJECT_DIR$/.idea/Stargazer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/stargazer/stargazer.iml" filepath="$PROJECT_DIR$/stargazer/stargazer.iml" />
-    </modules>
-  </component>
-</project>
