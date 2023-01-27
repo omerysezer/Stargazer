@@ -3,11 +3,6 @@ package com.omerygouw.stargazer.Service;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
-import com.omerygouw.stargazer.Entity.UserLocation;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
@@ -25,10 +20,6 @@ import static java.lang.Math.*;
 
 @Service
 public class CoordinateService {
-        @Autowired
-        UserLocation userLocation;
-
-
         private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
                 String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + name + "'";
@@ -124,23 +115,13 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> convertRightAscensionAndDeclinationToAzimuthAndAltitude(double rightAscension, double declination) throws RuntimeException{
+        private Map<String, Double> convertRightAscensionAndDeclinationToAzimuthAndAltitude(double rightAscension, double declination, double longitude, double latitude) throws RuntimeException{
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss:SS");
                 LocalDateTime datetime = LocalDateTime.now(ZoneOffset.UTC);
                 LocalDateTime jan1st2000 = LocalDateTime.parse("2000-01-01 00:00:00:00", dtf);
 
                 double daysSinceJan1st2000 = (double) Duration.between(jan1st2000, datetime).toHours() / 24;
                 double currentTimeInHours = (double) datetime.toLocalTime().toSecondOfDay() / 3600;
-
-                LocationCoordinates location;
-                try{
-                        location = userLocation.getUserLocation();
-                }
-                catch(Exception e){
-                        throw new RuntimeException("Could not convert absolute coordinates to relative coordinates because user location is unknown.");
-                }
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
 
                 double localSiderealTime = (100.46 + 0.985647 * daysSinceJan1st2000 + longitude + 15*currentTimeInHours) % 360;
                 double hourAngle = localSiderealTime - rightAscension < 0 ? localSiderealTime - rightAscension + 360 : localSiderealTime - rightAscension;
@@ -172,7 +153,7 @@ public class CoordinateService {
                 return convertedCoords;
         }
 
-        public AstronomicalObject findObjectCoordinates(ObjectToPointAt object) throws RuntimeException{
+        public AstronomicalObject findObjectCoordinates(ObjectToPointAt object, LocationCoordinates userCoordinates) throws RuntimeException{
                 Map<String, Double> absoluteCoords;
 
                 try {
@@ -186,7 +167,8 @@ public class CoordinateService {
                         throw new RuntimeException("Could not find coordinates of object with identifier \"" + object.getObjectName() + "\"");
                 }
 
-                Map<String, Double> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"), absoluteCoords.get("Declination"));
+                Map<String, Double> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"),
+                        absoluteCoords.get("Declination"), userCoordinates.getLongitude(), userCoordinates.getLatitude());
 
                 return AstronomicalObject.builder()
                         .name(object.getObjectName())
