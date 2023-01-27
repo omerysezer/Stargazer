@@ -14,10 +14,7 @@ pipeline {
 	    }
 		stage("Run Dockerfile"){
 			steps{
-				sh("docker build -t stargazer-web:1.0 .")
-                sh("docker stop stargazer-web || true")
-                sh("docker rm stargazer-web || true")
-				sh("nohup docker run --name stargazer-web -p 443:443 stargazer-web:1.0 &")
+			    sh("docker compose up --force-recreate --build -d")
 			}
 		}
 	}

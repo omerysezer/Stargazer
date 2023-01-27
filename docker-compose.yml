@@ -1,0 +1,19 @@
+version: '1'
+
+services:
+  nginx-webserver:
+    container_name: nginx_container
+    build:
+      context: ./docker-files
+      dockerfile: dockerfile_nginx
+    ports:
+      - "80:80"
+    restart: always
+  stargazer-server:
+    container_name: stargazer_container
+    build:
+      context: .
+      dockerfile: docker-files/dockerfile_server
+    ports:
+      - "443:443"
+    restart: always
