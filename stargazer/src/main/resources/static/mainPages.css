@@ -44,18 +44,17 @@ img:hover {
     display: none;
     text-align: center;
 }
-.popup button{
-    display: block;
-    margin:  0 0 20px auto;
-    background-color: transparent;
-    font-size: 30px;
-    color: #ffffff;
-    background: #03549a;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
+.button {
+    background-color: grey;
+    border-radius: 10px;
     border: none;
-    outline: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
 }
 .popup h2{
@@ -66,4 +65,8 @@ img:hover {
     text-align: justify;
     margin: 20px 0;
     line-height: 25px;
+}
+
+.right {
+    float: right;
 }
