@@ -1,46 +1,43 @@
 <!DOCTYPE html>
 <head>
-<title>Star-Gazer</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-body {font-family: "Lato", sans-serif}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: black;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  background-color: #111;
-}
-
-.active {
-  background-color: Grey;
-}
-
-img:hover {
-  opacity: 0.6;
-}
-</style>
+  <title>Star-Gazer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="mainPages.css">
 </head>
 <body>
+<style>
+  .container {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
 
+  .container .btn {
+    font-family: "Lato", sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    border-radius: 10px;
+
+  }
+
+  .container .btn:hover {
+    background-color: black;
+  }
+</style>
 <!-- Navbar -->
 <ul>
   <li><a class="active" href="stargazer.html">Home</a></li>
@@ -51,46 +48,42 @@ img:hover {
 
 
 
-  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
-    <h2 class="w3-wide">STAR-GAZER</h2>
-    <p class="w3-opacity"><i>Explore The Night Sky</i></p>
-  </div>
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+  <h2 class="w3-wide">STAR-GAZER</h2>
+  <p class="w3-opacity"><i>Explore The Night Sky</i></p>
+</div>
 
-  <div class="w3-black">
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-      <h2 class="w3-wide w3-center">Exploration Options</h2>
-      <p class="w3-opacity w3-center"><i>Select One Of The Options To Start Exploring</i></p><br>
+<div class="w3-black">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide w3-center">Exploration Options</h2>
+    <p class="w3-opacity w3-center"><i>Select One Of The Options To Start Exploring</i></p><br>
 
-     
 
-      <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
-        <div class="w3-third w3-margin-bottom">
-          <img src="planet.jpg" alt="Planet" style="width:100%">
-          <div class="w3-container w3-white">
-            <p><b>Planets</b></p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.location= 'planet.html'">Explore</button>
-          </div>
+    <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+      <div class="w3-third w3-margin-bottom">
+        <div class="container">
+          <img src="planet.jpg" alt="planet" style="width:100%">
+          <button class="btn" onclick = "document.location = 'planet.html'">Planets</button>
         </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="star.jpg" alt="Star" style="width:100%" >
-          <div class="w3-container w3-white">
-            <p><b>Stars</b></p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.location= 'star.html'">Explore</button>
-          </div>
+      </div>
+      <div class="w3-third w3-margin-bottom">
+        <div class="container">
+          <img src="star.jpg" alt="star" style="width:100%">
+          <button class="btn" onclick = "document.location = 'star.html'">Stars</button>
         </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="galaxy.jpg" alt="Galaxy" style="width:100%" >
-          <div class="w3-container w3-white">
-            <p><b>Galaxies</b></p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.location= 'galaxy.html'">Explore</button>
-          </div>
+      </div>
+      <div class="w3-third w3-margin-bottom">
+        <div class="container">
+          <img src="galaxy.jpg" alt="galaxy" style="width:100%">
+          <button class="btn" onclick = "document.location = 'galaxy.html'">Galaxies</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
- 
- 
+
+
 
 
 <script>

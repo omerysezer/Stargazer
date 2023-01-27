@@ -1,82 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>  
-<title>Star-Gazer</title>
+<head>
+    <title>Star-Gazer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-<style>
-     
-body{
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-.popup{
-    background-color: #ffffff;
-    width: 420px;
-    padding: 30px 40px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    left: 50%;
-    top: 50%;
-    border-radius: 8px;
-    font-family: "Poppins",sans-serif;
-    display: none; 
-    text-align: center;
-}
-.popup button{
-    display: block;
-    margin:  0 0 20px auto;
-    background-color: transparent;
-    font-size: 30px;
-    color: #ffffff;
-    background: #03549a;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-.popup h2{
-  margin-top: -20px;
-}
-.popup p{
-    font-size: 14px;
-    text-align: justify;
-    margin: 20px 0;
-    line-height: 25px;
-}
-a{
-    display: block;
-    width: 150px;
-    position: relative;
-    margin: 10px auto;
-    text-align: center;
-    background-color: #0f72e5;
-    border-radius: 20px;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 8px 0;
-}
+    <style>
+
+        body{
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .popup{
+            background-color: #ffffff;
+            width: 420px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            font-family: "Poppins",sans-serif;
+            display: none;
+            text-align: center;
+        }
+
+        .popup h2{
+            margin-top: -20px;
+        }
+        .popup p{
+            font-size: 14px;
+            text-align: justify;
+            margin: 20px 0;
+            line-height: 25px;
+        }
+        a{
+            display: block;
+            width: 150px;
+            position: relative;
+            margin: 10px auto;
+            text-align: center;
+            background-color: #0f72e5;
+            border-radius: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 0;
+        }
+
+        .button {
+            background-color: grey;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div class="popup">
-        <h2>Welcome!</h2>
-        <p>Before you can explore the vast sky please read the following: <br> I acknowledge the fact that I am responsible for any damages and or injuries caused by my use of the "Star-Gazer". I acknowledge that it is not a toy and will be used for its intended purpose.  </p>
-        <a href="location.html">I Agree</a>
-    </div>
-    <!--Script-->
-    <script type="text/javascript">
-window.addEventListener("load", function(){
-    setTimeout(
-        function open(event){
-            document.querySelector(".popup").style.display = "block";
-        },
-        500 
-    )
-});
-    </script>
+<div class="popup">
+    <h2>Welcome!</h2>
+    <p>Before you can explore the vast sky please read the following: <br> I acknowledge the fact that I am responsible for any damages and or injuries caused by my use of the "Star-Gazer". I acknowledge that it is not a toy and will be used for its intended purpose.  </p>
+    <button class="button" onclick= "document.location = 'location.html'">I Agree</button>
+</div>
+<!--Script-->
+<script type="text/javascript">
+    window.addEventListener("load", function(){
+        setTimeout(
+            function open(event){
+                document.querySelector(".popup").style.display = "block";
+            },
+            500
+        )
+    });
+</script>
 </body>
 </html>

@@ -1,117 +1,125 @@
 <!DOCTYPE html>
 <html>
-<head>  
-<title>Star-Gazer</title>
+<head>
+    <title>Star-Gazer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-<style>
-     
-body{
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-.popup{
-    background-color: #ffffff;
-    width: 420px;
-    padding: 30px 40px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    left: 50%;
-    top: 50%;
-    border-radius: 8px;
-    font-family: "Poppins",sans-serif;
-    display: none; 
-    text-align: center;
-}
-.popup button{
-    display: block;
-    margin:  0 0 20px auto;
-    background-color: transparent;
-    font-size: 30px;
-    color: #ffffff;
-    background: #03549a;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-.popup h2{
-  margin-top: -20px;
-}
-.popup p{
-    font-size: 14px;
-    text-align: justify;
-    margin: 20px 0;
-    line-height: 25px;
-}
-a{
-    display: block;
-    width: 150px;
-    position: relative;
-    margin: 10px auto;
-    text-align: center;
-    background-color: #0f72e5;
-    border-radius: 20px;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 8px 0;
-    cursor: pointer;
-}
+    <style>
+
+        body{
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .popup{
+            background-color: #ffffff;
+            width: 420px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            font-family: "Poppins",sans-serif;
+            display: none;
+            text-align: center;
+        }
+
+        .popup h2{
+            margin-top: -20px;
+        }
+        .popup p{
+            font-size: 14px;
+            text-align: justify;
+            margin: 20px 0;
+            line-height: 25px;
+        }
+        a{
+            display: block;
+            width: 150px;
+            position: relative;
+            margin: 10px auto;
+            text-align: center;
+            background-color: grey;
+            border-radius: 10px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .button {
+            background-color: grey;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        button:focus {outline:0;}
+
     </style>
 </head>
 <body>
-    <div class="popup">
-        <h2>Before The Fun Can Begin:</h2>
-        <p>Before we can start please click the following button so we know where we are: <br> </p>
-        <a id="find-me">Show my location</a><br>
-        <p id="status"></p>
-        <a id="map-link"></a>
-    </div>
-    <!--Script-->
-    <script type="text/javascript">
-window.addEventListener("load", function(){
-    setTimeout(
-        function open(event){
-            document.querySelector(".popup").style.display = "block";
-        },
-        500 
-    )
-});
+<div class="popup">
+    <h2>Before The Fun Can Begin:</h2>
+    <p>Before we can start please click the following button so we know where we are: <br> </p>
+    <button class="button" onclick = "geoFindMe()">Show My Location</button>
+    <div id="out"></div>
+    <button id="subbut" class="button" onclick = "document.location = 'stargazer.html';">Submit</button>
 
-function geoFindMe() {
+</div>
+<!--Script-->
+<script type="text/javascript">
 
-const status = document.querySelector('#status');
-const mapLink = document.querySelector('#map-link');
+    window.addEventListener("load", function(){
+        setTimeout(
+            function open(event){
+                document.querySelector(".popup").style.display = "block";
+            },
+            500
+        )
+    });
 
-mapLink.href = '';
-mapLink.textContent = '';
+    window.addEventListener("load", function() {
+        document.getElementById("subbut").disabled=true;
+    })
 
-function success(position) {
-  const latitude  = position.coords.latitude;
-  const longitude = position.coords.longitude;
+    function geoFindMe() {
 
-  status.textContent = '';
-  mapLink.href = "stargazer.html";
-  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-}
+        var output = document.getElementById("out");
 
-function error() {
-  status.textContent = 'Unable to retrieve your location';
-}
+        if (!navigator.geolocation){
+            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+            return;
+        }
 
-if (!navigator.geolocation) {
-  status.textContent = 'Geolocation is not supported by your browser';
-} else {
-  status.textContent = 'Locating…';
-  navigator.geolocation.getCurrentPosition(success, error);
-}
+        function success(position) {
+            var latitude  = position.coords.latitude;
+            var longitude = position.coords.longitude;
 
-}
+            output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 
-document.querySelector('#find-me').addEventListener('click', geoFindMe);
-    </script>
+            document.getElementById("subbut").disabled=false;
+
+        }
+
+        function error() {
+            output.innerHTML = "Unable to retrieve your location";
+        }
+
+        output.innerHTML = "<p>Locating…</p>";
+
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+
+</script>
 </body>
 </html>
