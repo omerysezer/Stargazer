@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @RedisHash("Session")
 @Data
@@ -18,6 +19,6 @@ public class Session implements Serializable {
     private String piSessionId;
     private LocationCoordinates coordinates;
     private double magneticDeclination;
-    private long timeLastCheckedPlane;
+    private LocalDateTime timeLastCheckedPlane;
     private boolean lastPlaneCheckResult;
 }
