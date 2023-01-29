@@ -55,7 +55,6 @@ public class WebSocketController {
 
     @GetMapping("/getSessionId")
     public void setCookie(HttpServletResponse response){
-        System.out.println("getting cookie");
         Cookie cookie = new Cookie("sessionId", String.valueOf(System.nanoTime()));
         cookie.setSecure(true);
         response.addCookie(cookie);
