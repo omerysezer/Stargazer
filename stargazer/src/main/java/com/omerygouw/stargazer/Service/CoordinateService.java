@@ -1,29 +1,32 @@
 package com.omerygouw.stargazer.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
-import netscape.javascript.JSObject;
-import org.apache.tomcat.util.json.JSONParser;
-import org.json.JSONObject;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileUrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,12 +38,13 @@ public class CoordinateService {
         Map<String, Integer> solarNameToIdMap;
 
         public CoordinateService() throws IOException {
-                String fileName = "stargazer/src/main/java/com/omerygouw/stargazer/Service/SolarObjectIds.json";
-                String contents = Files.readString(Paths.get(fileName), Charset.defaultCharset());
+
+                ClassPathResource cpr = new ClassPathResource("SolarObjectIds.json");
+                String json = FileCopyUtils.copyToString(new InputStreamReader(cpr.getInputStream()));
                 Gson gson = new Gson();
-                Type mapType = new TypeToken<Map<String, Integer>>(){}.getType();
-                this.solarNameToIdMap = gson.fromJson(contents, mapType);
-        }
+                Type type = new TypeToken<HashMap<String, Integer>>(){}.getType();
+                this.solarNameToIdMap = gson.fromJson(json, type);
+         }
 
         private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
@@ -83,17 +87,6 @@ public class CoordinateService {
         }
 
         private Map<String, Double> findCoordinatesOfSolarObjectByName(String name) throws RuntimeException{
-                Map<String, Integer> planetToIdMap = new HashMap<>();
-                planetToIdMap.put("Mercury", 199);
-                planetToIdMap.put("Venus", 299);
-                planetToIdMap.put("Moon", 301);
-                planetToIdMap.put("Mars", 499);
-                planetToIdMap.put("Jupiter", 599);
-                planetToIdMap.put("Saturn", 699);
-                planetToIdMap.put("Uranus", 799);
-                planetToIdMap.put("Neptune", 899);
-                planetToIdMap.put("Pluto", 999);
-
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss.SS");
                 LocalDateTime now = LocalDateTime.now();
                 LocalDateTime nowPlusFiveMinutes = LocalDateTime.now().plusMinutes(5);
@@ -101,7 +94,8 @@ public class CoordinateService {
                 String currentTime = dtf.format(now);
                 String currentTimePlusFiveMinutes = dtf.format(nowPlusFiveMinutes);
 
-                String requestUri = "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&ANG_FORMAT='DEG'&COMMAND='" + planetToIdMap.get(name) + "'&QUANTITIES='1'&START_TIME='" + currentTime + "'&STOP_TIME='" + currentTimePlusFiveMinutes + "'";
+                Integer id = this.solarNameToIdMap.getOrDefault(name, null);
+                String requestUri = "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&ANG_FORMAT='DEG'&COMMAND='" + id + "'&QUANTITIES='1'&START_TIME='" + currentTime + "'&STOP_TIME='" + currentTimePlusFiveMinutes + "'";
 
                 WebClient client = WebClient.create();
                 ResponseSpec responseSpec = client.get()
