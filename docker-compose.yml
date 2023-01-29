@@ -11,9 +11,17 @@ services:
     restart: always
   stargazer-server:
     container_name: stargazer_container
+    links:
+      - "redis-server:redis"
     build:
       context: .
       dockerfile: docker-files/dockerfile_server
     ports:
       - "443:443"
+    restart: always
+  redis-server:
+    container_name: redis_container
+    image: redis:latest
+    ports:
+      - "6379:6379"
     restart: always
