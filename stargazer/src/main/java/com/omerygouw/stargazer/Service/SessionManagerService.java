@@ -20,15 +20,8 @@ public class SessionManagerService {
         return sessionRepository.findSessionByPiSessionId(piSessionId);
     }
 
-    public void createNewClientSessionWithClientIdOnly(String clientSessionId){
+    public void createNewClientSession(String clientSessionId){
         Session newSession = new Session();
-        newSession.setClientSessionId(clientSessionId);
-        sessionRepository.save(newSession);
-    }
-
-    public void createNewClientSessionWithClientAndWebSocketId(String clientSessionId, String websocketSessionId){
-        Session newSession = new Session();
-        newSession.setWebsocketSessionId(websocketSessionId);
         newSession.setClientSessionId(clientSessionId);
         sessionRepository.save(newSession);
     }
@@ -47,12 +40,6 @@ public class SessionManagerService {
     public void findSessionByClientIdAndAddPiId(String clientId, String piId){
         Session session = sessionRepository.findSessionByClientSessionId(clientId);
         session.setPiSessionId(piId);
-        sessionRepository.save(session);
-    }
-
-    public void mapWebSocketSessionToRealSession(String websocketSessionId, String clientSessionId){
-        Session session = sessionRepository.findSessionByClientSessionId(clientSessionId);
-        session.setWebsocketSessionId(websocketSessionId);
         sessionRepository.save(session);
     }
 }
