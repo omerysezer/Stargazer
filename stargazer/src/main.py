@@ -6,3 +6,10 @@ wifi_thread = threading.Thread(target=maintain_network_connection, args=('starga
 wifi_thread.start()
 
 print("hopefully I'm connected now!")
+
+'''
+  
+    once connected to wifi, open servercommunication in a thread
+    
+    
+'''

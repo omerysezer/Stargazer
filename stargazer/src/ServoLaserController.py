@@ -12,8 +12,6 @@ tilt_servo = AngularServo(pin_factory=factory, min_angle=0, max_angle=180, initi
                           max_pulse_width=.5 / 1000)
 laser = LED(pin=18, active_high=True, initial_value=False)
 
-laser.blink()
-
 
 def turn_laser_on(time):
     def laser_on():
@@ -27,6 +25,10 @@ def turn_laser_on(time):
 
 def turn_laser_off():
     laser.off()
+
+
+def blink_laser(num_blinks):
+    laser.blink(1, 1, num_blinks)
 
 
 def point_to_coords(azimuth, altitude):
