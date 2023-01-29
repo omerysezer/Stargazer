@@ -8,16 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PiToWebBridgeService {
-//    @Autowired
-//    SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
 
-    // simpMessagingTemplate.convertAndSend("url to send to", "object to send");
-
-    public void warnBadCalibration(UnsolicitedMessage message){
-//        simpMessagingTemplate.convertAndSend("/topic/response", message);
+    public void warnBadCalibration(UnsolicitedMessage message, String sessionId){
+        simpMessagingTemplate.convertAndSend("/user/queue/chat-" + sessionId, message);
     }
 
-    public void warnBadOrientation(UnsolicitedMessage message){
-//        simpMessagingTemplate.convertAndSend("/topic/response", message);
+    public void warnBadOrientation(UnsolicitedMessage message, String sessionId){
+        simpMessagingTemplate.convertAndSend("/user/queue/chat-" + sessionId, message);
     }
 }

@@ -40,13 +40,16 @@ public class RPiConnection extends Thread{
 
             if(receivedMessage.startsWith("Unsolicited:")){
                 receivedMessage = receivedMessage.replaceAll("Unsolicited:", "");
+                String[] split = receivedMessage.split("sessionId");
+                receivedMessage = split[0];
+                String id = split[1];
                 UnsolicitedMessage message = new UnsolicitedMessage(receivedMessage);
 
                 if(receivedMessage.startsWith("Bad Calibration:")){
-                    piToWebBridgeService.warnBadCalibration(message);
+                    piToWebBridgeService.warnBadCalibration(message, id);
                 }
                 else if(receivedMessage.startsWith("Bad Orientation:")){
-                    piToWebBridgeService.warnBadOrientation(message);
+                    piToWebBridgeService.warnBadOrientation(message, id);
                 }
             }
         }
