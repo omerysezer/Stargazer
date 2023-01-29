@@ -35,7 +35,7 @@ public class PlaneService{
         double minLon = userLocation.getLongitude() - (0.009 * 17);
         double maxLon = userLocation.getLongitude() + (0.009 * 17);
 
-        String requestUri = "https://opensky-network.org/api/states/all?lamin="+minLat+"&lomin="+minLon+"&lamax="+maxLat+"&lomax="+maxLat+"";
+        String requestUri = "https://opensky-network.org/api/states/all?lamin="+minLat+"&lomin="+minLon+"&lamax="+maxLat+"&lomax="+maxLon+"";
 
         WebClient client = WebClient.create();
         WebClient.ResponseSpec responseSpec = client.get()

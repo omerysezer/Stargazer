@@ -3,6 +3,8 @@ package com.omerygouw.stargazer.Controller;
 import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
 import com.omerygouw.stargazer.Entity.Response;
+import com.omerygouw.stargazer.Entity.Session;
+import com.omerygouw.stargazer.Service.SessionManagerService;
 import com.omerygouw.stargazer.Service.WebToPiBridgeService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,11 +16,15 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.IOException;
+
 @Controller
 public class WebSocketController {
 
     @Autowired
     WebToPiBridgeService webToPiBridgeService;
+    @Autowired
+    SessionManagerService sessionManagerService;
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
 
@@ -40,22 +46,20 @@ public class WebSocketController {
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
     }
 
-    @MessageMapping("/resetLaser")
-    public void resetLaser(@Header("sessionId") String clientSessionId){
-        String response = webToPiBridgeService.instructToResetLaserPosition(clientSessionId);
-        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
-    }
-
-
-    @MessageMapping("/bye")
+    @MessageMapping("/saveLocation")
     public void saveUserLocation(LocationCoordinates location, @Header("sessionId") String clientSessionId) {
         String response = webToPiBridgeService.saveUserLocation(location, clientSessionId);
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
     }
 
+    @MessageMapping("/pair")
+    public void pairPi(@Payload String piIdNumber, @Header("sessionId") String clientSessionId) throws IOException {
+        webToPiBridgeService.pairClientToRaspPi(piIdNumber, clientSessionId);
+    }
     @GetMapping("/getSessionId")
     public void setCookie(HttpServletResponse response){
-        Cookie cookie = new Cookie("sessionId", String.valueOf(System.nanoTime()));
+        String sessionId = String.valueOf(System.nanoTime());
+        Cookie cookie = new Cookie("sessionId", sessionId);
         cookie.setSecure(true);
         response.addCookie(cookie);
     }

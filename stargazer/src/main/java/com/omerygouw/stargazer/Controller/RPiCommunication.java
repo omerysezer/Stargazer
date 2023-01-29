@@ -62,5 +62,12 @@ public class RPiCommunication extends Thread {
     public RPiConnection getPiWithSessionId(String sessionId){
         return connections.getOrDefault(sessionId, null);
     }
+
+    public void replacePiSessionId(String oldSessionId, String newSessionId) throws IOException {
+        RPiConnection connection = connections.get(oldSessionId);
+        connections.remove(oldSessionId);
+        connections.put(newSessionId, connection);
+        connection.changeSessionId(newSessionId);
+    }
 }
 

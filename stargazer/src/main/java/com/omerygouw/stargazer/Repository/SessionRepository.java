@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SessionRepository extends CrudRepository<Session, String> {
-    Session findSessionByClientSessionId(String clientSessionId);
-    Session findSessionByPiSessionId(String piSessionId);
+    public Session findSessionBySessionId(String sessionId);
 }

@@ -79,4 +79,10 @@ public class RPiConnection extends Thread{
         writer.flush();
         return reader.readLine();
     }
+
+    public String changeSessionId(String newSessionId) throws IOException {
+        writer.write("New Session Id: " + newSessionId);
+        writer.flush();
+        return reader.readLine();
+    }
 }

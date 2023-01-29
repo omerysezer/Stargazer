@@ -2,7 +2,8 @@
 <html>
 <meta charset="UTF-8">
 <head>
-    <script src="websocket.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
+    <script src="websocket.js" defer></script>
     <title>Star-Gazer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
@@ -74,7 +75,7 @@
     <p>Before we can start please click the following button so we know where we are: <br> </p>
     <button class="button" onclick = "geoFindMe()">Show My Location</button>
     <div id="out"></div>
-    <button id="subbut" class="button" onclick = "document.location = 'stargazer.html';">Submit</button>
+    <button id="subbut" class="button" onclick = "document.location = 'pairing.html';">Submit</button>
 
 </div>
 <!--Script-->
@@ -106,6 +107,7 @@
             var latitude  = position.coords.latitude;
             var longitude = position.coords.longitude;
 
+            saveLocation(longitude, latitude);
             output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 
             document.getElementById("subbut").disabled=false;

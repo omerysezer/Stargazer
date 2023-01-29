@@ -12,34 +12,25 @@ public class SessionManagerService {
     @Autowired
     SessionRepository sessionRepository;
 
-    public Session getSessionByClientId(String clientSessionId){
-        return sessionRepository.findSessionByClientSessionId(clientSessionId);
+    public Session getSessionById(String sessionId){
+        return sessionRepository.findSessionBySessionId(sessionId);
     }
 
-    public Session getSessionByPiId(String piSessionId){
-        return sessionRepository.findSessionByPiSessionId(piSessionId);
-    }
-
-    public void createNewClientSession(String clientSessionId){
-        Session newSession = new Session();
-        newSession.setClientSessionId(clientSessionId);
-        sessionRepository.save(newSession);
-    }
-
-    public void updateUserCoordinates(String clientSessionId, LocationCoordinates userCoordinates){
-        Session session = sessionRepository.findSessionByClientSessionId(clientSessionId);
+    public void updateUserCoordinates(String sessionId, LocationCoordinates userCoordinates){
+        Session session = sessionRepository.findSessionBySessionId(sessionId);
         session.setCoordinates(userCoordinates);
         sessionRepository.save(session);
     }
 
-    public LocationCoordinates getUserCoordinates(String clientSessionId){
-        Session session = sessionRepository.findSessionByClientSessionId(clientSessionId);
+    public LocationCoordinates getUserCoordinates(String sessionId){
+        Session session = sessionRepository.findSessionBySessionId(sessionId);
         return session.getCoordinates();
     }
 
-    public void findSessionByClientIdAndAddPiId(String clientId, String piId){
-        Session session = sessionRepository.findSessionByClientSessionId(clientId);
-        session.setPiSessionId(piId);
+    public Session createNewSession(String sessionId){
+        Session session = new Session();
+        session.setSessionId(sessionId);
         sessionRepository.save(session);
+        return session;
     }
 }

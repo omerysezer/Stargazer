@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 public class Session implements Serializable {
     @Id
-    private String clientSessionId;
-    private String piSessionId;
+    private String sessionId;
     private LocationCoordinates coordinates;
     private double magneticDeclination;
     private LocalDateTime timeLastCheckedPlane;
