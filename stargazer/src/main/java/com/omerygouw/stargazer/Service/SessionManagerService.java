@@ -39,6 +39,11 @@ public class SessionManagerService {
         sessionRepository.save(session);
     }
 
+    public LocationCoordinates getUserCoordinates(String clientSessionId){
+        Session session = sessionRepository.findSessionByClientSessionId(clientSessionId);
+        return session.getCoordinates();
+    }
+
     public void findSessionByClientIdAndAddPiId(String clientId, String piId){
         Session session = sessionRepository.findSessionByClientSessionId(clientId);
         session.setPiSessionId(piId);
