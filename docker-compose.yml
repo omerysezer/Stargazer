@@ -18,6 +18,7 @@ services:
       dockerfile: docker-files/dockerfile_server
     ports:
       - "443:443"
+      - "5000:5000"
     restart: always
   redis-server:
     container_name: redis_container
