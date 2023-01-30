@@ -5,12 +5,13 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @RedisHash("Session")
 @Data
 @ToString
-public class Session {
+public class Session implements Serializable {
     @Id
     private String sessionId;
     private LocationCoordinates coordinates;

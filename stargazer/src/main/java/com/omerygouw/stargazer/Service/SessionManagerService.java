@@ -27,10 +27,9 @@ public class SessionManagerService {
         return session.getCoordinates();
     }
 
-    public Session createNewSession(String sessionId){
+    public void createNewSession(String sessionId){
         Session session = new Session();
         session.setSessionId(sessionId);
         sessionRepository.save(session);
-        return session;
     }
 }

@@ -2,7 +2,6 @@ package com.omerygouw.stargazer.Entity;
 
 import com.omerygouw.stargazer.Controller.RPiCommunication;
 import com.omerygouw.stargazer.Service.PiToWebBridgeService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,11 +10,13 @@ public class RPiConnection extends Thread{
     private final BufferedReader reader;
     private final BufferedWriter writer;
     private final PiToWebBridgeService piToWebBridgeService;
+    private final Socket socket;
 
     public RPiConnection(Socket socket, PiToWebBridgeService piToWebBridgeService, RPiCommunication rPiCommunication) throws IOException {
         this.piToWebBridgeService = piToWebBridgeService;
         this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        this.socket = socket;
         this.start();
     }
 

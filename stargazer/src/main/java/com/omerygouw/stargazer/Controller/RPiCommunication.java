@@ -15,8 +15,6 @@ import java.util.HashMap;
 public class RPiCommunication extends Thread {
     @Autowired
     PiToWebBridgeService piToWebBridgeService;
-    private ServerSocket serverSocket;
-    private Socket socket;
     HashMap<String, RPiConnection> connections;
 
     public RPiCommunication(){
@@ -26,6 +24,7 @@ public class RPiCommunication extends Thread {
 
     @Override
     public void run(){
+        ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(5000);
         } catch (IOException e) {
@@ -35,6 +34,7 @@ public class RPiCommunication extends Thread {
         BufferedReader reader;
         BufferedWriter writer;
         while(true){
+            Socket socket;
             try {
                 socket = serverSocket.accept();
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
