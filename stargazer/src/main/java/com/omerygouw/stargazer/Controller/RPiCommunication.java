@@ -51,10 +51,12 @@ public class RPiCommunication extends Thread {
             }
 
             try {
-                RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this, piSessionId);
+                RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this);
                 connections.put(piSessionId, newConnection);
+                writer.write("Success");
+                writer.flush();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                connections.remove(piSessionId);
             }
         }
     }
@@ -63,11 +65,17 @@ public class RPiCommunication extends Thread {
         return connections.getOrDefault(sessionId, null);
     }
 
-    public void replacePiSessionId(String oldSessionId, String newSessionId) throws IOException {
+    public String replacePiSessionId(String oldSessionId, String newSessionId) throws IOException {
         RPiConnection connection = connections.get(oldSessionId);
         connections.remove(oldSessionId);
         connections.put(newSessionId, connection);
-        connection.changeSessionId(newSessionId);
+        try{
+            return connection.changeSessionId(newSessionId);
+        } catch (Exception e){
+            connections.remove(newSessionId);
+            connections.put(oldSessionId, connection);
+            throw new RuntimeException("Failed: Could not provide pi with new session id.");
+        }
     }
 }
 

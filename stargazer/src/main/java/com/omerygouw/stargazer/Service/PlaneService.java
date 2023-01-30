@@ -16,9 +16,9 @@ public class PlaneService{
     @Autowired
     SessionManagerService sessionManagerService;
 
-    public Boolean checkPlaneInVicinity(String clientSessionId){
+    public Boolean checkPlaneInVicinity(String sessionId){
 
-        Session session = sessionManagerService.getSessionByClientId(clientSessionId);
+        Session session = sessionManagerService.getSessionById(sessionId);
         LocationCoordinates userLocation = session.getCoordinates();
 
         LocalDateTime now = LocalDateTime.now();
@@ -30,10 +30,10 @@ public class PlaneService{
             return lastPlaneCheckResult;
         }
 
-        double minLat = userLocation.getLatitude() - (0.009 * 17);
-        double maxLat = userLocation.getLatitude() + (0.009 * 17);
-        double minLon = userLocation.getLongitude() - (0.009 * 17);
-        double maxLon = userLocation.getLongitude() + (0.009 * 17);
+        double minLat = userLocation.latitude() - (0.009 * 17);
+        double maxLat = userLocation.latitude() + (0.009 * 17);
+        double minLon = userLocation.longitude() - (0.009 * 17);
+        double maxLon = userLocation.longitude() + (0.009 * 17);
 
         String requestUri = "https://opensky-network.org/api/states/all?lamin="+minLat+"&lomin="+minLon+"&lamax="+maxLat+"&lomax="+maxLon+"";
 

@@ -1,32 +1,25 @@
 package com.omerygouw.stargazer.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileUrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,7 +67,7 @@ public class CoordinateService {
                 String[] responseSplitByLine = response.split("\n");
 
                 if(responseSplitByLine.length == 1) {
-                        throw new RuntimeException("Could not find an extrasolar object with identifier \"" + name + "\".");
+                        throw new RuntimeException("Could not find an object with identifier \"" + name + "\".");
                 }
 
                 String[] coordinates = responseSplitByLine[1].split(",");
@@ -95,6 +88,10 @@ public class CoordinateService {
                 String currentTimePlusFiveMinutes = dtf.format(nowPlusFiveMinutes);
 
                 Integer id = this.solarNameToIdMap.getOrDefault(name, null);
+                if(id == null){
+                        throw new RuntimeException("Could not find an object with name \"" + name + "\"");
+                }
+
                 String requestUri = "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&ANG_FORMAT='DEG'&COMMAND='" + id + "'&QUANTITIES='1'&START_TIME='" + currentTime + "'&STOP_TIME='" + currentTimePlusFiveMinutes + "'";
 
                 WebClient client = WebClient.create();
@@ -172,22 +169,22 @@ public class CoordinateService {
         public AstronomicalObject findObjectCoordinates(ObjectToPointAt object, LocationCoordinates userCoordinates) throws RuntimeException{
                 Map<String, Double> absoluteCoords;
 
-                try {
-                        if (object.isInsideSolarSystem()) {
-                                absoluteCoords = findCoordinatesOfSolarObjectByName(object.getObjectName());
-                        } else {
-                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.getObjectName());
+                try{
+                        if(object.isInsideSolarSystem()){
+                                absoluteCoords = findCoordinatesOfSolarObjectByName(object.objectName().toUpperCase());
                         }
-                }
-                catch (Exception e){
-                        throw new RuntimeException("Could not find coordinates of object with identifier \"" + object.getObjectName() + "\"");
+                        else{
+                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.objectName().toUpperCase());
+                        }
+                } catch (Exception e){
+                        throw new RuntimeException(e);
                 }
 
                 Map<String, Double> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"),
-                        absoluteCoords.get("Declination"), userCoordinates.getLongitude(), userCoordinates.getLatitude());
+                        absoluteCoords.get("Declination"), userCoordinates.longitude(), userCoordinates.latitude());
 
                 return AstronomicalObject.builder()
-                        .name(object.getObjectName())
+                        .name(object.objectName())
                         .rightAscension(absoluteCoords.get("Right Ascension"))
                         .declination(absoluteCoords.get("Declination"))
                         .azimuth(relativeCoords.get("Azimuth"))

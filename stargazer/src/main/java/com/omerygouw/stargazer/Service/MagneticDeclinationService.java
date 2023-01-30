@@ -21,8 +21,8 @@ public class MagneticDeclinationService {
 
 
         String requestUri = "https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?"
-                + "lat1=" + location.getLatitude()
-                + "&lon1=" + location.getLongitude()
+                + "lat1=" + location.latitude()
+                + "&lon1=" + location.longitude()
                 + "&startYear=" + currentYear
                 + "&startMonth=" + currentMonth
                 + "&startDay=" + currentDay

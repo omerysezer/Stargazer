@@ -16,19 +16,29 @@ public class WebToPiBridgeService {
     @Autowired
     private SessionManagerService sessionManagerService;
 
-    public String pairClientToRaspPi(String piId, String clientId) throws IOException {
+    public void pairClientToRaspPi(String piId, String clientId) throws IOException {
         RPiConnection connection = rPiCommunicator.getPiWithSessionId(piId);
         if(connection == null){
-            return "Pairing Failed: Pi Does Not Exist";
+            throw new RuntimeException("Failed: Could not find Raspberry Pi.");
         }
 
         String sessionId = clientId + piId;
         sessionManagerService.createNewSession(sessionId);
-        rPiCommunicator.replacePiSessionId(piId, sessionId);
-        return "hi";
+
+        String result;
+        try{
+            result = rPiCommunicator.replacePiSessionId(piId, sessionId);
+        }
+        catch (Exception e){
+            throw new RuntimeException("Failed: could not provide Raspberry Pi with session id.");
+        }
+
+        if(!result.equals("Success")){
+            throw new RuntimeException("Failed: " + result);
+        }
     }
 
-    public String instructPiToPointLaserAtObject(ObjectToPointAt objectToPointTo, String sessionId){
+    public void instructPiToPointLaserAtObject(ObjectToPointAt objectToPointTo, String sessionId){
        // TODO: Check plane service to make sure that there are no planes in the area currently
 
         AstronomicalObject astronomicalObject;
@@ -36,64 +46,79 @@ public class WebToPiBridgeService {
         LocationCoordinates userLocation = session.getCoordinates();
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
 
+        if(rPiConnection == null){
+            throw new RuntimeException("Failed: No RaspberryPi is paired.");
+        }
+
         if(userLocation == null){
-            throw new RuntimeException("Fail: user location is unknown.");
+            throw new RuntimeException("Failed: user location is unknown.");
         }
 
         try{
             astronomicalObject = coordinateService.findObjectCoordinates(objectToPointTo, userLocation);
         }
         catch (Exception e){
-            return "Fail: " + e.getMessage();
+            throw new RuntimeException("Failed: " + e.getMessage());
         }
 
+        String result;
         try{
-            return rPiConnection.instructToPointToObject(astronomicalObject);
+            result = rPiConnection.instructToPointToObject(astronomicalObject);
         }
         catch(Exception e){
-            return "Fail: Could not send message to raspberry pi";
+            throw new RuntimeException("Failed: Could not instruct Rasperry Pi to point to object.");
+        }
+
+        if(!result.equals("Success")){
+            throw new RuntimeException("Failed: " + result);
         }
     }
 
-    public String instructPiToTurnOnLaser(String sessionId){
+    public void instructPiToTurnOnLaser(String sessionId){
         // TODO: Check plane service to make sure that there are no planes in the area currently
 
         Session session = sessionManagerService.getSessionById(sessionId);
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
+
+        if(rPiConnection == null){
+            throw new RuntimeException("Failed: No Raspberry Pi is paired.");
+        }
+
+        String result;
         try{
-            return rPiConnection.instructToTurnOnLaser();
+            result = rPiConnection.instructToTurnOnLaser();
         }
         catch (Exception e){
-            return "Fail: Could not send message to raspberry pi";
+            throw new RuntimeException("Failed: Could not send message to raspberry pi.");
+        }
+
+        if(!result.equals("Success")){
+            throw new RuntimeException("Failed: " + result);
         }
     }
 
-    public String instructPiToTurnOffLaser(String sessionId){
+    public void instructPiToTurnOffLaser(String sessionId){
         Session session = sessionManagerService.getSessionById(sessionId);
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
 
+        if(rPiConnection == null){
+            throw new RuntimeException("Failed: No Raspberry Pi is paired.");
+        }
+
+        String result;
         try{
-            return rPiConnection.instructToTurnOffLaser();
+            result = rPiConnection.instructToTurnOffLaser();
         }
         catch (Exception e){
-            return "Fail: Could not send message to raspberry pi";
+            throw new RuntimeException("Failed: Could not send message to raspberry pi");
+        }
+
+        if (!result.equals("Success")){
+            throw new RuntimeException("Failed: " + result);
         }
     }
 
-    public String instructToResetLaserPosition(String sessionId){
-        Session session = sessionManagerService.getSessionById(sessionId);
-        RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
-
-        try{
-            return rPiConnection.instructToResetLaserPosition();
-        }
-        catch(Exception e){
-            return "Fail: Could not send message to raspberry pi";
-        }
-    }
-
-    public String saveUserLocation(LocationCoordinates location, String clientSessionId){
+    public void saveUserLocation(LocationCoordinates location, String clientSessionId){
         sessionManagerService.updateUserCoordinates(clientSessionId, location);
-        return "Success";
     }
 }

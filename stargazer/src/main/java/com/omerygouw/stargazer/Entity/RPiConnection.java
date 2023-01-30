@@ -8,16 +8,12 @@ import java.io.*;
 import java.net.Socket;
 
 public class RPiConnection extends Thread{
-    private Socket socket;
     private final BufferedReader reader;
     private final BufferedWriter writer;
-    private PiToWebBridgeService piToWebBridgeService;
-    private final String sessionId;
+    private final PiToWebBridgeService piToWebBridgeService;
 
-    public RPiConnection(Socket socket, PiToWebBridgeService piToWebBridgeService, RPiCommunication rPiCommunication, String sessionId) throws IOException {
-        this.sessionId = sessionId;
+    public RPiConnection(Socket socket, PiToWebBridgeService piToWebBridgeService, RPiCommunication rPiCommunication) throws IOException {
         this.piToWebBridgeService = piToWebBridgeService;
-        this.socket = socket;
         this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         this.start();
@@ -40,15 +36,17 @@ public class RPiConnection extends Thread{
 
             if(receivedMessage.startsWith("Unsolicited:")){
                 receivedMessage = receivedMessage.replaceAll("Unsolicited:", "");
-                String[] split = receivedMessage.split("sessionId");
-                receivedMessage = split[0];
+                String[] split = receivedMessage.split("sessionId:");
+                String warning = split[0];
                 String id = split[1];
-                UnsolicitedMessage message = new UnsolicitedMessage(receivedMessage);
+                Message message;
 
                 if(receivedMessage.startsWith("Bad Calibration:")){
+                    message = new Message(Status.CALIBRATION_WARNING, warning);
                     piToWebBridgeService.warnBadCalibration(message, id);
                 }
                 else if(receivedMessage.startsWith("Bad Orientation:")){
+                    message = new Message(Status.ORIENTATION_WARNING, warning);
                     piToWebBridgeService.warnBadOrientation(message, id);
                 }
             }
@@ -76,14 +74,9 @@ public class RPiConnection extends Thread{
         return reader.readLine();
     }
 
-    public String instructToResetLaserPosition() throws IOException {
-        String message = "reset";
-        writer.write(message);
-        writer.flush();
-        return reader.readLine();
-    }
 
     public String changeSessionId(String newSessionId) throws IOException {
+        String message = "New Session Id: " + newSessionId;
         writer.write("New Session Id: " + newSessionId);
         writer.flush();
         return reader.readLine();

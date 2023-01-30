@@ -2,8 +2,8 @@ package com.omerygouw.stargazer.Controller;
 
 import com.omerygouw.stargazer.Entity.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.ObjectToPointAt;
-import com.omerygouw.stargazer.Entity.Response;
-import com.omerygouw.stargazer.Entity.Session;
+import com.omerygouw.stargazer.Entity.Message;
+import com.omerygouw.stargazer.Entity.Status;
 import com.omerygouw.stargazer.Service.SessionManagerService;
 import com.omerygouw.stargazer.Service.WebToPiBridgeService;
 import jakarta.servlet.http.Cookie;
@@ -30,32 +30,69 @@ public class WebSocketController {
 
     @MessageMapping("/pointToObject")
     public void pointToObject(@Payload ObjectToPointAt object, @Header("sessionId") String clientSessionId){
-        String response = webToPiBridgeService.instructPiToPointLaserAtObject(object, clientSessionId);
-        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
+        Message message;
+        try{
+            webToPiBridgeService.instructPiToPointLaserAtObject(object, clientSessionId);
+            message = new Message(Status.SUCCESS, "");
+        }
+        catch (Exception e){
+            message = new Message(Status.POINT_TO_FAILURE, e.getMessage());
+        }
+        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @MessageMapping("/turnOnLaser")
     public void turnOnLaser(@Header("sessionId") String clientSessionId){
-        String response = webToPiBridgeService.instructPiToTurnOnLaser(clientSessionId);
-        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
+        Message message;
+        try{
+            webToPiBridgeService.instructPiToTurnOnLaser(clientSessionId);
+            message = new Message(Status.SUCCESS, "");
+        }
+        catch (Exception e){
+            message = new Message(Status.LASER_ON_FAILURE, e.getMessage());
+        }
+        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @MessageMapping("/turnOffLaser")
     public void turnOffLaser(@Header("sessionId") String clientSessionId){
-        String response = webToPiBridgeService.instructPiToTurnOffLaser(clientSessionId);
-        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
+        Message message;
+        try{
+            webToPiBridgeService.instructPiToTurnOffLaser(clientSessionId);
+            message = new Message(Status.SUCCESS, "");
+        }
+        catch (Exception e){
+            message = new Message(Status.LASER_OFF_FAILURE, e.getMessage());
+        }
+        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @MessageMapping("/saveLocation")
-    public void saveUserLocation(LocationCoordinates location, @Header("sessionId") String clientSessionId) {
-        String response = webToPiBridgeService.saveUserLocation(location, clientSessionId);
-        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, new Response(response));
+    public void saveUserLocation(LocationCoordinates location, @Header("sessionId") String sessionId) {
+        Message message;
+        try{
+            webToPiBridgeService.saveUserLocation(location, sessionId);
+            message = new Message(Status.SUCCESS, "");
+        }
+        catch (Exception e){
+            message = new Message(Status.LOCATION_SAVE_FAILURE, e.getMessage());
+        }
+        simpMessagingTemplate.convertAndSend("/user/queue/session-" + sessionId, message);
     }
 
     @MessageMapping("/pair")
-    public void pairPi(@Payload String piIdNumber, @Header("sessionId") String clientSessionId) throws IOException {
-        webToPiBridgeService.pairClientToRaspPi(piIdNumber, clientSessionId);
+    public void pairPi(@Payload String piSessionId, @Header("sessionId") String clientSessionId) throws IOException {
+        Message message;
+        try{
+            webToPiBridgeService.pairClientToRaspPi(piSessionId, clientSessionId);
+            message = new Message(Status.SUCCESS, "");
+        }
+        catch (Exception e){
+            message = new Message(Status.POINT_TO_FAILURE, e.getMessage());
+        }
+        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId + piSessionId, message);
     }
+
     @GetMapping("/getSessionId")
     public void setCookie(HttpServletResponse response){
         String sessionId = String.valueOf(System.nanoTime());
