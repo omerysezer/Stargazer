@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="mainPages.css">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
-<script src="websocket.js" defer></script>
-<script src="mainPages.js"></script>
+<script src="js/websocket.js" defer></script>
+<script src="js/mainPages.js"></script>
 <body>
 
 <!-- Navbar -->
@@ -100,7 +100,13 @@
         </div>
       </div>
     </div>
+  </div>
 
+<div class="popup" id="laserDIV">
+  <button class = "button right" id="close">&times;</button>
+  <h2>Pointing Laser...</h2>
+  <button class="button" onclick = "turnOnLaser()">Turn Laser On</button>
+</div>
 
     <div class="popup" id="myDIV">
       <button class = "button right" id="close">&times;</button>

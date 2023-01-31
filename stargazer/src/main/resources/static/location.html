@@ -3,8 +3,8 @@
 <meta charset="UTF-8">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
-    <script src="websocket.js" defer></script>
-    <script src="location.js"></script>
+    <script src="js/websocket.js" defer></script>
+    <script src="js/location.js"></script>
     <title>Star-Gazer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="welcomePages.css">
@@ -14,10 +14,10 @@
 <body>
 <div class="popup">
     <h2>Before The Fun Can Begin:</h2>
-    <p>Before we can start please click the following button so we know where we are: <br> </p>
-    <button class="button" onclick = "geoFindMe()">Show My Location</button>
+    <p>Before we can start please click the following button, so we know where we are: <br> </p>
+    <button class="button" onclick = "saveLocation()">Get My Location</button>
     <div id="out"></div>
-    <button id="subbut" class="button" onclick = "document.location = 'pairing.html';">Submit</button>
+    <button id="subbut" class="button" onclick = "document.location = 'stargazer.html';">Continue</button>
 
 </div>
 </body>

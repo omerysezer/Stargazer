@@ -3,7 +3,8 @@
 <meta charset="UTF-8">
 <head>
   <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
-  <script src="websocket.js" defer></script>
+  <script src="js/websocket.js" defer></script>
+  <script src="js/pairing.js"></script>
   <title>Star-Gazer</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
@@ -88,32 +89,33 @@
   <h2>Before The Fun Can Begin:</h2>
   <p>Please create a mobile hotspot or other form of wifi connection with the name: "stargazer" and the password: "123456789" for the raspberry pi to connect to.</p>
   <p>When the raspberry pi connects, the motors will turn up and down, side to side, and the laser will turn on and off, each between 1 and 10 times. Please input this below.</p>
+  <p id="pairingResultOutput"></p>
   <form>
 
 
     <div>
       <label for="slider1"># Sideways Turns:</label>
       <input id = "slider1" type="range" min="1" max="10" value="10" oninput="document.getElementById('rangeValue1').innerText = this.value">
-      <p style="margin: 0px; display: inline; float: right; " id="rangeValue1">10</p>
+      <p style="margin: 0; display: inline; float: right; " id="rangeValue1">10</p>
     </div>
     <br>
 
     <div>
     <label for="slider2"># Vertical Turns:</label>
       <input id = "slider2" type="range" min="1" max="10" value="10" oninput="document.getElementById('rangeValue2').innerText = this.value">
-      <p style="margin: 0px; display: inline; float: right; " id="rangeValue2">10</span>
+      <span style="margin: 0; display: inline; float: right; " id="rangeValue2">10</span>
     </div>
     <br>
 
     <div>
     <label for="slider3"># Laser Blinks:</label>
       <input id = "slider3" type="range" min="1" max="10" value="10" oninput="document.getElementById('rangeValue3').innerText = this.value">
-      <p style="margin: 0px; display: inline; float: right; " id="rangeValue3">10</p>
+      <span style="margin: 0; display: inline; float: right; " id="rangeValue3">10</span>
     </div>
 
   </form>
   <div id="out"></div>
-  <button class="button" onclick = "pair(document.getElementById('slider1').value, document.getElementById('slider2').value, document.getElementById('slider3').value)">Submit</button>
+  <button class="button" onclick = "pair()" id="submitButton">Submit</button>
 
 </div>
 
