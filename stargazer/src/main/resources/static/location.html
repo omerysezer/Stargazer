@@ -3,7 +3,8 @@
 <meta charset="UTF-8">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
-    <script src="websocket.js" defer></script>
+    <script src="js/websocket.js" defer></script>
+    <script src="js/location.js"></script>
     <title>Star-Gazer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
@@ -72,58 +73,11 @@
 <body>
 <div class="popup">
     <h2>Before The Fun Can Begin:</h2>
-    <p>Before we can start please click the following button so we know where we are: <br> </p>
-    <button class="button" onclick = "geoFindMe()">Show My Location</button>
+    <p>Before we can start please click the following button, so we know where we are: <br> </p>
+    <button class="button" onclick = "saveLocation()">Get My Location</button>
     <div id="out"></div>
-    <button id="subbut" class="button" onclick = "document.location = 'pairing.html';">Submit</button>
+    <button id="subbut" class="button" onclick = "document.location = 'pairing.html';">Continue</button>
 
 </div>
-<!--Script-->
-<script type="text/javascript">
-
-    window.addEventListener("load", function(){
-        setTimeout(
-            function open(event){
-                document.querySelector(".popup").style.display = "block";
-            },
-            500
-        )
-    });
-
-    window.addEventListener("load", function() {
-        document.getElementById("subbut").disabled=true;
-    })
-
-    function geoFindMe() {
-
-        var output = document.getElementById("out");
-
-        if (!navigator.geolocation){
-            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-            return;
-        }
-
-        function success(position) {
-            var latitude  = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-            saveLocation(longitude, latitude);
-            output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-            document.getElementById("subbut").disabled=false;
-
-        }
-
-        function error() {
-            output.innerHTML = "Unable to retrieve your location";
-        }
-
-        output.innerHTML = "<p>Locating…</p>";
-
-        navigator.geolocation.getCurrentPosition(success, error);
-    }
-
-
-</script>
 </body>
 </html>
