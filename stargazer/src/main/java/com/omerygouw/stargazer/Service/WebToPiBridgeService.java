@@ -119,6 +119,11 @@ public class WebToPiBridgeService {
     }
 
     public void saveUserLocation(LocationCoordinates location, String clientSessionId){
-        sessionManagerService.updateUserCoordinates(clientSessionId, location);
+        try{
+            sessionManagerService.updateUserCoordinates(clientSessionId, location);
+        }
+        catch (Exception e){
+            throw new RuntimeException("Failed: " + e.getMessage());
+        }
     }
 }

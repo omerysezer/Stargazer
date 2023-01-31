@@ -6,6 +6,7 @@ import com.omerygouw.stargazer.Entity.Message;
 import com.omerygouw.stargazer.Entity.Status;
 import com.omerygouw.stargazer.Service.SessionManagerService;
 import com.omerygouw.stargazer.Service.WebToPiBridgeService;
+import com.sun.tools.jconsole.JConsoleContext;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,8 @@ public class WebSocketController {
         catch (Exception e){
             message = new Message(Status.POINT_TO_FAILURE, e.getMessage());
         }
-        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId + piSessionId, message);
+
+        simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @GetMapping("/getSessionId")

@@ -53,7 +53,7 @@ public class RPiCommunication extends Thread {
             try {
                 RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this);
                 connections.put(piSessionId, newConnection);
-                writer.write("Success");
+                writer.write("SUCCESS");
                 writer.flush();
             } catch (IOException e) {
                 connections.remove(piSessionId);

@@ -78,7 +78,7 @@ public class RPiConnection extends Thread{
 
     public String changeSessionId(String newSessionId) throws IOException {
         String message = "New Session Id: " + newSessionId;
-        writer.write("New Session Id: " + newSessionId);
+        writer.write(message);
         writer.flush();
         return reader.readLine();
     }
