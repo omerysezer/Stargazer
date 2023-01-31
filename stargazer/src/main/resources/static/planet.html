@@ -9,81 +9,114 @@
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
 <script src="js/buttonLoader.js" defer></script>
 <script src="js/websocket.js" defer></script>
+<script src="js/buttonLoader.js" defer></script>
+<script src="js/mainPages.js"></script>
 <script src="js/stargazer.js"></script>
-<body>
-  
+
+
 <!-- Navbar -->
-<ul>
-  <li><a href="stargazer.html">Home</a></li>
-  <li><a class="active" href="planet.html">Planets</a></li>
-  <li><a href="star.html">Stars</a></li>
-  <li><a href="galaxy.html">Galaxies</a></li>
-</ul>
-
-  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
-  <h3 class="w3-wide">PLANETS</h3>
+<nav>
+  <a class="links " href="stargazer.html">Home</a>
+  <a class="links" href="galaxy.html">Galaxies</a>
+  <a class="links " href="star.html">Stars</a>
+  <div class="dropdown-menu">
+    <button class="menu-btn">Solar Systems</button>
+    <div class="menu-content">
+      <a class="links-hidden" href="solarSystem.html">Solar Systems</a>
+      <a class="links-hidden active" href="planet.html">Planets</a>
+      <a class="links-hidden" href="asteroid.html">Asteroids</a>
+      <a class="links-hidden" href="comet.html">Comets</a>
+    </div>
   </div>
+</nav>
 
-  <div class="w3-black">
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-      <h2 class="w3-wide w3-center">Pick A Planet</h2>
-      <p class="w3-opacity w3-center"><i>And Watch The Magic Happen</i></p><br>
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+  <h3 class="w3-wide">PLANETS</h3>
+</div>
+<div class="w3-black">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide w3-center">Pick A Planet</h2>
+    <p class="w3-opacity w3-center"><i>And Watch The Magic Happen</i></p><br>
 
-     
-      <div id="buttonContainer" class="w3-row-padding w3-padding-32" style="margin:0 -16px">
-        <div class="w3-third w3-margin-bottom">
-          <img src="images/planet.jpg" alt="Planet" style="width:100%;height:100%">
-          <div class="w3-container w3-white">
-            <br>
-            <button id="pointButton1" class="w3-button w3-black w3-margin-bottom">Planet</button>
-            <br>
-            <br>
+    <div class="row">
+      <div class="container">
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('/images/planet.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">Title</h1>
+                <button class="test_link" onclick="loadPopUp('MARS')">Go</button>
+              </div>
+            </a>
           </div>
         </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="images/planet.jpg" alt="Planet" style="width:100%" >
-          <div class="w3-container w3-white">
-            <br>
-            <button id="pointButton2" class="w3-button w3-black w3-margin-bottom">Jupiter</button>
-            <br>
-            <br>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('/images/planet.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">Title</h1>
+                <button class="test_link" onclick="loadPopUp()">Go</button>
+              </div>
+            </a>
           </div>
         </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="images/planet.jpg" alt="Planet" style="width:100%" >
-          <div class="w3-container w3-white">
-            <br>
-            <button id="pointButton3" class="w3-button w3-black w3-margin-bottom">Saturn</button>
-            <br>
-            <br>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('/images/planet.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">Title</h1>
+                <button class="test_link" onclick="loadPopUp()">Go</button>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('/images/planet.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">Title</h1>
+                <button class="test_link" onclick="loadPopUp()">Go</button>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('/images/planet.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">Title</h1>
+                <button class="test_link" onclick="loadPopUp()">Go</button>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="test_box box column" >
+          <div class="inner" style="background-image: url('/images/planet.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">this</h1>
+                <button class="test_link" onclick="loadPopUp()">Go</button>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-<div class="popup" id="myDIV">
+<div class="popup" id="laserDIV">
   <button class = "button right" id="close">&times;</button>
   <h2>Pointing Laser...</h2>
   <button class="button" onclick = "turnOnLaser()">Turn Laser On</button>
 </div>
- 
 
-
-<script>
-function loadPopUp() {
-  var x = document.getElementById('myDIV');
-  
-    x.style.display = 'block';
-
-
-}
-
-document.querySelector("#close").addEventListener("click", function(){
-    document.querySelector(".popup").style.display = "none";
-});
-
-</script>
+    <div class="popup" id="myDIV">
+      <button class = "button right" id="close">&times;</button>
+      <h2 id="tempText1" class="pText">Let's Go!</h2>
+      <p class="pText">WEEEEEEEEEEEEEEE <br> </p>
+      <button class="button" onclick = "">Start</button>
+      <button class="button" onclick = "">Stop</button>
+    </div>
 
 </body>
 </html>

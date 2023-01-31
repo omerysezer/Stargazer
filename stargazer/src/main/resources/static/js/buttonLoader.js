@@ -1,18 +1,4 @@
-let json = {
-    "planet.html": [
-        {objectName: "Mercury", objectImage:"../images/planets/mercury.jpg"},
-        {objectName: "Venus", objectImage: "../images/planets/venus.jpg"},
-        {objectName: "Moon", objectImage: "../images/planets/moon.jpg"},
-        {objectName: "Mars", objectImage: "../images/planets/mars.jpg"},
-
-    ],
-    "star.html": [
-
-    ],
-    "galaxy.html": [
-
-    ]
-};
+let json = fetch('objects.json').then(response => response.json()).then(console.log);
 
 loadButtons(json);
 
