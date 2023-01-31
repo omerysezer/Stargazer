@@ -4,69 +4,11 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
     <script src="websocket.js" defer></script>
+    <script src="location.js"></script>
     <title>Star-Gazer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="welcomePages.css">
     <style>
-
-        body{
-            background-image: url('images/background.jpg');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-        }
-        .popup{
-            background-color: #ffffff;
-            width: 420px;
-            padding: 30px 40px;
-            position: absolute;
-            transform: translate(-50%,-50%);
-            left: 50%;
-            top: 50%;
-            border-radius: 8px;
-            font-family: "Poppins",sans-serif;
-            display: none;
-            text-align: center;
-        }
-
-        .popup h2{
-            margin-top: -20px;
-        }
-        .popup p{
-            font-size: 14px;
-            text-align: justify;
-            margin: 20px 0;
-            line-height: 25px;
-        }
-        a{
-            display: block;
-            width: 150px;
-            position: relative;
-            margin: 10px auto;
-            text-align: center;
-            background-color: grey;
-            border-radius: 10px;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 8px 0;
-            cursor: pointer;
-        }
-
-        .button {
-            background-color: grey;
-            border-radius: 10px;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-
-        button:focus {outline:0;}
-
     </style>
 </head>
 <body>
@@ -78,52 +20,5 @@
     <button id="subbut" class="button" onclick = "document.location = 'pairing.html';">Submit</button>
 
 </div>
-<!--Script-->
-<script type="text/javascript">
-
-    window.addEventListener("load", function(){
-        setTimeout(
-            function open(event){
-                document.querySelector(".popup").style.display = "block";
-            },
-            500
-        )
-    });
-
-    window.addEventListener("load", function() {
-        document.getElementById("subbut").disabled=true;
-    })
-
-    function geoFindMe() {
-
-        var output = document.getElementById("out");
-
-        if (!navigator.geolocation){
-            output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-            return;
-        }
-
-        function success(position) {
-            var latitude  = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-            saveLocation(longitude, latitude);
-            output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-            document.getElementById("subbut").disabled=false;
-
-        }
-
-        function error() {
-            output.innerHTML = "Unable to retrieve your location";
-        }
-
-        output.innerHTML = "<p>Locating…</p>";
-
-        navigator.geolocation.getCurrentPosition(success, error);
-    }
-
-
-</script>
 </body>
 </html>

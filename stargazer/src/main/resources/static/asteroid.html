@@ -1,55 +1,48 @@
 <!DOCTYPE html>
 <head>
-<title>Star-Gazer</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Star-Gazer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="mainPages.css">
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
-<script src="websocket.js" defer></script>
-<script src="mainPages.js"></script>
 <body>
 
 <!-- Navbar -->
 <nav>
   <a class="links " href="stargazer.html">Home</a>
-  <a class="links" href="galaxy.html">Galaxies</a>
+  <a class="links " href="galaxy.html">Galaxies</a>
   <a class="links " href="star.html">Stars</a>
   <div class="dropdown-menu">
     <button class="menu-btn">Solar Systems</button>
     <div class="menu-content">
       <a class="links-hidden" href="solarSystem.html">Solar Systems</a>
-      <a class="links-hidden active" href="planet.html">Planets</a>
-      <a class="links-hidden" href="asteroid.html">Asteroids</a>
+      <a class="links-hidden " href="planet.html">Planets</a>
+      <a class="links-hidden active" href="asteroid.html">Asteroids</a>
       <a class="links-hidden" href="comet.html">Comets</a>
     </div>
   </div>
 </nav>
 
+
+
+
 <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
-  <h3 class="w3-wide">PLANETS</h3>
+  <h3 class="w3-wide">ASTEROIDS</h3>
 </div>
+
 
 <div class="w3-black">
   <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-    <h2 class="w3-wide w3-center">Pick A Planet</h2>
-    <p class="w3-opacity w3-center"><i>And Watch The Magic Happen</i></p><br>
+    <h2 class="w3-wide w3-center">Pluck an Asteroid</h2>
+    <p class="w3-opacity w3-center"><i>And Marvel</i></p><br>
+
+
 
     <div class="row">
       <div class="container">
         <div class="test_box box column">
-          <div class="inner" style="background-image: url('planet.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">Title</h1>
-                <button class="test_link" onclick="loadPopUp('MARS')">Go</button>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="test_box box column">
-          <div class="inner" style="background-image: url('planet.jpg');">
+          <div class="inner" style="background-image: url('asteroid.jpg');">
             <a class="test_click">
               <div class="flex_this">
                 <h1 class="test_title">Title</h1>
@@ -59,7 +52,7 @@
           </div>
         </div>
         <div class="test_box box column">
-          <div class="inner" style="background-image: url('planet.jpg');">
+          <div class="inner" style="background-image: url('asteroid.jpg');">
             <a class="test_click">
               <div class="flex_this">
                 <h1 class="test_title">Title</h1>
@@ -69,7 +62,7 @@
           </div>
         </div>
         <div class="test_box box column">
-          <div class="inner" style="background-image: url('planet.jpg');">
+          <div class="inner" style="background-image: url('asteroid.jpg');">
             <a class="test_click">
               <div class="flex_this">
                 <h1 class="test_title">Title</h1>
@@ -79,7 +72,17 @@
           </div>
         </div>
         <div class="test_box box column">
-          <div class="inner" style="background-image: url('planet.jpg');">
+          <div class="inner" style="background-image: url('asteroid.jpg');">
+            <a class="test_click">
+              <div class="flex_this">
+                <h1 class="test_title">Title</h1>
+                <button class="test_link" onclick="loadPopUp()">Go</button>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('asteroid.jpg');">
             <a class="test_click">
               <div class="flex_this">
                 <h1 class="test_title">Title</h1>
@@ -89,10 +92,10 @@
           </div>
         </div>
         <div class="test_box box column" >
-          <div class="inner" style="background-image: url('planet.jpg');">
+          <div class="inner" style="background-image: url('asteroid.jpg');">
             <a class="test_click">
               <div class="flex_this">
-                <h1 class="test_title">this</h1>
+                <h1 class="test_title">Title</h1>
                 <button class="test_link" onclick="loadPopUp()">Go</button>
               </div>
             </a>
@@ -100,7 +103,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="popup" id="myDIV">
       <button class = "button right" id="close">&times;</button>
@@ -110,5 +112,8 @@
       <button class="button" onclick = "">Stop</button>
     </div>
 
+    <script src="mainPages.js"></script>
+
 </body>
 </html>
+

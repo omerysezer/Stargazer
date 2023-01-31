@@ -37,6 +37,7 @@ public class RPiCommunication extends Thread {
             Socket socket;
             try {
                 socket = serverSocket.accept();
+                System.out.println("hehe");
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             } catch (IOException e) {
@@ -50,9 +51,12 @@ public class RPiCommunication extends Thread {
                 throw new RuntimeException(e);
             }
 
+            System.out.println(piSessionId);
+
             try {
                 RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this);
                 connections.put(piSessionId, newConnection);
+                System.out.println(connections);
                 writer.write("Success");
                 writer.flush();
             } catch (IOException e) {
