@@ -5,9 +5,6 @@ function loadPopUp(input) {
 
 }
 
-document.querySelector("#close").addEventListener("click", function(){
-    document.querySelector(".popup").style.display = "none";
-});
 
 function search() {
     let input = document.getElementById('search').value
@@ -19,12 +16,23 @@ function search() {
         document.getElementById("error").style.display = "none";
         loadPopUp(input);
     }
-
-
-
 }
 
 window.addEventListener("load", function() {
     document.getElementById("error").style.display = "none";
 })
+
+document.addEventListener("click", function (event){
+    let id = String(event.target.id);
+    alert(id);
+    if(id === "close"){
+        document.querySelector(".popup").style.display = "none";
+        return;
+    }
+    if(id.startsWith("pointButton")){
+        let isInsideSolarSystem = insideSolarSystemChecker.checkIfInsideSolarSystem();
+        let objectName = document.getElementById(id).innerText;
+        pointToObject(objectName, isInsideSolarSystem);
+    }
+});
   
