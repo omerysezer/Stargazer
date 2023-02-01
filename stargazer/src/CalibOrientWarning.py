@@ -10,13 +10,16 @@ class CalibOrientWarning:
     def is_calibrated(self):
         return self.imu_controller.accel_is_calibrated() and self.imu_controller.magnet_is_calibrated()
 
-    def _is_facing_north(self):
+    def is_correctly_orientated(self):
+        return self.is_facing_north() and self.is_level()
+
+    def is_facing_north(self):
         if not self.magnet_declination_is_set:
             raise RuntimeError("Magnetic declination has not been set. True north cannot be found.")
 
         return 359 <= (self.imu_controller.get_magnetic_heading() + self.magnetic_declination) % 360 <= 1
 
-    def _is_level(self):
+    def is_level(self):
         def value_is_in_margin(acceptable_error, expected_value, real_value):
             return (expected_value - acceptable_error) <= real_value <= (expected_value + acceptable_error)
 
