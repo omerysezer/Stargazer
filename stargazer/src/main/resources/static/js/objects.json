@@ -1,20 +1,28 @@
 {
-  "planet.html": [
-    {"objectName": "Mercury", "objectImage":"../images/planets/mercury.jpg"}
-  ],
-  "star.html": [
-    {"objectName": "Venus", "objectImage": "../images/planets/venus.jpg"}
-  ],
-  "galaxy.html": [
-    {"objectName": "Moon", "objectImage": "../images/planets/moon.jpg"}
-  ],
-  "asteroid.html": [
-    {"objectName": "Mars", "objectImage": "../images/planets/mars.jpg"}
-  ],
-  "comet.html": [
-    {"objectName": "Mercury", "objectImage":"../images/planets/mercury.jpg"},
-    {"objectName": "Venus", "objectImage": "../images/planets/venus.jpg"},
-    {"objectName": "Moon", "objectImage": "../images/planets/moon.jpg"},
-    {"objectName": "Mars", "objectImage": "../images/planets/mars.jpg"}
-  ]
+  "planet.html": {
+    "imageFolder": "../images/planets",
+    "objects": [
+      "mercury",
+      "venus",
+      "moon",
+      "mars",
+      "jupiter",
+      "saturn",
+      "uranus",
+      "neptune",
+      "pluto"
+    ]
+  },
+  "star.html": {
+    "imageFolder": "../images/stars"
+  },
+  "galaxy.html": {
+    "imageFolder": "../images/galaxies"
+  },
+  "asteroid.html":{
+    "imageFolder": "../images/asteroids"
+  },
+  "comet.html": {
+    "imageFolder": "../images/comets"
+  }
 }
