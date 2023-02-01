@@ -206,7 +206,8 @@ nav{
 .box .inner {
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-color: black;
+    background-size: contain;
 }
 
 .column {
