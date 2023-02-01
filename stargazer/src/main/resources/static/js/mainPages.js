@@ -37,4 +37,10 @@ document.addEventListener("click", function (event){
         pointToObject(objectName, isInsideSolarSystem);
     }
 });
+
+document.addEventListener("keypress", function (event){
+   if(event.code === 'Enter'){
+       search();
+   }
+});
   
