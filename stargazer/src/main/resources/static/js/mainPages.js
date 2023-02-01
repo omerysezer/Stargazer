@@ -26,7 +26,6 @@ function search() {
 
 document.addEventListener("click", function (event){
     let id = String(event.target.id);
-    alert(id);
     if(id === "close"){
         document.querySelector(".popup").style.display = "none";
         return;

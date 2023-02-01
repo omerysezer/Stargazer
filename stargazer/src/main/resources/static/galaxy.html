@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
 <title>Star-Gazer</title>
 <meta charset="UTF-8">
-  <script src="js/websocket.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="js/buttonLoader.js" defer></script>
+  <script src="js/websocket.js" defer></script>
   <script src="js/mainPages.js"></script>
   <script src="js/stargazer.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +45,7 @@
 
 
     <div class="row">
-      <div class="container">
+      <div class="container" id="buttonContainer">
         <div class="test_box box column">
           <div class="inner" style="background-image: url('images/galaxy.jpg');">
             <a class="test_click">
