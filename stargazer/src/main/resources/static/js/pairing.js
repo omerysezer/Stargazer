@@ -44,7 +44,7 @@ function pair(numSideways, numVertical, numOnOff) {
 
             promise.then(function(){
                 output.innerHTML = "<b>Successfully paired with the Raspberry Pi! Press the continue button.</b>";
-                submitButton.innerText = "Continue";
+                submitButton.innerHTML = "Continue";
                 submitButton.onclick = () => document.location = 'location.html';
             }).catch(function(){
                 output.innerHTML = "<b>Successfully paired to Raspberry Pi but could not reestablish connection to server.</b>";

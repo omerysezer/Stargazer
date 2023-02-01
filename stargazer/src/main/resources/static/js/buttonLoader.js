@@ -20,7 +20,6 @@ function loadButtons(objectsJson){
 
     function addButton(objectName, id){
         let objectImageUrl = "url(" + imageFolder + "/" + objectName + ".jpg);";
-        console.log(objectImageUrl);
         let objectButtonId = "pointButton" + id;
         let buttonHtml = standardButtonHtml.replace("IMAGE_URL", objectImageUrl)
             .replace("OBJECT_NAME", objectName)

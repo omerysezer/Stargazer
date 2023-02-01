@@ -57,8 +57,10 @@ const socketHandler = function () {
                 alert("ORIENTATION_WARNING");
                 break;
             default:
-                let handler = awaitingResponseQueue.pop();
-                handler(content);
+                if(awaitingResponseQueue.length > 0){
+                    let handler = awaitingResponseQueue.pop();
+                    handler(content);
+                }
                 break;
         }
     }

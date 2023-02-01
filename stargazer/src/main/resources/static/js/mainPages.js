@@ -6,8 +6,8 @@ if(window.location.pathname.split("/").pop() === "star.html"){
 
 
 function loadPopUp(input) {
-    var x = document.getElementById('myDIV');
-    document.getElementById("tempText1").innerHTML = input;
+    var x = document.getElementById('popup');
+    document.getElementById("popupTitle").innerHTML = input;
     x.style.display = 'block';
 
 }
