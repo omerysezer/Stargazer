@@ -30,6 +30,12 @@ def turn_laser_off():
 def blink_laser(num_blinks):
     laser.blink(1, 1, num_blinks)
 
+def sideways(num_blinks):
+
+
+def up_down(num_blinks):
+
+
 
 def point_to_coords(azimuth, altitude):
     pan_angle = None
