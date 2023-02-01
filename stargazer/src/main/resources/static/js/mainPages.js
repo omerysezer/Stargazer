@@ -7,7 +7,7 @@ if(window.location.pathname.split("/").pop() === "star.html"){
 
 function loadPopUp(input) {
     var x = document.getElementById('myDIV');
-    document.getElementById("tempText1").innerHTML = input.toUpperCase();
+    document.getElementById("tempText1").innerHTML = input;
     x.style.display = 'block';
 
 }
