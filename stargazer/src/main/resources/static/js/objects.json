@@ -20,7 +20,11 @@
     "imageFolder": "../images/galaxies"
   },
   "asteroid.html":{
-    "imageFolder": "../images/asteroids"
+    "imageFolder": "../images/asteroids",
+    "objects": [
+      "ceres",
+      "vesta"
+    ]
   },
   "comet.html": {
     "imageFolder": "../images/comets"

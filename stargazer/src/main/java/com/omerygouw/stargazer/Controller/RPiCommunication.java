@@ -77,5 +77,9 @@ public class RPiCommunication extends Thread {
             throw new RuntimeException("Failed: Could not provide pi with new session id.");
         }
     }
+
+    public void handleLostConnection(String sessionId){
+        connections.remove(sessionId);
+    }
 }
 
