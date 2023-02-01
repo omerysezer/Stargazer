@@ -1,10 +1,16 @@
+if(window.location.pathname.split("/").pop() === "star.html"){
+    window.addEventListener("load", function() {
+        document.getElementById("error").style.display = "none";
+    });
+}
+
+
 function loadPopUp(input) {
     var x = document.getElementById('myDIV');
     document.getElementById("tempText1").innerHTML = input.toUpperCase();
     x.style.display = 'block';
 
 }
-
 
 function search() {
     let input = document.getElementById('search').value
@@ -17,10 +23,6 @@ function search() {
         loadPopUp(input);
     }
 }
-
-window.addEventListener("load", function() {
-    document.getElementById("error").style.display = "none";
-})
 
 document.addEventListener("click", function (event){
     let id = String(event.target.id);
