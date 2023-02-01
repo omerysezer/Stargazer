@@ -1,5 +1,6 @@
 package com.omerygouw.stargazer.Entity;
 
+import com.omerygouw.stargazer.DTO.LocationCoordinates;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;

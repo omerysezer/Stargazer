@@ -1,12 +1,11 @@
 package com.omerygouw.stargazer.Controller;
 
-import com.omerygouw.stargazer.Entity.LocationCoordinates;
-import com.omerygouw.stargazer.Entity.ObjectToPointAt;
-import com.omerygouw.stargazer.Entity.Message;
-import com.omerygouw.stargazer.Entity.Status;
+import com.omerygouw.stargazer.DTO.LocationCoordinates;
+import com.omerygouw.stargazer.DTO.ObjectToPointAt;
+import com.omerygouw.stargazer.DTO.Message;
+import com.omerygouw.stargazer.DTO.Status;
 import com.omerygouw.stargazer.Service.SessionManagerService;
 import com.omerygouw.stargazer.Service.WebToPiBridgeService;
-import com.sun.tools.jconsole.JConsoleContext;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

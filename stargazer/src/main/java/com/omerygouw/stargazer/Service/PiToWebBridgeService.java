@@ -1,6 +1,6 @@
 package com.omerygouw.stargazer.Service;
 
-import com.omerygouw.stargazer.Entity.Message;
+import com.omerygouw.stargazer.DTO.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;

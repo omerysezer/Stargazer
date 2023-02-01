@@ -1,4 +1,4 @@
-package com.omerygouw.stargazer.Entity;
+package com.omerygouw.stargazer.DTO;
 
 public record Message(Status status, String message) {
 }

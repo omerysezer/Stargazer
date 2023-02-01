@@ -1,6 +1,8 @@
 package com.omerygouw.stargazer.Entity;
 
 import com.omerygouw.stargazer.Controller.RPiCommunication;
+import com.omerygouw.stargazer.DTO.Message;
+import com.omerygouw.stargazer.DTO.Status;
 import com.omerygouw.stargazer.Service.PiToWebBridgeService;
 
 import java.io.*;

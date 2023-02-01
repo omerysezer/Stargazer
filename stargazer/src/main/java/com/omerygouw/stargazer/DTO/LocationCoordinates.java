@@ -1,4 +1,4 @@
-package com.omerygouw.stargazer.Entity;
+package com.omerygouw.stargazer.DTO;
 
 public record LocationCoordinates(double longitude, double latitude) {
 }

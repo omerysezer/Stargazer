@@ -2,7 +2,7 @@ package com.omerygouw.stargazer.Service;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.omerygouw.stargazer.Entity.LocationCoordinates;
+import com.omerygouw.stargazer.DTO.LocationCoordinates;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 

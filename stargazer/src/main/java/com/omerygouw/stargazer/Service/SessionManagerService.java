@@ -1,6 +1,6 @@
 package com.omerygouw.stargazer.Service;
 
-import com.omerygouw.stargazer.Entity.LocationCoordinates;
+import com.omerygouw.stargazer.DTO.LocationCoordinates;
 import com.omerygouw.stargazer.Entity.Session;
 import com.omerygouw.stargazer.Repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

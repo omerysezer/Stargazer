@@ -1,6 +1,8 @@
 package com.omerygouw.stargazer.Service;
 
 import com.omerygouw.stargazer.Controller.RPiCommunication;
+import com.omerygouw.stargazer.DTO.LocationCoordinates;
+import com.omerygouw.stargazer.DTO.ObjectToPointAt;
 import com.omerygouw.stargazer.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
