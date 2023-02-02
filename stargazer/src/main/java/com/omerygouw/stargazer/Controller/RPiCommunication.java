@@ -1,5 +1,9 @@
 package com.omerygouw.stargazer.Controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.omerygouw.stargazer.DTO.FromPiToServerMessage;
+import com.omerygouw.stargazer.DTO.FromServerToPiMessage;
 import com.omerygouw.stargazer.Entity.RPiConnection;
 import com.omerygouw.stargazer.Service.PiToWebBridgeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,17 +47,60 @@ public class RPiCommunication extends Thread {
                 throw new RuntimeException(e);
             }
 
-            String piSessionId = null;
+            FromServerToPiMessage getIdInstruction = FromServerToPiMessage.builder()
+                    .instruction("GIVE_ID")
+                    .instructionData("")
+                    .build();
+
             try {
-                piSessionId = reader.readLine();
+                writer.write(new Gson().toJson(getIdInstruction));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
+            FromServerToPiMessage invalidMessageResponse = FromServerToPiMessage.builder()
+                    .instruction("FIX_INVALID_MESSAGE")
+                    .instructionData("")
+                    .build();
+
+            String piSessionId = null;
+            String piResponse = null;
+            try{
+                piResponse = reader.readLine();
+            }
+            catch (Exception e){
+                try {
+                    writer.write(new Gson().toJson(invalidMessageResponse));
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+            try{
+                FromPiToServerMessage piToServerMessage = new Gson().fromJson(piResponse, FromPiToServerMessage.class);
+                piSessionId = piToServerMessage.sessionId();
+
+                if(piSessionId == null){
+                    throw new RuntimeException("Invalid Pi Session Id");
+                }
+            }catch (Exception e){
+                try{
+                    writer.write(new Gson().toJson(invalidMessageResponse));
+                }catch (Exception ex){
+                    throw new RuntimeException(ex);
+                }
+            }
+
             try {
-                RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this);
+                RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this, reader, writer);
                 connections.put(piSessionId, newConnection);
-                writer.write("SUCCESS");
+
+                FromServerToPiMessage success = FromServerToPiMessage.builder()
+                        .instruction("PROCEED")
+                        .instructionData("")
+                        .build();
+
+                writer.write(new Gson().toJson(success));
                 writer.flush();
             } catch (IOException e) {
                 connections.remove(piSessionId);
