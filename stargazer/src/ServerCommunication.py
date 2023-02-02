@@ -70,7 +70,7 @@ def main_server_communication():
 
         if server_message["instruction"] == "GIVE_ID":
             msg = {
-                "session_id": pairing_id,
+                "sessionId": pairing_id,
                 "messageType": "solicited",
                 "message": pairing_id
             }
@@ -91,15 +91,15 @@ def main_server_communication():
 
             connected = True
 
-    # while session_id == -1:
-    #   sideways(first_digit)
-    #   up_down(second_digit)
-    #   blink_laser(third_digit)
-    #
-    #     session_id_msg = s.recv(1024)
-    #     if session_id_msg.decode().split(":", 1)[0] == "New Session Id":
-    #         session_id = session_id_msg.decode().split(":")[1]
-
+    while session_id == -1:
+        # sideways(first_digit)
+        # up_down(second_digit)
+        # blink_laser(third_digit)
+        print(pairing_id)
+        session_id_msg = _get_server_message(s)
+        if session_id_msg["instruction"] == "CHANGE_SESSION":
+            session_id = session_id_msg["instructionData"]
+            print("NEW ID: ", session_id)
     # caliborientwarning = CalibOrientWarning()
     # while True:
     #
