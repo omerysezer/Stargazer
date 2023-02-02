@@ -36,6 +36,8 @@ document.addEventListener("click", function (event){
     if(id.startsWith("pointButton")){
         let isInsideSolarSystem = insideSolarSystemChecker.checkIfInsideSolarSystem();
         let objectName = document.getElementById(id).innerText;
+
+        loadPopUp(objectName.toUpperCase());
         pointToObject(objectName, isInsideSolarSystem);
     }
 });

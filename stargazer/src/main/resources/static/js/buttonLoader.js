@@ -8,7 +8,7 @@ function loadButtons(objectsJson){
         '            <a class="test_click">' +
         '              <div class="flex_this">' +
         // '                <h1 class="test_title">Title</h1>' +
-        '                <button id=BUTTON_ID class="test_link" onclick="loadPopUp()">OBJECT_NAME</button>\n' +
+        '                <button id=BUTTON_ID class="test_link">OBJECT_NAME</button>\n' +
         '              </div>\n' +
         '            </a>\n' +
         '          </div>\n' +
