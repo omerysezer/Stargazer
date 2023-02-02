@@ -9,7 +9,6 @@ function loadPopUp(input) {
     var x = document.getElementById('popup');
     document.getElementById("popupTitle").innerHTML = input;
     x.style.display = 'block';
-
 }
 
 function search() {
@@ -28,6 +27,10 @@ document.addEventListener("click", function (event){
     let id = String(event.target.id);
     if(id === "close"){
         document.querySelector(".popup").style.display = "none";
+        return;
+    }
+    if(id === "closeWarning"){
+        document.getElementById("warningPopup").style.display = "none";
         return;
     }
     if(id.startsWith("pointButton")){

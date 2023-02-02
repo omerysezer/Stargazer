@@ -5,7 +5,9 @@ import com.google.gson.JsonSyntaxException;
 import com.omerygouw.stargazer.Controller.RPiCommunication;
 import com.omerygouw.stargazer.DTO.*;
 import com.omerygouw.stargazer.Service.PiToWebBridgeService;
+import com.omerygouw.stargazer.Service.WebToPiBridgeService;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.net.Socket;
@@ -15,17 +17,15 @@ public class RPiConnection extends Thread{
     private final BufferedWriter writer;
     private final PiToWebBridgeService piToWebBridgeService;
     private final RPiCommunication rPiCommunication;
-    private final Socket socket;
     private String sessionId;
-    private boolean isConnected;
 
-    public RPiConnection(Socket socket, PiToWebBridgeService piToWebBridgeService, RPiCommunication rPiCommunication, BufferedReader reader, BufferedWriter writer) {
+    @Builder
+    public RPiConnection(PiToWebBridgeService piToWebBridgeService, RPiCommunication rPiCommunication, BufferedReader reader, BufferedWriter writer, String sessionId) {
         this.piToWebBridgeService = piToWebBridgeService;
         this.rPiCommunication = rPiCommunication;
         this.reader = reader;
         this.writer = writer;
-        this.socket = socket;
-        this.isConnected = true;
+        this.sessionId = sessionId;
         this.start();
     }
 
@@ -45,9 +45,9 @@ public class RPiConnection extends Thread{
                 return;
             }
 
-            FromPiToServerMessage message = null;
+            FromPiToServerMessage messageFromPi = null;
             try{
-                message = new Gson().fromJson(receivedMessage, FromPiToServerMessage.class);
+                messageFromPi = new Gson().fromJson(receivedMessage, FromPiToServerMessage.class);
             } catch (JsonSyntaxException e){
                 FromServerToPiMessage errorResponse = FromServerToPiMessage.builder()
                         .instruction("FIX_INVALID_MESSAGE")
@@ -60,51 +60,47 @@ public class RPiConnection extends Thread{
                 }
             }
 
-            if(message == null){
+            if(messageFromPi == null){
                 continue;
             }
 
-            if(message.messageType().equals("")){
+            String sessionId = messageFromPi.sessionId();
+            Message messageForClient = null;
 
+            switch (messageFromPi.messageType()) {
+                case "CALIBRATION_WARNING" -> {
+                    messageForClient = new Message(Status.CALIBRATION_WARNING, "");
+                    break;
+                }
+                case "ORIENTATION_WARNING" -> {
+                    messageForClient = new Message(Status.ORIENTATION_WARNING, "");
+                    break;
+                }
+                case "LEVEL_WARNING" -> {
+                    messageForClient = new Message(Status.LEVEL_WARNING, "");
+                    break;
+                }
+                case "CALIBRATION_OK" -> {
+                    messageForClient = new Message(Status.CALIBRATION_OK, "");
+                    break;
+                }
+                case "LEVEL_OK" -> {
+                    messageForClient = new Message(Status.LEVEL_OK, "");
+                    break;
+                }
+                case "ORIENTATION_OK" -> {
+                    messageForClient = new Message(Status.ORIENTATION_OK, "");
+                    break;
+                }
             }
-            else if(message.messageType().equals("1")){
 
+            if(messageForClient != null){
+                piToWebBridgeService.sendMessageToClient(messageForClient, sessionId);
             }
-            else if(message.messageType().equals("2")){
-
-            }
-            else if(message.messageType().equals("3")){
-
-            }
-
-//            if(receivedMessage.startsWith("Unsolicited:")){
-//                receivedMessage = receivedMessage.replaceAll("Unsolicited:", "");
-//                String[] split = receivedMessage.split("sessionId:");
-//                String warning = split[0];
-//                String id = split[1];
-//                sessionId = id;
-//                Message message;
-//
-//                if(receivedMessage.startsWith("Bad Calibration:")){
-//                    message = new Message(Status.CALIBRATION_WARNING, warning);
-//                    piToWebBridgeService.warnBadCalibration(message, id);
-//                }
-//                else if(receivedMessage.startsWith("Bad Orientation:")){
-//                    message = new Message(Status.ORIENTATION_WARNING, warning);
-//                    piToWebBridgeService.warnBadOrientation(message, id);
-//                }
-//            }
         }
     }
 
-    private void throwErrorIfNotConnected(){
-        if(!isConnected){
-            throw new RuntimeException("Not connected to Raspberry Pi.");
-        }
-    }
-    public String instructToPointToObject(AstronomicalObject astronomicalObject) throws IOException {
-        throwErrorIfNotConnected();
-
+    public FromPiToServerMessage instructToPointToObject(AstronomicalObject astronomicalObject) throws IOException {
         ObjectCoordinates coordinates = ObjectCoordinates.builder()
                 .azimuth(astronomicalObject.getAzimuth())
                 .altitude(astronomicalObject.getAltitude())
@@ -117,46 +113,49 @@ public class RPiConnection extends Thread{
                 .instructionData(jsonCoordinatesString)
                 .build();
 
-
-        write(new Gson().toJson(message));
-        return reader.readLine();
+       return sendMessageToPiAndGetResponse(message);
     }
 
-    public String instructToTurnOnLaser() throws IOException {
-        throwErrorIfNotConnected();
-
+    public FromPiToServerMessage instructToTurnOnLaser() throws IOException {
         FromServerToPiMessage message = FromServerToPiMessage.builder()
                 .instruction("LASER_ON")
                 .instructionData("")
                 .build();
 
-        write(new Gson().toJson(message));
-        return reader.readLine();
+        return sendMessageToPiAndGetResponse(message);
     }
 
-    public String instructToTurnOffLaser() throws IOException {
-        throwErrorIfNotConnected();
-
+    public FromPiToServerMessage instructToTurnOffLaser() throws IOException {
         FromServerToPiMessage message = FromServerToPiMessage.builder()
         .instruction("LASER_OFF")
         .instructionData("")
         .build();
 
-        write(new Gson().toJson(message));
-        return reader.readLine();
+        return sendMessageToPiAndGetResponse(message);
     }
 
 
-    public String changeSessionId(String newSessionId) throws IOException {
-        throwErrorIfNotConnected();
-
+    public FromPiToServerMessage changeSessionId(String newSessionId) throws IOException {
         FromServerToPiMessage message = FromServerToPiMessage.builder()
             .instruction("CHANGE_SESSION")
             .instructionData(newSessionId)
             .build();
 
+        this.sessionId = newSessionId;
+
+        return sendMessageToPiAndGetResponse(message);
+    }
+
+    private FromPiToServerMessage sendMessageToPiAndGetResponse(FromServerToPiMessage message) throws IOException {
         write(new Gson().toJson(message));
-        return reader.readLine();
+        String response = reader.readLine();
+
+        if(response == null){
+            rPiCommunication.handleLostConnection(sessionId);
+            throw new RuntimeException("Raspberry Pi with id \"" + sessionId + "\" is not connected.");
+        }
+
+        return new Gson().fromJson(response, FromPiToServerMessage.class);
     }
 
     private void write(String message) throws IOException {

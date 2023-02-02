@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="css/mainPages.css">
+  <script src="js/mainPages.js" defer></script>
+  <script src="js/warningHandler.js"></script>
+  <script src="js/websocket.js" defer></script>
 </head>
 <body>
 
@@ -66,6 +69,13 @@
       </div>
     </div>
   </div>
+    <div class="popup" id="warningPopup">
+      <button class = "button right" id="closeWarning">&times;</button>
+      <h2 id="warningTitle" class="pText">WARNING!</h2>
+      <span class="pText" id="calibrationWarningText"></span>
+      <span class="pText" id="levelWarningText"></span>
+      <span class="pText" id="orientationWarningText"></span>
+    </div>
 </div>
 </body>
 </html>

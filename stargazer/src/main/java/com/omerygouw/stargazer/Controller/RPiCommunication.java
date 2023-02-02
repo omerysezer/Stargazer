@@ -1,11 +1,11 @@
 package com.omerygouw.stargazer.Controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.omerygouw.stargazer.DTO.FromPiToServerMessage;
 import com.omerygouw.stargazer.DTO.FromServerToPiMessage;
 import com.omerygouw.stargazer.Entity.RPiConnection;
 import com.omerygouw.stargazer.Service.PiToWebBridgeService;
+import com.omerygouw.stargazer.Service.SessionManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -19,6 +19,8 @@ import java.util.HashMap;
 public class RPiCommunication extends Thread {
     @Autowired
     PiToWebBridgeService piToWebBridgeService;
+    @Autowired
+    SessionManagerService sessionManagerService;
     HashMap<String, RPiConnection> connections;
 
     public RPiCommunication(){
@@ -92,7 +94,14 @@ public class RPiCommunication extends Thread {
             }
 
             try {
-                RPiConnection newConnection = new RPiConnection(socket, piToWebBridgeService, this, reader, writer);
+                RPiConnection newConnection = RPiConnection.builder()
+                        .piToWebBridgeService(piToWebBridgeService)
+                        .rPiCommunication(this)
+                        .reader(reader)
+                        .writer(writer)
+                        .sessionId(piSessionId)
+                        .build();
+
                 connections.put(piSessionId, newConnection);
 
                 FromServerToPiMessage success = FromServerToPiMessage.builder()
@@ -111,7 +120,7 @@ public class RPiCommunication extends Thread {
         return connections.getOrDefault(sessionId, null);
     }
 
-    public String replacePiSessionId(String oldSessionId, String newSessionId) throws IOException {
+    public FromPiToServerMessage replacePiSessionId(String oldSessionId, String newSessionId) {
         RPiConnection connection = connections.get(oldSessionId);
         connections.remove(oldSessionId);
         connections.put(newSessionId, connection);
@@ -126,6 +135,8 @@ public class RPiCommunication extends Thread {
 
     public void handleLostConnection(String sessionId){
         connections.remove(sessionId);
+        sessionManagerService.deleteSessionById(sessionId);
+        piToWebBridgeService.informClientOfPiDisconnect(sessionId);
     }
 
     private void write(BufferedWriter writer, String message) throws IOException {

@@ -32,4 +32,8 @@ public class SessionManagerService {
         session.setSessionId(sessionId);
         sessionRepository.save(session);
     }
+
+    public void deleteSessionById(String sessionId){
+        sessionRepository.deleteById(sessionId);
+    }
 }

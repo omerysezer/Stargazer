@@ -5,6 +5,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="js/buttonLoader.js" defer></script>
+  <script src="js/warningHandler.js"></script>
   <script src="js/websocket.js" defer></script>
   <script src="js/stargazer.js"></script>
   <script src="js/mainPages.js"></script>
@@ -119,10 +120,15 @@
       <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
     </div>
   </div>
+
+    <div class="popup" id="warningPopup">
+      <button class = "button right" id="closeWarning">&times;</button>
+      <h2 id="warningTitle" class="pText">WARNING!</h2>
+      <span class="pText" id="calibrationWarningText"></span>
+      <span class="pText" id="levelWarningText"></span>
+      <span class="pText" id="orientationWarningText"></span>
+    </div>
 </div>
-
-    <script src="js/mainPages.js"></script>
-
 </body>
 </html>
 

@@ -4,7 +4,7 @@ const socketHandler = function () {
     let standardHeader = {};
     let awaitingResponseQueue = [];
     let subscription = null;
-
+    let warningHandler = getWarningHandler();
     initializeSession();
     client.activate();
 
@@ -51,10 +51,22 @@ const socketHandler = function () {
 
         switch (String(content.status)){
             case "CALIBRATION_WARNING":
-                alert("Calibration Warning");
+                warningHandler.raiseCalibrationWarning();
                 break;
             case "ORIENTATION_WARNING":
-                alert("ORIENTATION_WARNING");
+                warningHandler.raiseOrientationWarning();
+                break;
+            case "LEVEL_WARNING":
+                warningHandler.raiseLevelWarning();
+                break;
+            case "CALIBRATION_OK":
+                warningHandler.clearCalibrationWarning();
+                break;
+            case "ORIENTATION_OK":
+                warningHandler.clearOrientationWarning();
+                break;
+            case "LEVEL_OK":
+                warningHandler.clearLevelWarning();
                 break;
             default:
                 if(awaitingResponseQueue.length > 0){

@@ -1,6 +1,7 @@
 package com.omerygouw.stargazer.Service;
 
 import com.omerygouw.stargazer.Controller.RPiCommunication;
+import com.omerygouw.stargazer.DTO.FromPiToServerMessage;
 import com.omerygouw.stargazer.DTO.LocationCoordinates;
 import com.omerygouw.stargazer.DTO.ObjectToPointAt;
 import com.omerygouw.stargazer.Entity.*;
@@ -19,23 +20,25 @@ public class WebToPiBridgeService {
     private SessionManagerService sessionManagerService;
 
     public void pairClientToRaspPi(String piId, String clientId) throws IOException {
-        RPiConnection connection = rPiCommunicator.getPiWithSessionId(piId);
-        if(connection == null){
+        RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(piId);
+        if(rPiConnection == null){
             throw new RuntimeException("Failed: Could not find Raspberry Pi.");
         }
 
         String sessionId = clientId + piId;
         sessionManagerService.createNewSession(sessionId);
 
-        String result;
+        FromPiToServerMessage result;
         try{
             result = rPiCommunicator.replacePiSessionId(piId, sessionId);
         }
         catch (Exception e){
+            sessionManagerService.deleteSessionById(sessionId);
             throw new RuntimeException("Failed: could not provide Raspberry Pi with session id.");
         }
 
-        if(!result.equals("Success")){
+        if(!result.messageType().equals("SUCCESS")){
+            sessionManagerService.deleteSessionById(sessionId);
             throw new RuntimeException("Failed: " + result);
         }
     }
@@ -63,16 +66,16 @@ public class WebToPiBridgeService {
             throw new RuntimeException("Failed: " + e.getMessage());
         }
 
-        String result;
+        FromPiToServerMessage result;
         try{
             result = rPiConnection.instructToPointToObject(astronomicalObject);
         }
-        catch(Exception e){
-            throw new RuntimeException("Failed: Could not instruct Rasperry Pi to point to object.");
+        catch (Exception e){
+            throw new RuntimeException("Failed: Could not send message to raspberry pi.");
         }
 
-        if(!result.equals("Success")){
-            throw new RuntimeException("Failed: " + result);
+        if(!result.messageType().equals("SUCCESS")){
+            throw new RuntimeException("Failed. \nResponse from Raspberry Pi: " + result.message());
         }
     }
 
@@ -86,7 +89,7 @@ public class WebToPiBridgeService {
             throw new RuntimeException("Failed: No Raspberry Pi is paired.");
         }
 
-        String result;
+        FromPiToServerMessage result;
         try{
             result = rPiConnection.instructToTurnOnLaser();
         }
@@ -94,29 +97,28 @@ public class WebToPiBridgeService {
             throw new RuntimeException("Failed: Could not send message to raspberry pi.");
         }
 
-        if(!result.equals("Success")){
-            throw new RuntimeException("Failed: " + result);
+        if(!result.messageType().equals("SUCCESS")){
+            throw new RuntimeException("Failed. \nResponse from Raspberry Pi: " + result.message());
         }
     }
 
     public void instructPiToTurnOffLaser(String sessionId){
-        Session session = sessionManagerService.getSessionById(sessionId);
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
 
         if(rPiConnection == null){
             throw new RuntimeException("Failed: No Raspberry Pi is paired.");
         }
 
-        String result;
+        FromPiToServerMessage result;
         try{
             result = rPiConnection.instructToTurnOffLaser();
         }
         catch (Exception e){
-            throw new RuntimeException("Failed: Could not send message to raspberry pi");
+            throw new RuntimeException("Failed: Could not send message to raspberry pi.");
         }
 
-        if (!result.equals("Success")){
-            throw new RuntimeException("Failed: " + result);
+        if(!result.messageType().equals("SUCCESS")){
+            throw new RuntimeException("Failed. \nResponse from Raspberry Pi: " + result.message());
         }
     }
 
