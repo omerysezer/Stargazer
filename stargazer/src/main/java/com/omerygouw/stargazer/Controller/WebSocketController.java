@@ -1,9 +1,6 @@
 package com.omerygouw.stargazer.Controller;
 
-import com.omerygouw.stargazer.DTO.LocationCoordinates;
-import com.omerygouw.stargazer.DTO.ObjectToPointAt;
-import com.omerygouw.stargazer.DTO.Message;
-import com.omerygouw.stargazer.DTO.Status;
+import com.omerygouw.stargazer.DTO.*;
 import com.omerygouw.stargazer.Service.SessionManagerService;
 import com.omerygouw.stargazer.Service.WebToPiBridgeService;
 import jakarta.servlet.http.Cookie;
@@ -15,8 +12,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.io.IOException;
 
 @Controller
 public class WebSocketController {
@@ -69,6 +64,7 @@ public class WebSocketController {
 
     @MessageMapping("/saveLocation")
     public void saveUserLocation(LocationCoordinates location, @Header("sessionId") String sessionId) {
+        System.out.println("location: " + location);
         Message message;
         try{
             webToPiBridgeService.saveUserLocation(location, sessionId);
@@ -81,10 +77,10 @@ public class WebSocketController {
     }
 
     @MessageMapping("/pair")
-    public void pairPi(@Payload String piSessionId, @Header("sessionId") String clientSessionId) throws IOException {
+    public void pairPi(@Payload SessionIdWrapper piSessionId, @Header("sessionId") String clientSessionId) {
         Message message;
         try{
-            webToPiBridgeService.pairClientToRaspPi(piSessionId, clientSessionId);
+            webToPiBridgeService.pairClientToRaspPi(piSessionId.piSessionId(), clientSessionId);
             message = new Message(Status.SUCCESS, "");
         }
         catch (Exception e){
