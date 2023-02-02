@@ -5,17 +5,48 @@ from random import randint
 import socket
 import json
 
-from stargazer.src.CalibOrientWarning import CalibOrientWarning
-from stargazer.src.ServoLaserController import sideways, up_down, blink_laser, turn_laser_on, turn_laser_off
+# from stargazer.src.CalibOrientWarning import CalibOrientWarning
+# from stargazer.src.ServoLaserController import sideways, up_down, blink_laser, turn_laser_on, turn_laser_off
 
 '''
 message should include sessionid, type, message
+
+GIVE_ID
+
+PROCEED
+
+FIX_INVALID_MESSAGE 
+
+POINT 
+
+LASER_ON
+
+LASER_OFF
+
+CHANGE_SESSION
 '''
 
 
 def generate_three_digit_session_id():
     random_digit = random.randint(1, 10)
     return random_digit
+
+
+def _get_server_message(sock):
+    message = sock.recv(1024).decode()
+    return json.loads(message)
+
+
+def _send_message_to_server(sock, message):
+    message = json.dumps(message) + "\n"
+    bytes_sent = sock.send(message.encode())
+    if bytes_sent == 0:
+        raise ConnectionError
+
+
+def run():
+    while True:
+        main_server_communication()
 
 
 def main_server_communication():
@@ -30,69 +61,79 @@ def main_server_communication():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     while not connected:
+        try:
+            s.connect(("localhost", 5000))
+        except socket.error:
+            continue
 
-        s.connect(("localhost", 5000))
-        msg = {
-            "session_id": pairing_id,
-            "type": "solicited",
-            "message": pairing_id
-        }
+        server_message = _get_server_message(s)
 
-        json_object = json.dumps(msg, indent=4)
-        s.send(json_object.encode())
-        msg = s.recv(1024)
+        if server_message["instruction"] == "GIVE_ID":
+            msg = {
+                "session_id": pairing_id,
+                "messageType": "solicited",
+                "message": pairing_id
+            }
 
-        if msg.decode() == "SUCCESS":
+            try:
+                _send_message_to_server(s, msg)
+            except ConnectionError:
+                return
+
+            server_message = _get_server_message(s)
+
+            while not server_message["instruction"] == "PROCEED":
+                try:
+                    _send_message_to_server(s, msg)
+                except ConnectionError:
+                    return
+                server_message = _get_server_message(s)
+
             connected = True
-        else:
-            s.close()
 
-    msg = s.recv(1024)
-    print(msg.decode())
+    # while session_id == -1:
+    #   sideways(first_digit)
+    #   up_down(second_digit)
+    #   blink_laser(third_digit)
+    #
+    #     session_id_msg = s.recv(1024)
+    #     if session_id_msg.decode().split(":", 1)[0] == "New Session Id":
+    #         session_id = session_id_msg.decode().split(":")[1]
 
-    while session_id == -1:
-        sideways(first_digit)
-        up_down(second_digit)
-        blink_laser(third_digit)
-
-        session_id_msg = s.recv(1024)
-        if session_id_msg.decode().split(":", 1)[0] == "New Session Id":
-            session_id = session_id_msg.decode().split(":")[1]
-
-    caliborientwarning = CalibOrientWarning()
-    while True:
-
-        if not caliborientwarning.is_calibrated():
-            msg = {
-                "session_id": session_id,
-                "type": "warning",
-                "message": "Bad Calibration"
-            }
-            json_object = json.dumps(msg, indent=4)
-            s.send(json_object.encode())
-        elif not caliborientwarning.is_correctly_orientated():
-            message = ''
-
-            if not caliborientwarning.is_level():
-                message += 'Device is not level\n'
-            if not caliborientwarning.is_facing_north():
-                message += 'Device is not facing north\n'
-
-            msg = {
-                "session_id": session_id,
-                "type": "warning",
-                "message": message
-            }
-            json_object = json.dumps(msg, indent=4)
-            s.send(json_object.encode())
-        else:
-            new_msg = s.recv(1024)
-            decoded_msg = new_msg.decode()
-            if decoded_msg == "Laser On":
-                turn_laser_on(5)
-            if decoded_msg == "Laser Off":
-                turn_laser_off()
-            # if()
+    # caliborientwarning = CalibOrientWarning()
+    # while True:
+    #
+    #     if not caliborientwarning.is_calibrated():
+    #         msg = {
+    #             "session_id": session_id,
+    #             "type": "warning",
+    #             "message": "Bad Calibration"
+    #         }
+    #         json_object = json.dumps(msg, indent=4)
+    #         s.send(json_object.encode())
+    #     elif not caliborientwarning.is_correctly_orientated():
+    #         message = ''
+    #
+    #         if not caliborientwarning.is_level():
+    #             message += 'Device is not level\n'
+    #         if not caliborientwarning.is_facing_north():
+    #             message += 'Device is not facing north\n'
+    #
+    #         msg = {
+    #             "session_id": session_id,
+    #             "type": "warning",
+    #             "message": message
+    #         }
+    #         json_object = json.dumps(msg, indent=4)
+    #         s.send(json_object.encode())
+    #     else:
+    #         new_msg = s.recv(1024)
+    #         decoded_msg = new_msg.decode()
+    #         if decoded_msg == "Laser On":
+    #             turn_laser_on(5)
+    #         if decoded_msg == "Laser Off":
+    #             turn_laser_off()
+    #         # if()
 
 
 '''
