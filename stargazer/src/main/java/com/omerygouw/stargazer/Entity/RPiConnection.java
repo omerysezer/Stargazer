@@ -10,7 +10,6 @@ import lombok.Builder;
 import java.io.*;
 import java.net.Socket;
 
-@Builder
 public class RPiConnection extends Thread{
     private final BufferedReader reader;
     private final BufferedWriter writer;
@@ -55,7 +54,7 @@ public class RPiConnection extends Thread{
                         .instructionData(receivedMessage)
                         .build();
                 try {
-                    writer.write(new Gson().toJson(errorResponse));
+                    write(new Gson().toJson(errorResponse));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -119,8 +118,7 @@ public class RPiConnection extends Thread{
                 .build();
 
 
-        writer.write(new Gson().toJson(message));
-        writer.flush();
+        write(new Gson().toJson(message));
         return reader.readLine();
     }
 
@@ -132,8 +130,7 @@ public class RPiConnection extends Thread{
                 .instructionData("")
                 .build();
 
-        writer.write(new Gson().toJson(message));
-        writer.flush();
+        write(new Gson().toJson(message));
         return reader.readLine();
     }
 
@@ -145,8 +142,7 @@ public class RPiConnection extends Thread{
         .instructionData("")
         .build();
 
-        writer.write(new Gson().toJson(message));
-        writer.flush();
+        write(new Gson().toJson(message));
         return reader.readLine();
     }
 
@@ -159,8 +155,12 @@ public class RPiConnection extends Thread{
             .instructionData(newSessionId)
             .build();
 
-        writer.write(new Gson().toJson(message));
-        writer.flush();
+        write(new Gson().toJson(message));
         return reader.readLine();
+    }
+
+    private void write(String message) throws IOException {
+        writer.write(message + "\n");
+        writer.flush();
     }
 }

@@ -53,7 +53,7 @@ public class RPiCommunication extends Thread {
                     .build();
 
             try {
-                writer.write(new Gson().toJson(getIdInstruction));
+                write(writer, new Gson().toJson(getIdInstruction));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -70,7 +70,7 @@ public class RPiCommunication extends Thread {
             }
             catch (Exception e){
                 try {
-                    writer.write(new Gson().toJson(invalidMessageResponse));
+                    write(writer, new Gson().toJson(invalidMessageResponse));
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -81,11 +81,11 @@ public class RPiCommunication extends Thread {
                 piSessionId = piToServerMessage.sessionId();
 
                 if(piSessionId == null){
-                    throw new RuntimeException("Invalid Pi Session Id");
+                    throw new RuntimeException("Null Pi Session Id");
                 }
             }catch (Exception e){
                 try{
-                    writer.write(new Gson().toJson(invalidMessageResponse));
+                    write(writer, new Gson().toJson(invalidMessageResponse));
                 }catch (Exception ex){
                     throw new RuntimeException(ex);
                 }
@@ -100,8 +100,7 @@ public class RPiCommunication extends Thread {
                         .instructionData("")
                         .build();
 
-                writer.write(new Gson().toJson(success));
-                writer.flush();
+                write(writer, new Gson().toJson(success));
             } catch (IOException e) {
                 connections.remove(piSessionId);
             }
@@ -127,6 +126,11 @@ public class RPiCommunication extends Thread {
 
     public void handleLostConnection(String sessionId){
         connections.remove(sessionId);
+    }
+
+    private void write(BufferedWriter writer, String message) throws IOException {
+        writer.write(message + "\n");
+        writer.flush();
     }
 }
 
