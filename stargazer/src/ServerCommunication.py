@@ -5,26 +5,9 @@ from random import randint
 import socket
 import json
 
-# from stargazer.src.CalibOrientWarning import CalibOrientWarning
-# from stargazer.src.ServoLaserController import sideways, up_down, blink_laser, turn_laser_on, turn_laser_off
+from stargazer.src.CalibOrientWarning import CalibOrientWarning
 
-'''
-message should include sessionid, type, message
-
-GIVE_ID
-
-PROCEED
-
-FIX_INVALID_MESSAGE 
-
-POINT 
-
-LASER_ON
-
-LASER_OFF
-
-CHANGE_SESSION
-'''
+from stargazer.src.ServoLaserController import ServoLaserController
 
 
 def generate_three_digit_session_id():
@@ -33,7 +16,7 @@ def generate_three_digit_session_id():
 
 
 def _get_server_message(sock):
-    message = sock.recv(1024).decode()
+    message = sock.makefile().readline()
     return json.loads(message)
 
 
@@ -54,6 +37,8 @@ def main_server_communication():
     second_digit = generate_three_digit_session_id()
     third_digit = generate_three_digit_session_id()
     pairing_id = str(first_digit) + str(second_digit) + str(third_digit)
+    laser_controller = ServoLaserController()
+    calib_orient_warning = CalibOrientWarning()
 
     session_id = -1
     connected = False
@@ -72,7 +57,8 @@ def main_server_communication():
             msg = {
                 "sessionId": pairing_id,
                 "messageType": "solicited",
-                "message": pairing_id
+                "message": pairing_id,
+                "instructionId": server_message["instructionId"]
             }
 
             try:
@@ -92,84 +78,103 @@ def main_server_communication():
             connected = True
 
     while session_id == -1:
-        # sideways(first_digit)
-        # up_down(second_digit)
-        # blink_laser(third_digit)
-        print(pairing_id)
+        laser_controller.sideways(first_digit)
+        laser_controller.up_down(second_digit)
+        laser_controller.blink_laser(third_digit)
         session_id_msg = _get_server_message(s)
         if session_id_msg["instruction"] == "CHANGE_SESSION":
             session_id = session_id_msg["instructionData"]
-            print("NEW ID: ", session_id)
-    # caliborientwarning = CalibOrientWarning()
-    # while True:
-    #
-    #     if not caliborientwarning.is_calibrated():
-    #         msg = {
-    #             "session_id": session_id,
-    #             "type": "warning",
-    #             "message": "Bad Calibration"
-    #         }
-    #         json_object = json.dumps(msg, indent=4)
-    #         s.send(json_object.encode())
-    #     elif not caliborientwarning.is_correctly_orientated():
-    #         message = ''
-    #
-    #         if not caliborientwarning.is_level():
-    #             message += 'Device is not level\n'
-    #         if not caliborientwarning.is_facing_north():
-    #             message += 'Device is not facing north\n'
-    #
-    #         msg = {
-    #             "session_id": session_id,
-    #             "type": "warning",
-    #             "message": message
-    #         }
-    #         json_object = json.dumps(msg, indent=4)
-    #         s.send(json_object.encode())
-    #     else:
-    #         new_msg = s.recv(1024)
-    #         decoded_msg = new_msg.decode()
-    #         if decoded_msg == "Laser On":
-    #             turn_laser_on(5)
-    #         if decoded_msg == "Laser Off":
-    #             turn_laser_off()
-    #         # if()
+            pairing_success_msg = {
+                "sessionId": session_id,
+                "messageType": "SUCCESS",
+                "message": "",
+                "instructionId": session_id_msg["instructionId"]
+            }
+            _send_message_to_server(s, pairing_success_msg)
 
+    while True:
+        calibration_ok = False
+        level_ok = False
+        orientation_ok = False
+        while not calibration_ok or not level_ok or not orientation_ok:
+            if not calib_orient_warning.is_calibrated():
+                warning_msg = {
+                    "sessionId": session_id,
+                    "messageType": "CALIBRATION_WARNING",
+                    "message": ""
+                }
+                _send_message_to_server(s, warning_msg)
+            elif not calibration_ok:
+                ok_msg = {
+                    "sessionId": session_id,
+                    "messageType": "CALIBRATION_OK",
+                    "message": "",
+                    "instructionId": ""
+                }
+                _send_message_to_server(s, ok_msg)
+                calibration_ok = True
 
-'''
+            if not calib_orient_warning.is_level():
+                warning_msg = {
+                    "sessionId": session_id,
+                    "messageType": "LEVEL_WARNING",
+                    "message": "",
+                    "instructionId": ""
+                }
+                _send_message_to_server(s, warning_msg)
+            elif not level_ok:
+                ok_msg = {
+                    "sessionId": session_id,
+                    "messageType": "LEVEL_OK",
+                    "message": "",
+                    "instructionId": ""
+                }
+                _send_message_to_server(s, ok_msg)
+                level_ok = True
 
-    generate 3 digit sessionId
+            if not calib_orient_warning.is_facing_north():
+                warning_msg = {
+                    "sessionId": session_id,
+                    "messageType": "ORIENTATION_WARNING",
+                    "message": "",
+                    "instructionId": ""
+                }
+                _send_message_to_server(s, warning_msg)
+            elif not orientation_ok:
+                ok_msg = {
+                    "sessionId": session_id,
+                    "messageType": "ORIENTATION_OK",
+                    "message": "",
+                    "instructionId": ""
+                }
+                _send_message_to_server(s, ok_msg)
+                orientation_ok = True
+            sleep(2)
 
-    start wifi thread
-    once connected to wifi, start main function in servercommunication in a thread
+        instruction = _get_server_message(s)
 
-    in the main function:
-        create a socket
-        connect to www.stargazer.ninja:5000
-
-        send the sessionId
-            if response is success continue "SUCCESS"
-
-                now start moving servos in correspondence to sessinonId
-                first digit = sideways
-                second digit = up down
-                third digit = on off
-
-            otherwise "FAILURE"
-                end socket
-                retry previous steps
-
-        wait for new message
-            if message starts with New Session Id or something
-            update session id
-
-        from now on all messages have to have sessionId=384762346 at the end
-        check calibration and orientation
-            while bad:
-                send message to server
-
-        once good
-            await instructions and handle each one
-
-
-'''
+        if instruction["instruction"] == "LASER_ON":
+            laser_controller.turn_laser_on(5)
+            _send_message_to_server(s, {
+                "messageType": "SUCCESS",
+                "sessionId": session_id,
+                "message": "",
+                "instructionId": instruction["instructionId"]
+            })
+        elif instruction["instruction"] == "LASER_OFF":
+            laser_controller.turn_laser_off()
+            _send_message_to_server(s, {
+                "messageType": "SUCCESS",
+                "sessionId": session_id,
+                "message": "",
+                "instructionId": instruction["instructionId"]
+            })
+        elif instruction["instruction"] == "POINT":
+            coords = json.loads(instruction["instructionData"])
+            laser_controller.point_to_coords(coords["azimuth"], coords["altitude"])
+            _send_message_to_server(s, {
+                "messageType": "SUCCESS",
+                "sessionId": session_id,
+                "message": "",
+                "instructionId": instruction["instructionId"]
+            })
