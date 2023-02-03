@@ -11,6 +11,10 @@ public class AstronomicalObject {
     private final String name;
     private final double rightAscension;
     private final double declination;
-    private final double azimuth;
-    private final double altitude;
+
+    // azimuth/altitude are integer values instead of doubles because
+    // raspberry pi servos can only turn to the nearest degree
+    // and raspberry pi is instructed to point to azimuth/altitude values
+    private final Integer azimuth;
+    private final Integer altitude;
 }

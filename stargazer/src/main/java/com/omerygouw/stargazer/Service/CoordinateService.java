@@ -128,7 +128,7 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> convertRightAscensionAndDeclinationToAzimuthAndAltitude(double rightAscension, double declination, double longitude, double latitude) throws RuntimeException{
+        private Map<String, Integer> convertRightAscensionAndDeclinationToAzimuthAndAltitude(double rightAscension, double declination, double longitude, double latitude) throws RuntimeException{
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss:SS");
                 LocalDateTime datetime = LocalDateTime.now(ZoneOffset.UTC);
                 LocalDateTime jan1st2000 = LocalDateTime.parse("2000-01-01 00:00:00:00", dtf);
@@ -159,9 +159,11 @@ public class CoordinateService {
                         azimuth = 360 - A;
                 }
 
-                Map<String, Double> convertedCoords = new HashMap<>();
-                convertedCoords.put("Azimuth", azimuth);
-                convertedCoords.put("Altitude", altitude);
+                // rounding azimuth and altitude to the nearest integer because
+                // raspberry pi servos can only turn to the nearest whole number degree
+                Map<String, Integer> convertedCoords = new HashMap<>();
+                convertedCoords.put("Azimuth", (int) Math.round(azimuth));
+                convertedCoords.put("Altitude", (int) Math.round(altitude));
 
                 return convertedCoords;
         }
@@ -180,7 +182,7 @@ public class CoordinateService {
                         throw new RuntimeException(e);
                 }
 
-                Map<String, Double> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"),
+                Map<String, Integer> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"),
                         absoluteCoords.get("Declination"), userCoordinates.longitude(), userCoordinates.latitude());
 
                 return AstronomicalObject.builder()
