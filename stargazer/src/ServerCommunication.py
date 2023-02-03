@@ -154,7 +154,16 @@ def main_server_communication():
         instruction = _get_server_message(s)
 
         if instruction["instruction"] == "LASER_ON":
-            laser_controller.turn_laser_on(5)
+            try:
+                laser_controller.turn_laser_on(5)
+            except:
+                _send_message_to_server(s, {
+                    "messageType": "LASER_ON_FAILURE",
+                    "sessionId": session_id,
+                    "message": "",
+                    "instructionId": instruction["instructionId"]
+                })
+
             _send_message_to_server(s, {
                 "messageType": "SUCCESS",
                 "sessionId": session_id,
@@ -162,7 +171,16 @@ def main_server_communication():
                 "instructionId": instruction["instructionId"]
             })
         elif instruction["instruction"] == "LASER_OFF":
-            laser_controller.turn_laser_off()
+            try:
+                laser_controller.turn_laser_off()
+            except:
+                _send_message_to_server(s, {
+                    "messageType": "LASER_OFF_FAILURE",
+                    "sessionId": session_id,
+                    "message": "",
+                    "instructionId": instruction["instructionId"]
+                })
+
             _send_message_to_server(s, {
                 "messageType": "SUCCESS",
                 "sessionId": session_id,
@@ -171,7 +189,17 @@ def main_server_communication():
             })
         elif instruction["instruction"] == "POINT":
             coords = json.loads(instruction["instructionData"])
-            laser_controller.point_to_coords(coords["azimuth"], coords["altitude"])
+
+            try:
+                laser_controller.point_to_coords(coords["azimuth"], coords["altitude"])
+            except:
+                _send_message_to_server(s, {
+                    "messageType": "POINT_TO_FAILURE",
+                    "sessionId": session_id,
+                    "message": "",
+                    "instructionId": instruction["instructionId"]
+                })
+
             _send_message_to_server(s, {
                 "messageType": "SUCCESS",
                 "sessionId": session_id,
