@@ -26,67 +26,66 @@ public class WebSocketController {
     SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/pointToObject")
-    public void pointToObject(@Payload ObjectToPointAt object, @Header("sessionId") String clientSessionId){
+    public void pointToObject(@Payload ObjectToPointAt object, @Header("sessionId") String clientSessionId, @Header("messageId") String messageId){
         Message message;
         try{
             webToPiBridgeService.instructPiToPointLaserAtObject(object, clientSessionId);
-            message = new Message(Status.SUCCESS, "");
+            message = new Message(Status.SUCCESS, "", messageId);
         }
         catch (Exception e){
-            message = new Message(Status.POINT_TO_FAILURE, e.getMessage());
+            message = new Message(Status.POINT_TO_FAILURE, e.getMessage(), messageId);
         }
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @MessageMapping("/turnOnLaser")
-    public void turnOnLaser(@Header("sessionId") String clientSessionId){
+    public void turnOnLaser(@Header("sessionId") String clientSessionId, @Header("messageId") String messageId){
         Message message;
         try{
             webToPiBridgeService.instructPiToTurnOnLaser(clientSessionId);
-            message = new Message(Status.SUCCESS, "");
+            message = new Message(Status.SUCCESS, "", messageId);
         }
         catch (Exception e){
-            message = new Message(Status.LASER_ON_FAILURE, e.getMessage());
+            message = new Message(Status.LASER_ON_FAILURE, e.getMessage(), messageId);
         }
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @MessageMapping("/turnOffLaser")
-    public void turnOffLaser(@Header("sessionId") String clientSessionId){
+    public void turnOffLaser(@Header("sessionId") String clientSessionId, @Header("messageId") String messageId){
         Message message;
         try{
             webToPiBridgeService.instructPiToTurnOffLaser(clientSessionId);
-            message = new Message(Status.SUCCESS, "");
+            message = new Message(Status.SUCCESS, "", messageId);
         }
         catch (Exception e){
-            message = new Message(Status.LASER_OFF_FAILURE, e.getMessage());
+            message = new Message(Status.LASER_OFF_FAILURE, e.getMessage(), messageId);
         }
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);
     }
 
     @MessageMapping("/saveLocation")
-    public void saveUserLocation(LocationCoordinates location, @Header("sessionId") String sessionId) {
-        System.out.println("location: " + location);
+    public void saveUserLocation(LocationCoordinates location, @Header("sessionId") String sessionId, @Header("messageId") String messageId) {
         Message message;
         try{
             webToPiBridgeService.saveUserLocation(location, sessionId);
-            message = new Message(Status.SUCCESS, "");
+            message = new Message(Status.SUCCESS, "", messageId);
         }
         catch (Exception e){
-            message = new Message(Status.LOCATION_SAVE_FAILURE, e.getMessage());
+            message = new Message(Status.LOCATION_SAVE_FAILURE, e.getMessage(), messageId);
         }
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + sessionId, message);
     }
 
     @MessageMapping("/pair")
-    public void pairPi(@Payload SessionIdWrapper piSessionId, @Header("sessionId") String clientSessionId) {
+    public void pairPi(@Payload SessionIdWrapper piSessionId, @Header("sessionId") String clientSessionId, @Header("messageId") String messageId) {
         Message message;
         try{
             webToPiBridgeService.pairClientToRaspPi(piSessionId.piSessionId(), clientSessionId);
-            message = new Message(Status.SUCCESS, "");
+            message = new Message(Status.SUCCESS, "", messageId);
         }
         catch (Exception e){
-            message = new Message(Status.PAIRING_FAILURE, e.getMessage());
+            message = new Message(Status.PAIRING_FAILURE, e.getMessage(), messageId);
         }
 
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);

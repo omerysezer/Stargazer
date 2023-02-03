@@ -1,16 +1,14 @@
 const socketHandler = function () {
     let sessionId = null;
     let client = null;
-    let standardHeader = {};
-    let awaitingResponseQueue = [];
+    let awaitingResponseQueue = {};
     let subscription = null;
     let warningHandler = getWarningHandler();
+
     initializeSession();
     client.activate();
-
-    let returnObject = {sendMessage, getSessionId, changeSubscription};
     waitForConnection();
-    return returnObject;
+    return {sendMessage, getSessionId, changeSubscription};
 
     function getSessionId() {
         if (!document.cookie.includes("sessionId")) {
@@ -25,17 +23,20 @@ const socketHandler = function () {
     }
 
     function sendMessage(message, destination, responseHandler){
+        let messageId = String(window.performance.now());
+        awaitingResponseQueue[messageId] = responseHandler;
         client.publish({
             destination: destination,
             body: message,
-            headers: standardHeader
+            headers: {
+                sessionId: sessionId,
+                messageId: messageId
+            }
         });
-        awaitingResponseQueue.push(responseHandler);
     }
 
     function changeSubscription(endpoint){
         sessionId = endpoint;
-        standardHeader.sessionId = endpoint;
         document.cookie = "sessionId=" + endpoint + ";";
         subscription.unsubscribe();
         subscription = client.subscribe("/user/queue/session-" + endpoint, incomingMessageHandler);
@@ -47,9 +48,15 @@ const socketHandler = function () {
             return;
         }
 
-        let content = JSON.parse(message.body);
+        let messageBody = JSON.parse(message.body);
+        let messageId = messageBody["messageId"];
+        if(messageId !== '' && Object.keys(awaitingResponseQueue).includes(messageId)){
+            awaitingResponseQueue[messageId](messageBody);
+            delete awaitingResponseQueue[messageId];
+            return;
+        }
 
-        switch (String(content.status)){
+        switch (String(messageBody.status)){
             case "CALIBRATION_WARNING":
                 warningHandler.raiseCalibrationWarning();
                 break;
@@ -68,18 +75,11 @@ const socketHandler = function () {
             case "LEVEL_OK":
                 warningHandler.clearLevelWarning();
                 break;
-            default:
-                if(awaitingResponseQueue.length > 0){
-                    let handler = awaitingResponseQueue.pop();
-                    handler(content);
-                }
-                break;
         }
     }
 
     function initializeSession() {
         sessionId = getSessionId();
-        standardHeader = {"sessionId": sessionId};
 
         client = new StompJs.Client({
             brokerURL: "ws://localhost:443/connect",
@@ -97,7 +97,6 @@ const socketHandler = function () {
 
         client.onConnect = function (frame) {
             subscription = client.subscribe("/user/queue/session-" + sessionId, incomingMessageHandler)
-            waitForConnection();
         }
     }
 

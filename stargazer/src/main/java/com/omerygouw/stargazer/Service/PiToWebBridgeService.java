@@ -16,7 +16,7 @@ public class PiToWebBridgeService {
     }
 
     public void informClientOfPiDisconnect(String sessionId) {
-        Message message = new Message(Status.PI_DISCONNECT, "");
+        Message message = new Message(Status.PI_DISCONNECT, "", "");
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + sessionId, message);
     }
 }

@@ -7,7 +7,7 @@ window.addEventListener("load", function(){
     )
 });
 
-function pair(numSideways, numVertical, numOnOff) {
+function pair() {
     let submitButton = document.getElementById("submitButton");
     submitButton.disabled = true;
 

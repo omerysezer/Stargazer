@@ -69,10 +69,9 @@ public class RPiConnection extends Thread{
                 continue;
             }
 
-            System.out.println("MESSAGE = " + messageFromPi);
-            // if there is a syncrhonizer object tied to the same id as messageFromPi
+            // if there is a null reference tied to the same id as messageFromPi
             // a thread is waiting for a response to a message sent to the pi with the same ID
-            // this wakes that thread and gives it the response it desires
+            // this wakes that thread and gives it the response it needs
             if(awaitingResponses.containsKey(messageFromPi.instructionId())){
                 synchronized (awaitingResponses){
                     awaitingResponses.put(messageFromPi.instructionId(), messageFromPi);
@@ -81,27 +80,25 @@ public class RPiConnection extends Thread{
                 continue;
             }
 
-            System.out.println("MESSAGE WAS ALERT");
-
             Message messageForClient = null;
             switch (messageFromPi.messageType()) {
                 case "CALIBRATION_WARNING" -> {
-                    messageForClient = new Message(Status.CALIBRATION_WARNING, "");
+                    messageForClient = new Message(Status.CALIBRATION_WARNING, "", "");
                 }
                 case "ORIENTATION_WARNING" -> {
-                    messageForClient = new Message(Status.ORIENTATION_WARNING, "");
+                    messageForClient = new Message(Status.ORIENTATION_WARNING, "", "");
                 }
                 case "LEVEL_WARNING" -> {
-                    messageForClient = new Message(Status.LEVEL_WARNING, "");
+                    messageForClient = new Message(Status.LEVEL_WARNING, "", "");
                 }
                 case "CALIBRATION_OK" -> {
-                    messageForClient = new Message(Status.CALIBRATION_OK, "");
+                    messageForClient = new Message(Status.CALIBRATION_OK, "", "");
                 }
                 case "LEVEL_OK" -> {
-                    messageForClient = new Message(Status.LEVEL_OK, "");
+                    messageForClient = new Message(Status.LEVEL_OK, "", "");
                 }
                 case "ORIENTATION_OK" -> {
-                    messageForClient = new Message(Status.ORIENTATION_OK, "");
+                    messageForClient = new Message(Status.ORIENTATION_OK, "", "");
                 }
             }
 
@@ -178,7 +175,6 @@ public class RPiConnection extends Thread{
         }
 
         FromPiToServerMessage response = awaitingResponses.get(message.instructionId());
-        System.out.println("RESPONSE = " + response);
         awaitingResponses.remove(message.instructionId());
         return response;
     }
