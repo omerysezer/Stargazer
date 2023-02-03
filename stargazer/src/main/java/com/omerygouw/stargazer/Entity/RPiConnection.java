@@ -5,12 +5,14 @@ import com.google.gson.JsonSyntaxException;
 import com.omerygouw.stargazer.Controller.RPiCommunication;
 import com.omerygouw.stargazer.DTO.*;
 import com.omerygouw.stargazer.Service.PiToWebBridgeService;
-import com.omerygouw.stargazer.Service.WebToPiBridgeService;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RPiConnection extends Thread{
     private final BufferedReader reader;
@@ -18,6 +20,7 @@ public class RPiConnection extends Thread{
     private final PiToWebBridgeService piToWebBridgeService;
     private final RPiCommunication rPiCommunication;
     private String sessionId;
+    private final Map<String, FromPiToServerMessage> awaitingResponses;
 
     @Builder
     public RPiConnection(PiToWebBridgeService piToWebBridgeService, RPiCommunication rPiCommunication, BufferedReader reader, BufferedWriter writer, String sessionId) {
@@ -26,6 +29,7 @@ public class RPiConnection extends Thread{
         this.reader = reader;
         this.writer = writer;
         this.sessionId = sessionId;
+        this.awaitingResponses = new HashMap<>();
         this.start();
     }
 
@@ -52,6 +56,7 @@ public class RPiConnection extends Thread{
                 FromServerToPiMessage errorResponse = FromServerToPiMessage.builder()
                         .instruction("FIX_INVALID_MESSAGE")
                         .instructionData(receivedMessage)
+                        .instructionId(String.valueOf(System.nanoTime()))
                         .build();
                 try {
                     write(new Gson().toJson(errorResponse));
@@ -64,38 +69,44 @@ public class RPiConnection extends Thread{
                 continue;
             }
 
-            String sessionId = messageFromPi.sessionId();
-            Message messageForClient = null;
+            System.out.println("MESSAGE = " + messageFromPi);
+            // if there is a syncrhonizer object tied to the same id as messageFromPi
+            // a thread is waiting for a response to a message sent to the pi with the same ID
+            // this wakes that thread and gives it the response it desires
+            if(awaitingResponses.containsKey(messageFromPi.instructionId())){
+                synchronized (awaitingResponses){
+                    awaitingResponses.put(messageFromPi.instructionId(), messageFromPi);
+                    awaitingResponses.notifyAll();
+                }
+                continue;
+            }
 
+            System.out.println("MESSAGE WAS ALERT");
+
+            Message messageForClient = null;
             switch (messageFromPi.messageType()) {
                 case "CALIBRATION_WARNING" -> {
                     messageForClient = new Message(Status.CALIBRATION_WARNING, "");
-                    break;
                 }
                 case "ORIENTATION_WARNING" -> {
                     messageForClient = new Message(Status.ORIENTATION_WARNING, "");
-                    break;
                 }
                 case "LEVEL_WARNING" -> {
                     messageForClient = new Message(Status.LEVEL_WARNING, "");
-                    break;
                 }
                 case "CALIBRATION_OK" -> {
                     messageForClient = new Message(Status.CALIBRATION_OK, "");
-                    break;
                 }
                 case "LEVEL_OK" -> {
                     messageForClient = new Message(Status.LEVEL_OK, "");
-                    break;
                 }
                 case "ORIENTATION_OK" -> {
                     messageForClient = new Message(Status.ORIENTATION_OK, "");
-                    break;
                 }
             }
 
             if(messageForClient != null){
-                piToWebBridgeService.sendMessageToClient(messageForClient, sessionId);
+                piToWebBridgeService.sendMessageToClient(messageForClient, messageFromPi.sessionId());
             }
         }
     }
@@ -111,6 +122,7 @@ public class RPiConnection extends Thread{
         FromServerToPiMessage message = FromServerToPiMessage.builder()
                 .instruction("POINT")
                 .instructionData(jsonCoordinatesString)
+                .instructionId(String.valueOf(System.nanoTime()))
                 .build();
 
        return sendMessageToPiAndGetResponse(message);
@@ -120,6 +132,7 @@ public class RPiConnection extends Thread{
         FromServerToPiMessage message = FromServerToPiMessage.builder()
                 .instruction("LASER_ON")
                 .instructionData("")
+                .instructionId(String.valueOf(System.nanoTime()))
                 .build();
 
         return sendMessageToPiAndGetResponse(message);
@@ -129,6 +142,7 @@ public class RPiConnection extends Thread{
         FromServerToPiMessage message = FromServerToPiMessage.builder()
         .instruction("LASER_OFF")
         .instructionData("")
+        .instructionId(String.valueOf(System.nanoTime()))
         .build();
 
         return sendMessageToPiAndGetResponse(message);
@@ -139,6 +153,7 @@ public class RPiConnection extends Thread{
         FromServerToPiMessage message = FromServerToPiMessage.builder()
             .instruction("CHANGE_SESSION")
             .instructionData(newSessionId)
+            .instructionId(String.valueOf(System.nanoTime()))
             .build();
 
         this.sessionId = newSessionId;
@@ -148,14 +163,24 @@ public class RPiConnection extends Thread{
 
     private FromPiToServerMessage sendMessageToPiAndGetResponse(FromServerToPiMessage message) throws IOException {
         write(new Gson().toJson(message));
-        String response = reader.readLine();
+        awaitingResponses.put(message.instructionId(), null);
 
-        if(response == null){
-            rPiCommunication.handleLostConnection(sessionId);
-            throw new RuntimeException("Raspberry Pi with id \"" + sessionId + "\" is not connected.");
+        // this waits for the synchronizer object to have a response inserted into in the run() function
+        // other methods of receiving responses lead to race conditions and other issues
+        synchronized (awaitingResponses){
+            try{
+                while(awaitingResponses.get(message.instructionId()) == null){
+                    awaitingResponses.wait();
+                }
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
         }
 
-        return new Gson().fromJson(response, FromPiToServerMessage.class);
+        FromPiToServerMessage response = awaitingResponses.get(message.instructionId());
+        System.out.println("RESPONSE = " + response);
+        awaitingResponses.remove(message.instructionId());
+        return response;
     }
 
     private void write(String message) throws IOException {

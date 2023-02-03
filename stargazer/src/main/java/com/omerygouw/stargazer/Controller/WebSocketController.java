@@ -13,6 +13,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.concurrent.Semaphore;
+
 @Controller
 public class WebSocketController {
 
@@ -84,7 +86,7 @@ public class WebSocketController {
             message = new Message(Status.SUCCESS, "");
         }
         catch (Exception e){
-            message = new Message(Status.POINT_TO_FAILURE, e.getMessage());
+            message = new Message(Status.PAIRING_FAILURE, e.getMessage());
         }
 
         simpMessagingTemplate.convertAndSend("/user/queue/session-" + clientSessionId, message);

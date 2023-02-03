@@ -52,6 +52,7 @@ public class RPiCommunication extends Thread {
             FromServerToPiMessage getIdInstruction = FromServerToPiMessage.builder()
                     .instruction("GIVE_ID")
                     .instructionData("")
+                    .instructionId(String.valueOf(System.nanoTime()))
                     .build();
 
             try {
@@ -63,6 +64,7 @@ public class RPiCommunication extends Thread {
             FromServerToPiMessage invalidMessageResponse = FromServerToPiMessage.builder()
                     .instruction("FIX_INVALID_MESSAGE")
                     .instructionData("")
+                    .instructionId(String.valueOf(System.nanoTime()))
                     .build();
 
             String piSessionId = null;
@@ -107,6 +109,7 @@ public class RPiCommunication extends Thread {
                 FromServerToPiMessage success = FromServerToPiMessage.builder()
                         .instruction("PROCEED")
                         .instructionData("")
+                        .instructionId(String.valueOf(System.nanoTime()))
                         .build();
 
                 write(writer, new Gson().toJson(success));
