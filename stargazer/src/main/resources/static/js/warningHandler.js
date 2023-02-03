@@ -3,6 +3,17 @@ function getWarningHandler() {
     let levelWarningActive = false;
     let orientationWarningActive = false;
 
+    if(document.location.pathname.includes("pairing.html") || document.location.pathname.includes("location.html")){
+        return {
+            raiseCalibrationWarning: () => {},
+            raiseLevelWarning: () => {},
+            raiseOrientationWarning: () => {},
+            clearCalibrationWarning: () => {},
+            clearLevelWarning: () => {},
+            clearOrientationWarning: () => {}
+        }
+    }
+
     return {
         raiseCalibrationWarning: () => raiseWarning("CALIBRATION"),
         raiseLevelWarning: () => raiseWarning("LEVEL"),

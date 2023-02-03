@@ -29,10 +29,6 @@ document.addEventListener("click", function (event){
         document.querySelector(".popup").style.display = "none";
         return;
     }
-    if(id === "closeWarning"){
-        document.getElementById("warningPopup").style.display = "none";
-        return;
-    }
     if(id.startsWith("pointButton")){
         let isInsideSolarSystem = insideSolarSystemChecker.checkIfInsideSolarSystem();
         let objectName = document.getElementById(id).innerText;
