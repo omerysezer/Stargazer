@@ -1,32 +1,487 @@
 {
   "planet.html": {
+    "fallbackBackgroundFillType": "contain",
     "imageFolder": "../images/planets",
     "objects": [
-      "mercury",
-      "venus",
-      "moon",
-      "mars",
-      "jupiter",
-      "saturn",
-      "uranus",
-      "neptune",
-      "pluto"
+      {
+        "name": "mercury",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/480px-Mercury_in_true_color.jpg",
+        "id": "199"
+      },
+      {
+        "name": "venus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Venus_from_Mariner_10.jpg/480px-Venus_from_Mariner_10.jpg",
+        "id": "299"
+      },
+      {
+        "name": "moon",
+        "imageUrl": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000868/GSFC_20171208_Archive_e000868~small.jpg",
+        "id": "301"
+      },
+      {
+        "name": "mars",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA01591/PIA01591~orig.jpg",
+        "id": "499"
+      },
+      {
+        "name": "jupiter",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg/501px-Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg",
+        "id": "599"
+      },
+      {
+        "name": "saturn",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Saturn_during_Equinox_%28rot45%29.jpg/768px-Saturn_during_Equinox_%28rot45%29.jpg",
+        "id": "699"
+      },
+      {
+        "name": "uranus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Uranus_as_seen_by_NASA%27s_Voyager_2_%28remastered%29_-_JPEG_converted.jpg/480px-Uranus_as_seen_by_NASA%27s_Voyager_2_%28remastered%29_-_JPEG_converted.jpg",
+        "id": "799"
+      },
+      {
+        "name": "neptune",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Neptune_Full.jpg/480px-Neptune_Full.jpg",
+        "id": "899"
+      },
+      {
+        "name": "pluto",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pluto_in_True_Color_-_High-Res.jpg/480px-Pluto_in_True_Color_-_High-Res.jpg",
+        "id": "999"
+      }
     ]
   },
   "star.html": {
-    "imageFolder": "../images/stars"
+    "fallbackBackgroundFillType": "cover",
+    "imageFolder": "../images/stars",
+    "defaultImage": "star.jpg",
+    "objects": [
+      {
+        "name": "sirius",
+        "id": "alf CMa"
+      },
+      {
+        "name": "canopus",
+        "id": "alf Car"
+      },
+      {
+        "name": "alpha_centauri",
+        "id": "alf Cen"
+      },
+      {
+        "name": "arcturus",
+        "id": "alf Boo"
+      },
+      {
+        "name": "vega",
+        "id": "alf Lyr"
+      },
+      {
+        "name": "capella",
+        "id": "alf Aur"
+      },
+      {
+        "name": "rigel",
+        "id": "bet Ori"
+      },
+      {
+        "name": "procyon",
+        "id": "alf CMi"
+      },
+      {
+        "name": "achernar",
+        "id": "alf Eri"
+      },
+      {
+        "name": "betelgeuse",
+        "id": "alf Ori"
+      },
+      {
+        "name": "beta_centauri",
+        "id": "bet Cen"
+      },
+      {
+        "name": "altair",
+        "id": "alf Aql"
+      },
+      {
+        "name": "acrux",
+        "id": "alf Cru"
+      },
+      {
+        "name": "aldebaran",
+        "id": "alf Tau"
+      },
+      {
+        "name": "antares",
+        "id": "alf Sco"
+      },
+      {
+        "name": "spica",
+        "id": "alf Vir"
+      },
+      {
+        "name": "pollux",
+        "id": "78 Gem"
+      },
+      {
+        "name": "fomalhaut",
+        "id": "alf PsA"
+      },
+      {
+        "name": "deneb",
+        "id": "alf Cyg"
+      },
+      {
+        "name": "mimosa",
+        "id": "bet Cru"
+      },
+      {
+        "name": "regulus",
+        "id": "alf Leo"
+      },
+      {
+        "name": "adhara",
+        "id": "eps CMa"
+      },
+      {
+        "name": "shaula",
+        "id": "lam Sco"
+      },
+      {
+        "name": "castor",
+        "id": "alf Gem"
+      },
+      {
+        "name": "gacrux",
+        "id": "gam Cru"
+      },
+      {
+        "name": "bellatrix",
+        "id": "gam Ori"
+      },
+      {
+        "name": "elnath",
+        "id": "bet Tau"
+      },
+      {
+        "name": "miaplacidus",
+        "id": "bet Car"
+      },
+      {
+        "name": "alnilam",
+        "id": "eps Ori"
+      },
+      {
+        "name": "gamma_velorum",
+        "id": "gam Vel"
+      },
+      {
+        "name": "alnair",
+        "id": "alf Gru"
+      },
+      {
+        "name": "alnitak",
+        "id": "zet Ori"
+      },
+      {
+        "name": "alioth",
+        "id": "eps UMa"
+      },
+      {
+        "name": "dubhe",
+        "id": "alf UMa"
+      },
+      {
+        "name": "mirfak",
+        "id": "alf Per"
+      },
+      {
+        "name": "wezen",
+        "id": "del CMa"
+      },
+      {
+        "name": "sargas",
+        "id": ""
+      },
+      {
+        "name": "kaus_australis",
+        "id": "tet Sco"
+      },
+      {
+        "name": "avior",
+        "id": "eps Car"
+      },
+      {
+        "name": "alkaid",
+        "id": "eta UMa"
+      },
+      {
+        "name": "menkalinan",
+        "id": "bet Aur"
+      },
+      {
+        "name": "atria",
+        "id": "alf TrA"
+      },
+      {
+        "name": "alhena",
+        "id": "gam Gem"
+      },
+      {
+        "name": "peacock",
+        "id": "alf Pav"
+      },
+      {
+        "name": "alsephina",
+        "id": "del01 Vel"
+      },
+      {
+        "name": "mirzam",
+        "id": ""
+      },
+      {
+        "name": "alphard",
+        "id": "bet CMa"
+      },
+      {
+        "name": "polaris",
+        "id": "alf UMi"
+      }
+    ]
   },
   "galaxy.html": {
-    "imageFolder": "../images/galaxies"
+    "fallbackBackgroundFillType": "cover",
+    "imageFolder": "../images/galaxies",
+    "objects": [
+      {
+        "name": "andromeda_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/7993119/7993119~small.jpg",
+        "id": "M31"
+      },
+      {
+        "name": "large_magellanic_cloud",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Magellanic_Cloud.jpg/768px-Magellanic_Cloud.jpg",
+        "id": "LMC"
+      },
+      {
+        "name": "small_magellanic_cloud",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/614863main_pia15255-portal-full_full.jpg/640px-614863main_pia15255-portal-full_full.jpg",
+        "id": "SMC"
+      },
+      {
+        "name": "triangulum_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA11999/PIA11999~medium.jpg",
+        "id": "M33"
+      },
+      {
+        "name": "antennae_galaxies",
+        "imageUrl": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e002059/GSFC_20171208_Archive_e002059~small.jpg",
+        "id": "NGC 4038/9"
+      },
+      {
+        "name": "backward_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA04224/PIA04224~orig.jpg",
+        "id": "NGC 4622"
+      },
+      {
+        "name": "black_eye_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Blackeyegalaxy.jpg/404px-Blackeyegalaxy.jpg",
+        "id": "M64"
+      },
+      {
+        "name": "stephan's_quintet",
+        "imageUrl": "https://stsci-opo.org/STScI-01G8H4DRM2C010PX6T3DPEEDAW.png",
+        "id": "HCG 92"
+      },
+      {
+        "name": "cartwheel_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Cartwheel_Galaxy_JWST_NIRCam%2BMIRI_Full_Res.png/1920px-Cartwheel_Galaxy_JWST_NIRCam%2BMIRI_Full_Res.png",
+        "id": "ESO 350-40"
+      },
+      {
+        "name": "coma_pinwheel_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Messier_99_NGC_4254.jpg/559px-Messier_99_NGC_4254.jpg",
+        "id": "M99"
+      },
+      {
+        "name": "eye_of_sauron_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Messier51_sRGB.jpg/1920px-Messier51_sRGB.jpg",
+        "id": "NGC 4151"
+      },
+      {
+        "name": "pinwheel_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA15630/PIA15630~small.jpg",
+        "id": "M101"
+      },
+      {
+        "name": "hockey_stick_galaxies",
+        "imageUrl": "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000012/GSFC_20171208_Archive_e000012~small.jpg",
+        "id": "NGC 4656"
+      },
+      {
+        "name": "sunflower_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA13900/PIA13900~small.jpg",
+        "id": "M63"
+      },
+      {
+        "name": "whirlpool_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Messier51_sRGB.jpg/1920px-Messier51_sRGB.jpg",
+        "id": "NGC 5194"
+      },
+      {
+        "name": "sombrero_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/M104_ngc4594_sombrero_galaxy_hi-res.jpg/2560px-M104_ngc4594_sombrero_galaxy_hi-res.jpg",
+        "id": "M104"
+      },
+      {
+        "name": "fireworks_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/NGC_6946.jpg/1280px-NGC_6946.jpg",
+        "id": "NGC 6946"
+      },
+      {
+        "name": "hoag's_object",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hoag%27s_object.jpg/785px-Hoag%27s_object.jpg",
+        "id": "PRC D-51"
+      },
+      {
+        "name": "bode's_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Messier_81_HST.jpg/640px-Messier_81_HST.jpg",
+        "id": "M81"
+      },
+      {
+        "name": "NGC1300",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg/640px-Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg",
+        "id": "NGC1300"
+      },
+      {
+        "name": "centaurus_a",
+        "imageUrl": "https://stsci-opo.org/STScI-01F0SV55ZF29KH11ZWNRD89FNA.png",
+        "id": "NGC 5128"
+      }
+    ]
   },
   "asteroid.html":{
+    "fallbackBackgroundFillType": "contain",
     "imageFolder": "../images/asteroids",
     "objects": [
-      "ceres",
-      "vesta"
+      {
+        "name": "1_CERES",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/489px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg",
+        "id": "1%3B"
+      },
+      {
+        "name": "4_VESTA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/14/Vesta_full_mosaic.jpg",
+        "id": "4%3B"
+      },
+      {
+        "name": "21_LUTETIA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Rosetta_triumphs_at_asteroid_Lutetia.jpg/486px-Rosetta_triumphs_at_asteroid_Lutetia.jpg",
+        "id": "21%3B"
+      },
+      {
+        "name": "253_MATHILDE",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA02477/PIA02477~orig.jpg",
+        "id": "253%3B"
+      },
+      {
+        "name": "243_IDA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/243_ida_crop.jpg",
+        "id": "243%3B"
+      },
+      {
+        "name": "486958_ARROKOTH",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/UltimaThule_CA06_color_vertical_%28rotated%29.png/537px-UltimaThule_CA06_color_vertical_%28rotated%29.png",
+        "id": "486958%3B"
+      },
+      {
+        "name": "433_EROS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eros_-_PIA02923_%28color%29.jpg/435px-Eros_-_PIA02923_%28color%29.jpg",
+        "id": "433%3B"
+      },
+      {
+        "name": "951_GASPRA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/951_Gaspra.jpg/546px-951_Gaspra.jpg",
+        "id": "951%3B"
+      },
+      {
+        "name": "2867_STEINS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/2867_%C5%A0teins_by_Rosetta_%28reprocessed%29.png",
+        "id": "2867%3B"
+      },
+      {
+        "name": "5535_ANNEFRANK",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Stardust_-_Annefrank.jpg",
+        "id": "5535%3B"
+      },
+      {
+        "name": "4179_TOUTATIS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Asteroid_4179_Toutatis_close-up.jpg/480px-Asteroid_4179_Toutatis_close-up.jpg",
+        "id": "4179%3B"
+      },
+      {
+        "name": "9969_BRAILLE",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/PIA01345_%28cropped%29.jpg",
+        "id": "9969%3B"
+      },
+      {
+        "name": "162173_RYUGU",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Ryugu_colored.jpg",
+        "id": "162173%3B"
+      },
+      {
+        "name": "101955_BENNU",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BennuAsteroid.jpg/508px-BennuAsteroid.jpg",
+        "id": "2101955%3B"
+      },
+      {
+        "name": "25143_ITOKAWA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Itokawa06_hayabusa.jpg",
+        "id": "25143%3B"
+      },
+      {
+        "name": "DIDYMOS/DIMORPHOS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/05/Didymos-Dimorphos_true_orientation.png",
+        "id": "65803%3B"
+      }
     ]
   },
   "comet.html": {
-    "imageFolder": "../images/comets"
+    "fallbackBackgroundFillType": "cover",
+    "imageFolder": "../images/comets",
+    "objects": [
+      {
+        "name": "halley's_comet",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Comet_Halley_close_up-cropped.jpg/480px-Comet_Halley_close_up-cropped.jpg",
+        "id": "DES=1000036%3BNOFRAG%3BSOLN=73%3B"
+      },
+      {
+        "name": "wild_2",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Wild2_3.jpg/480px-Wild2_3.jpg",
+        "id": "DES=1000107%3BNOFRAG%3BSOLN=K224/1%3B"
+      },
+      {
+        "name": "borelly",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Comet_Borrelly_Nucleus.jpg",
+        "id": "DES=1000005%3BNOFRAG%3BSOLN=K222/7%3B"
+      },
+      {
+        "name": "tempel_1",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/PIA02142_Tempel_1_bottom_sharped.jpg/768px-PIA02142_Tempel_1_bottom_sharped.jpg",
+        "id": "DES=1000093%3BNOFRAG%3BSOLN=K223/33%3B",
+        "backgroundFillType": "contain"
+      },
+      {
+        "name": "hartley_2",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Comet_Hartley_2.jpg/640px-Comet_Hartley_2.jpg",
+        "id": "DES=1000041%3BNOFRAG%3BSOLN=K173/7%3B"
+      },
+      {
+        "name": "67P/C–G",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Comet_67P_True_color.jpg/480px-Comet_67P_True_color.jpg",
+        "id": "DES=1000012%3BNOFRAG%3BSOLN=K212/38%3B",
+        "backgroundFillType": "contain"
+      }
+    ]
   }
 }
