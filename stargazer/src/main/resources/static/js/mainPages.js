@@ -12,15 +12,12 @@ function loadPopUp(input) {
 }
 
 function search() {
-    let input = document.getElementById('search').value
-    input=input.toLowerCase();
-    if(input === 'mars'){
-        document.getElementById('error').style.display = "block";
-    }
-    else{
-        document.getElementById("error").style.display = "none";
-        loadPopUp(input);
-    }
+    let input = document.getElementById('search').value.toUpperCase();
+
+    loadPopUp(input);
+    // no id for the object is specified besides the name
+    // send the name as id in hopes the api can recognize that name
+    pointToObject(input, input, false);
 }
 
 document.addEventListener("click", function (event){
