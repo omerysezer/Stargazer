@@ -221,3 +221,10 @@ nav{
 .pText{
     color : black;
 }
+
+.credit > a {
+    display: inline;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    padding: 0;
+}
