@@ -7,7 +7,7 @@ services:
       context: ./docker-files/stargazer
       dockerfile: dockerfile_nginx
     ports:
-      - "80:80"
+      - "443:443"
     links:
       - "stargazer-server:stargazer-container"
     volumes:
