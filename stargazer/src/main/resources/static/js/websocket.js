@@ -82,7 +82,7 @@ const socketHandler = function () {
         sessionId = getSessionId();
 
         client = new StompJs.Client({
-            brokerURL: "wss://stargazer.ninja:443/connect",
+            brokerURL: "wss://stargazer.ninja/connect",
             debug: (str) => console.log(str)
         });
 
