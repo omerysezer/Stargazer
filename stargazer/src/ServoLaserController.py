@@ -15,12 +15,12 @@ class ServoLaserController:
         _start_required_programs()
         factory = PiGPIOFactory()
 
-        self.pan_servo = AngularServo(pin_factory=factory, min_angle=0, max_angle=180, initial_angle=90,
-                                      min_pulse_width=2.5 / 1000,
-                                      max_pulse_width=.5 / 1000)
-        self.tilt_servo = AngularServo(pin_factory=factory, min_angle=0, max_angle=180, initial_angle=90,
-                                       min_pulse_width=2.5 / 1000,
-                                       max_pulse_width=.5 / 1000)
+        self.pan_servo = AngularServo(pin=16, pin_factory=factory, min_angle=0, max_angle=180, initial_angle=90,
+                                      min_pulse_width=.5 / 1000,
+                                      max_pulse_width=2.5 / 1000)
+        self.tilt_servo = AngularServo(pin=12, pin_factory=factory, min_angle=0, max_angle=180, initial_angle=90,
+                                       min_pulse_width=.5 / 1000,
+                                       max_pulse_width=2.5 / 1000)
         self.laser = LED(pin=18, active_high=True, initial_value=False)
 
         self.pan_servo.min()
