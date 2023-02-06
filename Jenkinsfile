@@ -12,7 +12,7 @@ pipeline {
 			    sh("sudo rm -rf /stargazer/*")
 				sh("sudo mv ./stargazer /stargazer")
 				sh("sudo mv ./venv /stargazer")
-
+                sh("sudo systemctl restart stargazer")
 			}
 		}
 	}
