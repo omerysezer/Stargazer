@@ -9,6 +9,7 @@ import threading
 def _start_required_programs():
     subprocess.check_output(['pigpiod'])
 
+
 class ServoLaserController:
     def __init__(self):
         _start_required_programs()
@@ -21,6 +22,9 @@ class ServoLaserController:
                                        min_pulse_width=2.5 / 1000,
                                        max_pulse_width=.5 / 1000)
         self.laser = LED(pin=18, active_high=True, initial_value=False)
+
+        self.pan_servo.min()
+        self.tilt_servo.min()
 
     def turn_laser_on(self, time):
         def laser_on():
@@ -37,11 +41,17 @@ class ServoLaserController:
     def blink_laser(self, num_blinks):
         self.laser.blink(1, 1, num_blinks)
 
-    def sideways(self, num_blinks):
-        return
+    def sideways(self, num_turns):
+        dirs = [self.pan_servo.max, self.pan_servo.min]
+        for i in range(num_turns + 1):
+            dirs[i % 2]()
+            sleep(1)
 
-    def up_down(self, num_blinks):
-        return
+    def up_down(self, num_turns):
+        dirs = [self.tilt_servo.max, self.tilt_servo.min]
+        for i in range(num_turns + 1):
+            dirs[i % 2]()
+            sleep(1)
 
     def point_to_coords(self, azimuth, altitude):
         pan_angle = None
@@ -55,4 +65,3 @@ class ServoLaserController:
 
         self.pan_servo.angle = pan_angle
         self.tilt_servo.angle = tilt_angle
-
