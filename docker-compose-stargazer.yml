@@ -5,9 +5,14 @@ services:
     container_name: nginx_container
     build:
       context: ./docker-files
-      dockerfile: dockerfile_nginx
+      dockerfile: docker-files/stargazer/dockerfile_nginx
     ports:
       - "80:80"
+    links:
+      - "stargazer-server:stargazer-container"
+    volumes:
+      - /certbot/conf:/etc/letsencrypt
+      - /certbot/www:/var/www/certbot
     restart: always
   stargazer-server:
     container_name: stargazer_container
@@ -15,9 +20,9 @@ services:
       - "redis-server:redis"
     build:
       context: .
-      dockerfile: docker-files/dockerfile_server
+      dockerfile: docker-files/stargazer/dockerfile_server
     ports:
-      - "443:443"
+      - "8000:443"
       - "5000:5000"
     restart: always
   redis-server:

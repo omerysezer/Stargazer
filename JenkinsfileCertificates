@@ -1,0 +1,16 @@
+pipeline {
+	agent any
+
+	stages{
+		stage("Run Dockerfile"){
+			steps{
+			    sh("docker compose -f docker-compose-certificates.yml up --force-recreate --build -d")
+			}
+		}
+	}
+	post{
+	    always{
+	        cleanWs()
+	    }
+	}
+}
