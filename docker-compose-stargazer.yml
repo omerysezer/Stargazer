@@ -4,8 +4,8 @@ services:
   nginx-webserver:
     container_name: nginx_container
     build:
-      context: ./docker-files
-      dockerfile: docker-files/stargazer/dockerfile_nginx
+      context: ./docker-files/stargazer
+      dockerfile: dockerfile_nginx
     ports:
       - "80:80"
     links:
