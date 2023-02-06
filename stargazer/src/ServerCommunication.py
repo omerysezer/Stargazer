@@ -1,13 +1,11 @@
 import random
-from threading import Thread
 from time import sleep
-from random import randint
 import socket
 import json
 
-from stargazer.src.CalibOrientWarning import CalibOrientWarning
+from CalibOrientWarning import CalibOrientWarning
 
-from stargazer.src.ServoLaserController import ServoLaserController
+from ServoLaserController import ServoLaserController
 
 
 def generate_three_digit_session_id():

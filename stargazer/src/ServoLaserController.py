@@ -1,4 +1,3 @@
-import gpiozero
 from gpiozero import AngularServo, LED
 from time import sleep
 from gpiozero.pins.pigpio import PiGPIOFactory
