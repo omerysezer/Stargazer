@@ -1,11 +1,17 @@
+import subprocess
+
 from gpiozero import AngularServo, LED
 from time import sleep
 from gpiozero.pins.pigpio import PiGPIOFactory
 import threading
 
 
+def _start_required_programs():
+    subprocess.check_output(['pigpiod'])
+
 class ServoLaserController:
     def __init__(self):
+        _start_required_programs()
         factory = PiGPIOFactory()
 
         self.pan_servo = AngularServo(pin_factory=factory, min_angle=0, max_angle=180, initial_angle=90,
@@ -49,3 +55,4 @@ class ServoLaserController:
 
         self.pan_servo.angle = pan_angle
         self.tilt_servo.angle = tilt_angle
+

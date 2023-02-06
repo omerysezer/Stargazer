@@ -45,6 +45,7 @@ def get_internet_connection_status():
 
 
 def maintain_network_connection(ssid, password):
+    _ensure_required_programs_are_running()
     while True:
         if not get_internet_connection_status():
             _connect_to_wifi(ssid, password)
