@@ -45,7 +45,7 @@ def main_server_communication():
 
     while not connected:
         try:
-            s.connect(("localhost", 5000))
+            s.connect(("stargazer.ninja", 5000))
         except socket.error:
             continue
 
