@@ -1,8 +1,8 @@
-version: '1'
+version: '3'
 
 services:
   nginx-webserver:
-    container_name: nginx_certificates_container
+    container_name: nginx-certificates-container
     build:
       context: ./docker-files/certificates/
       dockerfile: dockerfile_nginx

@@ -1,8 +1,8 @@
-version: '1'
+version: '3'
 
 services:
   nginx-webserver:
-    container_name: nginx_container
+    container_name: nginx-container
     build:
       context: ./docker-files/stargazer
       dockerfile: dockerfile_nginx
@@ -15,9 +15,10 @@ services:
       - /certbot/www:/var/www/certbot
     restart: always
   stargazer-server:
-    container_name: stargazer_container
+    container_name: stargazer-container
     links:
       - "redis-server:redis"
+      - "nginx-container:nginx"
     build:
       context: .
       dockerfile: docker-files/stargazer/dockerfile_server
@@ -26,7 +27,7 @@ services:
       - "5000:5000"
     restart: always
   redis-server:
-    container_name: redis_container
+    container_name: redis-container
     image: redis:latest
     ports:
       - "6379:6379"
