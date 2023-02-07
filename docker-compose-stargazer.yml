@@ -16,9 +16,6 @@ services:
     restart: always
   stargazer-server:
     container_name: stargazer-container
-    links:
-      - "redis-server:redis"
-      - "nginx-container:nginx"
     build:
       context: .
       dockerfile: docker-files/stargazer/dockerfile_server
