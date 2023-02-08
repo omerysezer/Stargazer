@@ -32,6 +32,7 @@ function getWarningHandler() {
         // check if the warning popup is already being displayed
         if (warningPopup.style.display !== 'block') {
             warningPopup.style.display = 'block';
+            $(".fullscreen-container").fadeTo(200, 1);
         }
 
         let message = '';
@@ -82,6 +83,7 @@ function getWarningHandler() {
         if(!calibrationWarningActive && !orientationWarningActive && !levelWarningActive){
             let popup = document.getElementById("warningPopup");
             popup.style.display = 'none';
+            $(".fullscreen-container").fadeOut(200);
         }
     }
 }

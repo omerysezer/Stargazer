@@ -46,8 +46,6 @@ public class WebToPiBridgeService {
     }
 
     public void instructPiToPointLaserAtObject(ObjectToPointAt objectToPointTo, String sessionId){
-       // TODO: Check plane service to make sure that there are no planes in the area currently
-
         AstronomicalObject astronomicalObject;
         Session session = sessionManagerService.getSessionById(sessionId);
         LocationCoordinates userLocation = session.getCoordinates();
@@ -61,16 +59,16 @@ public class WebToPiBridgeService {
             throw new RuntimeException("Failed: user location is unknown.");
         }
 
-        boolean planeInVicinity = planeService.checkPlaneInVicinity(sessionId);
-        if(planeInVicinity) {
-            throw new RuntimeException(("Failed: Plane(s) in Vicinity"));
-        }
-
         try{
             astronomicalObject = coordinateService.findObjectCoordinates(objectToPointTo, userLocation);
         }
         catch (Exception e){
             throw new RuntimeException("Failed: " + e.getMessage());
+        }
+
+        boolean planeInVicinity = planeService.checkPlaneInVicinity(sessionId);
+        if(planeInVicinity) {
+            throw new RuntimeException(("Failed: Plane(s) in Vicinity"));
         }
 
         FromPiToServerMessage result;
@@ -87,8 +85,6 @@ public class WebToPiBridgeService {
     }
 
     public void instructPiToTurnOnLaser(String sessionId){
-        // TODO: Check plane service to make sure that there are no planes in the area currently
-
         Session session = sessionManagerService.getSessionById(sessionId);
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
 
