@@ -13,7 +13,12 @@ import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -67,20 +72,25 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> findCoordinatesOfSolarObjectByName(String id) throws RuntimeException{
+        private Map<String, Double> findCoordinatesOfSolarObjectByName(String id) throws RuntimeException, URISyntaxException {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss.SS");
                 LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
-                LocalDateTime nowPlusFiveMinutes = LocalDateTime.now().plusMinutes(5);
+                LocalDateTime nowPlusFiveMinutes = now.plusMinutes(5);
 
                 String currentTime = dtf.format(now);
                 String currentTimePlusFiveMinutes = dtf.format(nowPlusFiveMinutes);
 
-                String requestUri = "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&ANG_FORMAT='DEG'&COMMAND='" + id + "'&QUANTITIES='1'&START_TIME='" + currentTime + "'&STOP_TIME='" + currentTimePlusFiveMinutes + "'";
+                String requestUri = "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&ANG_FORMAT='DEG'&COMMAND=" + id + "&QUANTITIES='1'&START_TIME='" + currentTime + "'&STOP_TIME='" + currentTimePlusFiveMinutes + "'";
+                requestUri = requestUri.replaceAll(" ", "%20")
+                        .replaceAll(";", "%3B")
+                        .replaceAll("'", "%27");
 
+                URI uri = new URI(requestUri);
                 WebClient client = WebClient.create();
                 ResponseSpec responseSpec = client.get()
-                        .uri(requestUri)
+                        .uri(uri)
                         .retrieve();
+
                 String response = responseSpec.bodyToMono(String.class).block();
 
                 if(response == null){

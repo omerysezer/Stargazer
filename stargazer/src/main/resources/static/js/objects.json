@@ -398,98 +398,98 @@
         "name": "1_CERES",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/489px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg\">Justin Cowart</a>, Public domain, via Wikimedia Commons",
-        "id": "1%3B"
+        "id": "1;"
       },
       {
         "name": "4_VESTA",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Vesta_in_natural_color.jpg/480px-Vesta_in_natural_color.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Vesta_in_natural_color.jpg\">NASA / JPL / MPS / DLR / IDA / Björn Jónsson</a>, Public domain, via Wikimedia Commons",
-        "id": "4%3B"
+        "id": "4;"
       },
       {
         "name": "21_LUTETIA",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Rosetta_triumphs_at_asteroid_Lutetia.jpg/486px-Rosetta_triumphs_at_asteroid_Lutetia.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Rosetta_triumphs_at_asteroid_Lutetia.jpg\">ESA 2010 MPS for OSIRIS Team MPS/UPD/LAM/IAA/RSSD/INTA/UPM/DASP/IDA</a>, <a href=\"https://creativecommons.org/licenses/by-sa/2.0\">CC BY-SA 2.0</a>, via Wikimedia Commons",
-        "id": "21%3B"
+        "id": "21;"
       },
       {
         "name": "253_MATHILDE",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3b/%28253%29_mathilde.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:(253)_mathilde.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
-        "id": "253%3B"
+        "id": "253;"
       },
       {
         "name": "243_IDA",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/243_Ida_large.jpg/640px-243_Ida_large.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:243_Ida_large.jpg\">NASA/JPL</a>, Public domain, via Wikimedia Commons",
         "backgroundFillType": "cover",
-        "id": "243%3B"
+        "id": "243;"
       },
       {
         "name": "486958_ARROKOTH",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/UltimaThule_CA06_color_vertical_%28rotated%29.png/537px-UltimaThule_CA06_color_vertical_%28rotated%29.png",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:UltimaThule_CA06_color_vertical_(rotated).png\">NASA/Johns Hopkins University Applied Physics Laboratory/Southwest Research Institute/Roman Tkachenko.</a>, Public domain, via Wikimedia Commons",
-        "id": "486958%3B"
+        "id": "486958;"
       },
       {
         "name": "433_EROS",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eros_-_PIA02923_%28color%29.jpg/435px-Eros_-_PIA02923_%28color%29.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Eros_-_PIA02923_(color).jpg\">NASA/JPL/JHUAPL</a>, Public domain, via Wikimedia Commons",
-        "id": "433%3B"
+        "id": "433;"
       },
       {
         "name": "951_GASPRA",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/951_Gaspra.jpg/546px-951_Gaspra.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:951_Gaspra.jpg\">English:  NASA</a>, Public domain, via Wikimedia Commons",
-        "id": "951%3B"
+        "id": "951;"
       },
       {
         "name": "2867_STEINS",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/2867_%C5%A0teins_by_Rosetta_%28reprocessed%29.png",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:2867_%C5%A0teins_by_Rosetta_(reprocessed).png\">ESA 2008 MPS for OSIRIS Team MPS/UPD/LAM/IAA/RSSD/INTA/UPM/DASP/IDA; processing by T. Stryk.</a>, <a href=\"https://creativecommons.org/licenses/by-sa/2.0\">CC BY-SA 2.0</a>, via Wikimedia Commons",
-        "id": "2867%3B"
+        "id": "2867;"
       },
       {
         "name": "5535_ANNEFRANK",
         "imageUrl": "https://www.nasa.gov/images/content/137519main_PIA02885-330.jpg",
         "credit": "<a href=\"https://www.nasa.gov/mission_pages/stardust/news/stardustf-20021104.html\">NASA JPL-Caltech",
-        "id": "5535%3B"
+        "id": "5535;"
       },
       {
         "name": "4179_TOUTATIS",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Asteroid_4179_Toutatis_close-up.jpg/480px-Asteroid_4179_Toutatis_close-up.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Asteroid_4179_Toutatis_close-up.jpg\">Yun Jiang, Jianghui Ji, Jiangchuan Huang, Simone Marchi, Yuan Li &amp; Wing-Huen Ip</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
-        "id": "4179%3B"
+        "id": "4179;"
       },
       {
         "name": "9969_BRAILLE",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/PIA01345.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:PIA01345.jpg\">NASA/JPL-Caltech/UMD</a>, Public domain, via Wikimedia Commons",
-        "id": "9969%3B"
+        "id": "9969;"
       },
       {
         "name": "162173_RYUGU",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Ryugu_colored.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Ryugu_colored.jpg\">ISAS/JAXA</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
-        "id": "162173%3B"
+        "id": "162173;"
       },
       {
         "name": "101955_BENNU",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BennuAsteroid.jpg/508px-BennuAsteroid.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:BennuAsteroid.jpg\">NASA/Goddard/University of Arizona</a>, Public domain, via Wikimedia Commons",
-        "id": "2101955%3B"
+        "id": "101955;"
       },
       {
         "name": "25143_ITOKAWA",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Itokawa06_hayabusa.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Itokawa06_hayabusa.jpg\">ISAS/JAXA</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
-        "id": "25143%3B"
+        "id": "25143;"
       },
       {
         "name": "DIDYMOS/DIMORPHOS",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/05/Didymos-Dimorphos_true_orientation.png",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Didymos-Dimorphos_true_orientation.png\">NASA/Johns Hopkins APL</a>, Public domain, via Wikimedia Commons",
-        "id": "65803%3B"
+        "id": "65803;"
       }
     ]
   },
@@ -500,33 +500,33 @@
       {
         "name": "halley's_comet",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Comet_Halley_close_up-cropped.jpg/480px-Comet_Halley_close_up-cropped.jpg",
-        "id": "DES=1000036%3BNOFRAG%3BSOLN=73%3B"
+        "id": "'DES=1000036;NOFRAG;CAP;'"
       },
       {
         "name": "wild_2",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Wild2_3.jpg/480px-Wild2_3.jpg",
-        "id": "DES=1000107%3BNOFRAG%3BSOLN=K224/1%3B"
+        "id": "'DES=1000107;NOFRAG;CAP;'"
       },
       {
         "name": "borelly",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Comet_Borrelly_Nucleus.jpg",
-        "id": "DES=1000005%3BNOFRAG%3BSOLN=K222/7%3B"
+        "id": "'DES=1000005;NOFRAG;CAP;'"
       },
       {
         "name": "tempel_1",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/PIA02142_Tempel_1_bottom_sharped.jpg/768px-PIA02142_Tempel_1_bottom_sharped.jpg",
-        "id": "DES=1000093%3BNOFRAG%3BSOLN=K223/33%3B",
+        "id": "'DES=1000093;NOFRAG;CAP;'",
         "backgroundFillType": "contain"
       },
       {
         "name": "hartley_2",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Comet_Hartley_2.jpg/640px-Comet_Hartley_2.jpg",
-        "id": "DES=1000041%3BNOFRAG%3BSOLN=K173/7%3B"
+        "id": "'DES=1000041;NOFRAG;CAP;'"
       },
       {
         "name": "67P/C–G",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Comet_67P_True_color.jpg/480px-Comet_67P_True_color.jpg",
-        "id": "DES=1000012%3BNOFRAG%3BSOLN=K212/38%3B",
+        "id": "'DES=1000012;NOFRAG;CAP;'",
         "backgroundFillType": "contain"
       }
     ]
