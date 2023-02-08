@@ -61,86 +61,33 @@
     <br>
     <br>
 
-    <div class="row">
-      <div class="container" id="buttonContainer">
-        <div class="test_box box column">
-          <div class="inner" style="background-image: url('/images/star.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">Title</h1>
-                <button class="test_link" onclick="loadPopUp()">Go</button>
-              </div>
-            </a>
+    <div style="display: grid; gap: 150px;">
+        <div class="row">
+          <div class="container" id="buttonContainer">
           </div>
         </div>
-        <div class="test_box box column">
-          <div class="inner" style="background-image: url('/images/star.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">Title</h1>
-                <button class="test_link" onclick="loadPopUp()">Go</button>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="test_box box column">
-          <div class="inner" style="background-image: url('/images/star.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">Title</h1>
-                <button class="test_link" onclick="loadPopUp()">Go</button>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="test_box box column">
-          <div class="inner" style="background-image: url('/images/star.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">Title</h1>
-                <button class="test_link" onclick="loadPopUp()">Go</button>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="test_box box column">
-          <div class="inner" style="background-image: url('/images/star.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">Title</h1>
-                <button class="test_link" onclick="loadPopUp()">Go</button>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="test_box box column" >
-          <div class="inner" style="background-image: url('/images/star.jpg');">
-            <a class="test_click">
-              <div class="flex_this">
-                <h1 class="test_title">this</h1>
-                <button class="test_link" onclick="loadPopUp()">Go</button>
-              </div>
-            </a>
-          </div>
+
+        <div id="creditHolder">
+          <h4 class="w3-wide; w3-center">Credits/Attributions</h4>
+          <ol id="credits"></ol>
         </div>
       </div>
-    </div>
-
-    <div class="popup" id="popup">
-      <button class = "button right" id="close">&times;</button>
-      <h2 id="popupTitle" class="pText">Let's Go!</h2>
-      <p class="pText" id="outputText">WEEEEEEEEEEEEEEE <br> </p>
-      <button id="laserOnButton" class="button" onclick = "turnOnLaser()">Start</button>
-      <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
-    </div>
-
-    <div class="popup" id="warningPopup">
-      <h2 id="warningTitle" class="pText">WARNING!</h2>
-      <span class="pText" id="calibrationWarningText"></span>
-      <span class="pText" id="levelWarningText"></span>
-      <span class="pText" id="orientationWarningText"></span>
-    </div>
   </div>
+</div>
+
+<div class="popup" id="popup">
+  <button class = "button right" id="close">&times;</button>
+  <h2 id="popupTitle" class="pText">Let's Go!</h2>
+  <p class="pText" id="outputText">WEEEEEEEEEEEEEEE <br> </p>
+  <button id="laserOnButton" class="button" onclick = "turnOnLaser()">Start</button>
+  <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
+</div>
+
+<div class="popup" id="warningPopup">
+  <h2 id="warningTitle" class="pText">WARNING!</h2>
+  <span class="pText" id="calibrationWarningText"></span>
+  <span class="pText" id="levelWarningText"></span>
+  <span class="pText" id="orientationWarningText"></span>
 </div>
 </body>
 </html>

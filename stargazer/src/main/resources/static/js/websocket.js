@@ -13,7 +13,7 @@ const socketHandler = function () {
     function getSessionId() {
         if (!document.cookie.includes("sessionId")) {
             let httpRequest = new XMLHttpRequest();
-            httpRequest.open("GET", "http://localhost:443/getSessionId", false);
+            httpRequest.open("GET", "https://stargazer.ninja/getSessionId", false);
             httpRequest.send();
             httpRequest.onload = () => {
             };
@@ -82,7 +82,7 @@ const socketHandler = function () {
         sessionId = getSessionId();
 
         client = new StompJs.Client({
-            brokerURL: "ws://localhost:443/connect",
+            brokerURL: "wss://stargazer.ninja/connect/",
             debug: (str) => console.log(str)
         });
 

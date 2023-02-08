@@ -27,21 +27,9 @@ import static java.lang.Math.*;
 
 @Service
 public class CoordinateService {
-
-        Map<String, Integer> solarNameToIdMap;
-
-        public CoordinateService() throws IOException {
-
-                ClassPathResource cpr = new ClassPathResource("SolarObjectIds.json");
-                String json = FileCopyUtils.copyToString(new InputStreamReader(cpr.getInputStream()));
-                Gson gson = new Gson();
-                Type type = new TypeToken<HashMap<String, Integer>>(){}.getType();
-                this.solarNameToIdMap = gson.fromJson(json, type);
-         }
-
-        private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name) throws RuntimeException{
+        private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name, String id) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
-                String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + name + "'";
+                String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + id + "'";
 
                 WebClient client = WebClient.create();
                 ResponseSpec responseSpec = client.get()
@@ -67,7 +55,7 @@ public class CoordinateService {
                 String[] responseSplitByLine = response.split("\n");
 
                 if(responseSplitByLine.length == 1) {
-                        throw new RuntimeException("Could not find an object with identifier \"" + name + "\".");
+                        throw new RuntimeException("Could not find an object named \"" + name + "\" with identifier \"" + id + "\".");
                 }
 
                 String[] coordinates = responseSplitByLine[1].split(",");
@@ -79,18 +67,13 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> findCoordinatesOfSolarObjectByName(String name) throws RuntimeException{
+        private Map<String, Double> findCoordinatesOfSolarObjectByName(String id) throws RuntimeException{
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss.SS");
-                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
                 LocalDateTime nowPlusFiveMinutes = LocalDateTime.now().plusMinutes(5);
 
                 String currentTime = dtf.format(now);
                 String currentTimePlusFiveMinutes = dtf.format(nowPlusFiveMinutes);
-
-                Integer id = this.solarNameToIdMap.getOrDefault(name, null);
-                if(id == null){
-                        throw new RuntimeException("Could not find an object with name \"" + name + "\"");
-                }
 
                 String requestUri = "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&ANG_FORMAT='DEG'&COMMAND='" + id + "'&QUANTITIES='1'&START_TIME='" + currentTime + "'&STOP_TIME='" + currentTimePlusFiveMinutes + "'";
 
@@ -173,10 +156,10 @@ public class CoordinateService {
 
                 try{
                         if(object.isInsideSolarSystem()){
-                                absoluteCoords = findCoordinatesOfSolarObjectByName(object.objectName().toUpperCase());
+                                absoluteCoords = findCoordinatesOfSolarObjectByName(object.objectId());
                         }
                         else{
-                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.objectName().toUpperCase());
+                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.objectName(), object.objectId());
                         }
                 } catch (Exception e){
                         throw new RuntimeException(e);

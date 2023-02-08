@@ -34,14 +34,14 @@ public class RPiConnection extends Thread{
     }
 
     public void run(){
-        String receivedMessage;
-
         while(true){
+            String receivedMessage = null;
+
             try {
                 receivedMessage = reader.readLine();
             }
             catch (Exception e){
-                throw new RuntimeException(e);
+                rPiCommunication.handleLostConnection(sessionId);
             }
 
             if(receivedMessage == null){

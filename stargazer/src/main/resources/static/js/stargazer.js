@@ -8,13 +8,13 @@ let insideSolarSystemChecker = function(){
     };
 }();
 
-function pointToObject(objectName, isInsideSolarSystem) {
+function pointToObject(objectName, objectId, isInsideSolarSystem) {
     let output = document.getElementById("outputText");
 
     output.innerHTML = "Pointing to " + objectName.toUpperCase();
 
     let destination = "/api/pointToObject";
-    let message = JSON.stringify({"objectName": objectName, "isInsideSolarSystem": isInsideSolarSystem});
+    let message = JSON.stringify({"objectName": objectName, "objectId": objectId, "isInsideSolarSystem": isInsideSolarSystem});
     socketHandler.sendMessage(message, destination, responseHandler);
 
     function responseHandler(response){
