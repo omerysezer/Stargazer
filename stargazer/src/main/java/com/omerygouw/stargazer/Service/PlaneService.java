@@ -26,7 +26,7 @@ public class PlaneService{
         LocalDateTime timeLastCheckedPlane = session.getTimeLastCheckedPlane();
         boolean lastPlaneCheckResult = session.isLastPlaneCheckResult();
 
-        if(timeLastCheckedPlane.isAfter(nowMinusFiveMinutes)){
+        if(timeLastCheckedPlane != null && timeLastCheckedPlane.isAfter(nowMinusFiveMinutes)){
             return lastPlaneCheckResult;
         }
 

@@ -68,7 +68,7 @@ public class WebToPiBridgeService {
 
         boolean planeInVicinity = planeService.checkPlaneInVicinity(sessionId);
         if(planeInVicinity) {
-            throw new RuntimeException(("Failed: Plane(s) in Vicinity"));
+            throw new RuntimeException("Failed: Plane(s) in Vicinity");
         }
 
         FromPiToServerMessage result;
@@ -94,7 +94,7 @@ public class WebToPiBridgeService {
 
         boolean planeInVicinity = planeService.checkPlaneInVicinity(sessionId);
         if(planeInVicinity) {
-            throw new RuntimeException(("Failed: Plane(s) in Vicinity"));
+            throw new RuntimeException("Failed: Plane(s) in Vicinity");
         }
 
         FromPiToServerMessage result;
