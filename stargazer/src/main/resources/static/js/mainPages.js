@@ -9,6 +9,7 @@ function loadPopUp(input) {
     var x = document.getElementById('popup');
     document.getElementById("popupTitle").innerHTML = input;
     x.style.display = 'block';
+    $(".fullscreen-container").fadeTo(200, 1);
 }
 
 function search() {
@@ -30,6 +31,8 @@ document.addEventListener("click", function (event){
         return;
     }
     if(id.startsWith("pointButton")){
+        let popup = document.getElementById("popup");
+        let warning = document.getElementById("warningPopup");
         let isInsideSolarSystem = insideSolarSystemChecker.checkIfInsideSolarSystem();
         let objectName = document.getElementById(id).innerText;
 
@@ -43,4 +46,7 @@ document.addEventListener("keypress", function (event){
        search();
    }
 });
-  
+
+function reset(){
+    $(".fullscreen-container").fadeOut(200);
+}

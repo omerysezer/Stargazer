@@ -18,6 +18,8 @@ public class WebToPiBridgeService {
     private RPiCommunication rPiCommunicator;
     @Autowired
     private SessionManagerService sessionManagerService;
+    @Autowired
+    public PlaneService planeService;
 
     public void pairClientToRaspPi(String piId, String clientId) throws IOException {
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(piId);
@@ -39,7 +41,7 @@ public class WebToPiBridgeService {
 
         if(!result.messageType().equals("SUCCESS")){
             sessionManagerService.deleteSessionById(sessionId);
-            throw new RuntimeException("Failed: " + result);
+            throw new RuntimeException("Failed: Raspberry Pi failed to accept new session.");
         }
     }
 
@@ -59,6 +61,11 @@ public class WebToPiBridgeService {
             throw new RuntimeException("Failed: user location is unknown.");
         }
 
+        boolean planeInVicinity = planeService.checkPlaneInVicinity(sessionId);
+        if(planeInVicinity) {
+            throw new RuntimeException(("Failed: Plane(s) in Vicinity"));
+        }
+
         try{
             astronomicalObject = coordinateService.findObjectCoordinates(objectToPointTo, userLocation);
         }
@@ -75,7 +82,7 @@ public class WebToPiBridgeService {
         }
 
         if(!result.messageType().equals("SUCCESS")){
-            throw new RuntimeException("Failed. \nResponse from Raspberry Pi: " + result.message());
+            throw new RuntimeException("Failed. \nRaspberry Pi failed to point to \"" + objectToPointTo.objectName() + "\"");
         }
     }
 
@@ -89,6 +96,11 @@ public class WebToPiBridgeService {
             throw new RuntimeException("Failed: No Raspberry Pi is paired.");
         }
 
+        boolean planeInVicinity = planeService.checkPlaneInVicinity(sessionId);
+        if(planeInVicinity) {
+            throw new RuntimeException(("Failed: Plane(s) in Vicinity"));
+        }
+
         FromPiToServerMessage result;
         try{
             result = rPiConnection.instructToTurnOnLaser();
@@ -98,7 +110,7 @@ public class WebToPiBridgeService {
         }
 
         if(!result.messageType().equals("SUCCESS")){
-            throw new RuntimeException("Failed. \nResponse from Raspberry Pi: " + result.message());
+            throw new RuntimeException("Failed. \nRaspberry Pi failed to turn on laser.");
         }
     }
 
@@ -118,7 +130,7 @@ public class WebToPiBridgeService {
         }
 
         if(!result.messageType().equals("SUCCESS")){
-            throw new RuntimeException("Failed. \nResponse from Raspberry Pi: " + result.message());
+            throw new RuntimeException("Failed. \nRaspberry Pi failed to turn off laser.");
         }
     }
 

@@ -14,6 +14,8 @@
 <script src="js/websocket.js" defer></script>
 <script src="js/stargazer.js"></script>
 <script src="js/mainPages.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
 
 <!-- Navbar -->
@@ -47,13 +49,15 @@
     </div>
   </div>
 </div>
+<div class = "fullscreen-container">
 
 <div class="popup" id="popup">
-  <button class = "button right" id="close">&times;</button>
+  <button class = "button right" id="close" onclick="reset()">&times;</button>
   <h2 id="popupTitle" class="pText">Let's Go!</h2>
   <p class="pText" id="outputText">WEEEEEEEEEEEEEEE <br> </p>
   <button id="laserOnButton" class="button" onclick = "turnOnLaser()">Start</button>
   <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
+</div>
 </div>
 
     <div class="popup" id="warningPopup">
@@ -63,4 +67,5 @@
       <span class="pText" id="orientationWarningText"></span>
     </div>
 </body>
+
 </html>
