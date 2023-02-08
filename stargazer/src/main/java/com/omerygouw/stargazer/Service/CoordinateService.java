@@ -29,7 +29,7 @@ import static java.lang.Math.*;
 public class CoordinateService {
         private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name, String id) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
-                String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + name + "'";
+                String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + id + "'";
 
                 WebClient client = WebClient.create();
                 ResponseSpec responseSpec = client.get()
