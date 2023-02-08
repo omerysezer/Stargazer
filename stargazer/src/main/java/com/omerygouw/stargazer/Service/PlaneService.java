@@ -49,19 +49,11 @@ public class PlaneService{
         }
 
         JsonObject jsonResponse = JsonParser.parseString(response).getAsJsonObject();
-        JsonArray planeStatus = jsonResponse.get("states").getAsJsonArray();
+        System.out.println(jsonResponse);
+        boolean planeStatus = jsonResponse.get("states").getAsJsonArray() == null;
 
-        session.setTimeLastCheckedPlane(now);
-
-        if(planeStatus.isEmpty()){
-            session.setLastPlaneCheckResult(true);
-            return true;
-        }
-        else{
-            session.setLastPlaneCheckResult(false);
-            return false;
-        }
-
+        sessionManagerService.updatePlaneCheck(sessionId, planeStatus, now);
+        return planeStatus;
     }
 
 

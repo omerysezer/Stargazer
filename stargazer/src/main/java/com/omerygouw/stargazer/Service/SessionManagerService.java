@@ -6,6 +6,8 @@ import com.omerygouw.stargazer.Repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class SessionManagerService {
 
@@ -30,6 +32,13 @@ public class SessionManagerService {
     public void createNewSession(String sessionId){
         Session session = new Session();
         session.setSessionId(sessionId);
+        sessionRepository.save(session);
+    }
+
+    public void updatePlaneCheck(String sessionId, boolean result, LocalDateTime time){
+        Session session = sessionRepository.findSessionBySessionId(sessionId);
+        session.setTimeLastCheckedPlane(time);
+        session.setLastPlaneCheckResult(result);
         sessionRepository.save(session);
     }
 
