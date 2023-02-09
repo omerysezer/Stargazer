@@ -1,10 +1,3 @@
-if(window.location.pathname.split("/").pop() === "star.html"){
-    window.addEventListener("load", function() {
-        document.getElementById("error").style.display = "none";
-    });
-}
-
-
 function loadPopUp(input) {
     var x = document.getElementById('popup');
     document.getElementById("popupTitle").innerHTML = input;
@@ -14,6 +7,10 @@ function loadPopUp(input) {
 
 function search() {
     let input = document.getElementById('search').value.toUpperCase();
+
+    if(!input){
+        return;
+    }
 
     loadPopUp(input);
     // no id for the object is specified besides the name
@@ -26,6 +23,9 @@ document.addEventListener("click", function (event){
     if(id === "close"){
         document.querySelector(".popup").style.display = "none";
         return;
+    }
+    if(id === "searchBarSubmit"){
+        search();
     }
     if(id.startsWith("pointButton")){
         let popup = document.getElementById("popup");
@@ -40,7 +40,7 @@ document.addEventListener("click", function (event){
 });
 
 document.addEventListener("keypress", function (event){
-   if(event.code === 'Enter'){
+   if(event.code === 'Enter' && document.activeElement.id === 'search'){
        search();
    }
 });
