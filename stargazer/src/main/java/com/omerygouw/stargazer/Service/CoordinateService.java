@@ -178,12 +178,24 @@ public class CoordinateService {
                 Map<String, Integer> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"),
                         absoluteCoords.get("Declination"), userCoordinates.longitude(), userCoordinates.latitude());
 
-                return AstronomicalObject.builder()
+                AstronomicalObject returnObject = AstronomicalObject.builder()
                         .name(object.objectName())
                         .rightAscension(absoluteCoords.get("Right Ascension"))
                         .declination(absoluteCoords.get("Declination"))
                         .azimuth(relativeCoords.get("Azimuth"))
                         .altitude(relativeCoords.get("Altitude"))
                         .build();
+
+                if(0 <= returnObject.getAltitude() && returnObject.getAltitude() <= 10){
+                        throw new RuntimeException("Object with identifier \"" + returnObject.getName() + "\"" +
+                                " is too close to the horizon for safe usage of the laser. Please try a different object.");
+                }
+
+                if(returnObject.getAltitude() < 0){
+                        throw new RuntimeException("Object with identifier \"" + returnObject.getName() + "\"" +
+                                " is currently not in the sky. Please try a different object.");
+                }
+
+                return returnObject;
         }
 }
