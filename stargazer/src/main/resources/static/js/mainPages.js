@@ -13,9 +13,8 @@ function search() {
     }
 
     loadPopUp(input);
-    // no id for the object is specified besides the name
-    // send the name as id in hopes the api can recognize that name
-    pointToObject(input, input, false);
+    let objectType = objectTypeChecker.getObjectType();
+    pointToObject(input, "UNKNOWN", objectType);
 }
 
 document.addEventListener("click", function (event){
@@ -28,14 +27,12 @@ document.addEventListener("click", function (event){
         search();
     }
     if(id.startsWith("pointButton")){
-        let popup = document.getElementById("popup");
-        let warning = document.getElementById("warningPopup");
-        let isInsideSolarSystem = insideSolarSystemChecker.checkIfInsideSolarSystem();
+        let objectType = objectTypeChecker.getObjectType();
         let objectName = document.getElementById(id).innerText;
 
         loadPopUp(objectName);
         let objectId = document.getElementById(id.replace("pointButton", "objectId")).innerText;
-        pointToObject(objectName, objectId, isInsideSolarSystem);
+        pointToObject(objectName, objectId, objectType);
     }
 });
 

@@ -1,20 +1,27 @@
-let insideSolarSystemChecker = function(){
-    let insideSolarSystemPages = ["planet.html", "asteroid.html", "comet.html"];
+let objectTypeChecker = function(){
+    let objectTypes = {
+        "planet.html": "PLANET",
+        "asteroid.html": "ASTEROID",
+        "comet.html": "COMET",
+        "star.html": "STAR",
+        "galaxy.html": "GALAXY"
+    };
+
     return {
-        checkIfInsideSolarSystem: function(){
+        getObjectType: function(){
             let currentPage = window.location.pathname.split("/").pop();
-            return insideSolarSystemPages.includes(currentPage);
+            return objectTypes[currentPage] ? objectTypes[currentPage] : "";
         }
     };
 }();
 
-function pointToObject(objectName, objectId, isInsideSolarSystem) {
+function pointToObject(objectName, objectId, objectType) {
     let output = document.getElementById("outputText");
 
     output.innerHTML = "Pointing to " + objectName.toUpperCase();
 
     let destination = "/api/pointToObject";
-    let message = JSON.stringify({"objectName": objectName, "objectId": objectId, "isInsideSolarSystem": isInsideSolarSystem});
+    let message = JSON.stringify({"objectName": objectName, "objectId": objectId, "objectType": objectType});
     socketHandler.sendMessage(message, destination, responseHandler);
 
     function responseHandler(response){

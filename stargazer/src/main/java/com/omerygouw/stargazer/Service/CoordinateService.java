@@ -1,6 +1,9 @@
 package com.omerygouw.stargazer.Service;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import com.omerygouw.stargazer.DTO.LocationCoordinates;
@@ -23,8 +26,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,23 @@ import static java.lang.Math.*;
 
 @Service
 public class CoordinateService {
-        private Map<String, Double> findCoordinatesOfExtraSolarObjectByName(String name, String id) throws RuntimeException{
+        private final Set<String> solarSystemObjectTypes;
+        private final Set<String> extraSolarSystemObjectTypes;
+
+        public CoordinateService(){
+                this.solarSystemObjectTypes = new HashSet<>(Arrays.asList(
+                        "PLANET",
+                        "COMET",
+                        "ASTEROID"
+                ));
+
+               this.extraSolarSystemObjectTypes = new HashSet<>(Arrays.asList(
+                        "STAR",
+                        "GALAXY"
+                ));
+        }
+
+        private Map<String, Double> findCoordinatesOfExtraSolarObject(String name, String id) throws RuntimeException{
                 Map<String, Double> coords = new HashMap<String, Double>();
                 String requestUri = "http://simbad.u-strasbg.fr/simbad/sim-tap/sync?request=doQuery&lang=adql&format=csv&query=SELECT RA, DEC FROM basic JOIN ident ON oidref = oid WHERE id = '" + id + "'";
 
@@ -72,7 +90,7 @@ public class CoordinateService {
                 return coords;
         }
 
-        private Map<String, Double> findCoordinatesOfSolarObjectByName(String id) throws RuntimeException, URISyntaxException {
+        public Map<String, Double> findCoordinatesOfSolarObject(String id) throws RuntimeException, URISyntaxException {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss.SS");
                 LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
                 LocalDateTime nowPlusFiveMinutes = now.plusMinutes(5);
@@ -161,15 +179,72 @@ public class CoordinateService {
                 return convertedCoords;
         }
 
+        public String getIdOfSolarObjectType(String objectName, String objectType) throws URISyntaxException {
+                String requestUri = "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=" + objectName + "&no-orbit=1";
+
+                 requestUri = requestUri.replaceAll(" ", "%20")
+                        .replaceAll(";", "%3B")
+                        .replaceAll("'", "%27");
+
+                URI uri = new URI(requestUri);
+                WebClient client = WebClient.create();
+                ResponseSpec responseSpec = client.get()
+                        .uri(uri)
+                        .retrieve();
+
+                String response = responseSpec.bodyToMono(String.class).block();
+                if(response == null){
+                        throw new RuntimeException("Did not get response from JPL Horizons Small Body Lookup API.");
+                }
+
+                JsonObject objectDetails = JsonParser.parseString(response).getAsJsonObject();
+                if(objectDetails.has("list")){
+                        StringBuilder firstThreeMatches = new StringBuilder();
+                        JsonArray matchList = objectDetails.get("list").getAsJsonArray();
+                        for(int i = 0; i < matchList.size() && i < 3; i++){
+                                firstThreeMatches.append(matchList.get(i).getAsJsonObject().get("name").getAsString()).append("\n");
+                        }
+                        throw new RuntimeException("Could not find an unambiguous match for small-body object with name: " + objectName +
+                                ".\nFirst few matches:\n" + firstThreeMatches.toString());
+                }
+
+                if(objectDetails.has("code")){
+                        throw new RuntimeException("Could not find any matches for a small-body object with name: " + objectName);
+                }
+
+                String objectDesignation = objectDetails.get("object").getAsJsonObject().get("des").getAsString();
+
+                if (objectType.equals("ASTEROID")) {
+                        return "'" + objectDesignation + ";'";
+                }
+                else if(objectType.equals("COMET")){
+                        return "'DES=" + objectDesignation + ";NOFRAG;CAP;'";
+                }
+
+                throw new RuntimeException("Cannot search for an object of type: \"" + objectType + ".\"");
+        }
+
         public AstronomicalObject findObjectCoordinates(ObjectToPointAt object, LocationCoordinates userCoordinates) throws RuntimeException{
                 Map<String, Double> absoluteCoords;
 
+                String name = object.objectName();
+                String id = object.objectId();
                 try{
-                        if(object.isInsideSolarSystem()){
-                                absoluteCoords = findCoordinatesOfSolarObjectByName(object.objectId());
+                        if(solarSystemObjectTypes.contains(object.objectType())){
+                                if(object.objectId().equals("UNKNOWN")){
+                                        id = getIdOfSolarObjectType(object.objectName(), object.objectType());
+                                }
+
+                                absoluteCoords = findCoordinatesOfSolarObject(id);
                         }
-                        else{
-                                absoluteCoords = findCoordinatesOfExtraSolarObjectByName(object.objectName(), object.objectId());
+                        else if(extraSolarSystemObjectTypes.contains(object.objectType())){
+                                if(object.objectId().equals("UNKNOWN")){
+                                        id = name;
+                                }
+                                absoluteCoords = findCoordinatesOfExtraSolarObject(name, id);
+                        }
+                        else {
+                                throw new RuntimeException("Cannot point to object type: " + object.objectType());
                         }
                 } catch (Exception e){
                         throw new RuntimeException(e);
