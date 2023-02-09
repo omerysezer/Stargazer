@@ -30,10 +30,10 @@ public class PlaneService{
             return lastPlaneCheckResult;
         }
 
-        double minLat = userLocation.latitude() - (0.009 * 17);
-        double maxLat = userLocation.latitude() + (0.009 * 17);
-        double minLon = userLocation.longitude() - (0.009 * 17);
-        double maxLon = userLocation.longitude() + (0.009 * 17);
+        double minLat = userLocation.latitude() - (0.009 * 8.5);
+        double maxLat = userLocation.latitude() + (0.009 * 8.5);
+        double minLon = userLocation.longitude() - (0.009 * 8.5);
+        double maxLon = userLocation.longitude() + (0.009 * 8.5);
 
         String requestUri = "https://opensky-network.org/api/states/all?lamin="+minLat+"&lomin="+minLon+"&lamax="+maxLat+"&lomax="+maxLon+"";
 
@@ -49,8 +49,7 @@ public class PlaneService{
         }
 
         JsonObject jsonResponse = JsonParser.parseString(response).getAsJsonObject();
-        System.out.println(jsonResponse);
-        boolean planeStatus = jsonResponse.get("states").getAsJsonArray() == null;
+        boolean planeStatus = jsonResponse.get("states") != null;
 
         sessionManagerService.updatePlaneCheck(sessionId, planeStatus, now);
         return planeStatus;
