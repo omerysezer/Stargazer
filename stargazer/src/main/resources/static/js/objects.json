@@ -401,6 +401,16 @@
         "id": "1;"
       },
       {
+        "name": "2_PALLAS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Potw1749a_Pallas_crop.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Potw1749a_Pallas_crop.png\">Credit: ESO/Vernazza et al.</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons"
+      },
+      {
+        "name": "10_HYGIEA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/SPHERE_image_of_Hygiea.jpg/480px-SPHERE_image_of_Hygiea.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:SPHERE_image_of_Hygiea.jpg\">ESO/P. Vernazza et al./MISTRAL algorithm (ONERA/CNRS)</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons"
+      },
+      {
         "name": "4_VESTA",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Vesta_in_natural_color.jpg/480px-Vesta_in_natural_color.jpg",
         "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Vesta_in_natural_color.jpg\">NASA / JPL / MPS / DLR / IDA / Björn Jónsson</a>, Public domain, via Wikimedia Commons",
@@ -500,32 +510,38 @@
       {
         "name": "halley's_comet",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Comet_Halley_close_up-cropped.jpg/480px-Comet_Halley_close_up-cropped.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_Halley_close_up-cropped.jpg\">ESA/MPS, CC BY-SA IGO 3.0</a>, <a href=\"https://creativecommons.org/licenses/by-sa/3.0/igo/deed.en\">CC BY-SA 3.0 IGO</a>, via Wikimedia Commons",
         "id": "'DES=1000036;NOFRAG;CAP;'"
       },
       {
         "name": "wild_2",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Wild2_3.jpg/480px-Wild2_3.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Wild2_3.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
         "id": "'DES=1000107;NOFRAG;CAP;'"
       },
       {
         "name": "borelly",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Comet_Borrelly_Nucleus.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_Borrelly_Nucleus.jpg\">NASA/JPL</a>, Public domain, via Wikimedia Commons",
         "id": "'DES=1000005;NOFRAG;CAP;'"
       },
       {
         "name": "tempel_1",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/PIA02142_Tempel_1_bottom_sharped.jpg/768px-PIA02142_Tempel_1_bottom_sharped.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:PIA02142_Tempel_1_bottom_sharped.jpg\">NASA / Jet Propulsion Laboratory / University of Maryland</a>, Public domain, via Wikimedia Commons",
         "id": "'DES=1000093;NOFRAG;CAP;'",
         "backgroundFillType": "contain"
       },
       {
         "name": "hartley_2",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Comet_Hartley_2.jpg/640px-Comet_Hartley_2.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_Hartley_2.jpg\">NASA/JPL-Caltech/UMD</a>, Public domain, via Wikimedia Commons",
         "id": "'DES=1000041;NOFRAG;CAP;'"
       },
       {
         "name": "67P/C–G",
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Comet_67P_True_color.jpg/480px-Comet_67P_True_color.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_67P_True_color.jpg\">ESA/Rosetta/MPS for OSIRIS Team MPS/UPD/LAM/IAA/SSO/INTA/UPM/DASP/IDA</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
         "id": "'DES=1000012;NOFRAG;CAP;'",
         "backgroundFillType": "contain"
       }
