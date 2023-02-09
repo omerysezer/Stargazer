@@ -75,19 +75,24 @@
   </div>
 </div>
 
-<div class="popup" id="popup">
-  <button class = "button right" id="close">&times;</button>
-  <h2 id="popupTitle" class="pText">Let's Go!</h2>
-  <p class="pText" id="outputText">WEEEEEEEEEEEEEEE <br> </p>
-  <button id="laserOnButton" class="button" onclick = "turnOnLaser()">Start</button>
-  <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
+<div class = "fullscreen-container">
+  <div class="popup" id="popup">
+    <button class = "button right" id="close" onclick="reset()">&times;</button>
+    <h2 id="popupTitle" class="pText">Let's Go!</h2>
+    <p class="pText" id="outputText">WEEEEEEEEEEEEEEE <br> </p>
+    <button id="laserOnButton" class="button" onclick = "turnOnLaser()">Start</button>
+    <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
+  </div>
 </div>
 
-<div class="popup" id="warningPopup">
-  <h2 id="warningTitle" class="pText">WARNING!</h2>
-  <span class="pText" id="calibrationWarningText"></span>
-  <span class="pText" id="levelWarningText"></span>
-  <span class="pText" id="orientationWarningText"></span>
+<div class = "fullscreen-warning-container">
+  <div class="popup" id="warningPopup">
+    <h2 id="warningTitle" class="pText">WARNING!</h2>
+    <span class="pText" id="disconnectWarningText"></span>
+    <span class="pText" id="calibrationWarningText"></span>
+    <span class="pText" id="levelWarningText"></span>
+    <span class="pText" id="orientationWarningText"></span>
+  </div>
 </div>
 </body>
 </html>

@@ -2,12 +2,14 @@ function getWarningHandler() {
     let calibrationWarningActive = false;
     let levelWarningActive = false;
     let orientationWarningActive = false;
+    let disconnectWarningActive = false;
 
     if(document.location.pathname.includes("pairing.html") || document.location.pathname.includes("location.html")){
         return {
             raiseCalibrationWarning: () => {},
             raiseLevelWarning: () => {},
             raiseOrientationWarning: () => {},
+            handleDisconnect: () => raiseWarning("DISCONNECT"),
             clearCalibrationWarning: () => {},
             clearLevelWarning: () => {},
             clearOrientationWarning: () => {}
@@ -18,26 +20,27 @@ function getWarningHandler() {
         raiseCalibrationWarning: () => raiseWarning("CALIBRATION"),
         raiseLevelWarning: () => raiseWarning("LEVEL"),
         raiseOrientationWarning: () => raiseWarning("ORIENTATION"),
+        handleDisconnect: () => raiseWarning("DISCONNECT"),
         clearCalibrationWarning: () => clearWarning("CALIBRATION"),
         clearLevelWarning: () => clearWarning("LEVEL"),
         clearOrientationWarning: () => clearWarning("ORIENTATION")
     };
 
-    function raiseWarning(warningType) {
+    async function raiseWarning(warningType) {
         let warningPopup = document.getElementById("warningPopup");
         if (warningPopup == null) {
             return;
         }
 
-        // check if the warning popup is already being displayed
-        if (warningPopup.style.display !== 'block') {
-            warningPopup.style.display = 'block';
-            $(".fullscreen-container").fadeTo(200, 1);
-        }
-
         let message = '';
         let elementName = '';
-        switch (warningType){
+        switch (warningType) {
+            case "DISCONNECT":
+                message = "LOST CONNECTION TO SERVER AND RASPBERRY PI! SENDING YOU BACK TO PAIRING PAGE.<br>";
+                elementName = "disconnectWarningText";
+                document.cookie = "sessionId=; Max-Age=-99999999;";
+                disconnectWarningActive = true;
+                break;
             case "CALIBRATION":
                 message = "WARNING: THE RASPBERRY PI IS NOT CALIBRATED! THIS WILL AFFECT ITS ACCURACY!<br>";
                 elementName = "calibrationWarningText";
@@ -55,7 +58,15 @@ function getWarningHandler() {
                 break;
         }
 
-        document.getElementById(elementName).innerHTML = message;
+        displayWarningPopup(message, elementName);
+
+        // forces js to wait 5 seconds
+        if(warningType === "DISCONNECT"){
+            clearWarning("CALIBRATION");
+            clearWarning("ORIENTATION");
+            clearWarning("LEVEL");
+            await new Promise(resolve => setTimeout(() => document.location = 'pairing.html', 5000)).then();
+        }
     }
 
     function clearWarning(warning){
@@ -80,10 +91,27 @@ function getWarningHandler() {
             orientationWarningActive = false;
         }
 
-        if(!calibrationWarningActive && !orientationWarningActive && !levelWarningActive){
-            let popup = document.getElementById("warningPopup");
-            popup.style.display = 'none';
-            $(".fullscreen-container").fadeOut(200);
+        if(!calibrationWarningActive && !orientationWarningActive && !levelWarningActive && !disconnectWarningActive){
+            takeDownWarningPopup();
+        }
+    }
+
+    function displayWarningPopup(message, element){
+        let warningPopup = document.getElementById("warningPopup");
+        document.getElementById(element).innerHTML = message;
+        // check if the warning popup is already being displayed
+        if (warningPopup.style.display !== 'block') {
+            warningPopup.style.display = 'block';
+            $(".fullscreen-warning-container").fadeTo(200, 1);
+        }
+    }
+
+    function takeDownWarningPopup(){
+        let warningPopup = document.getElementById("warningPopup");
+
+        if(warningPopup.style.display !== 'none'){
+            warningPopup.style.display = 'none';
+            $(".fullscreen-warning-container").fadeOut(200);
         }
     }
 }

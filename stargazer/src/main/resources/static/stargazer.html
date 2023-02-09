@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="css/mainPages.css">
   <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="js/mainPages.js" defer></script>
   <script src="js/warningHandler.js"></script>
   <script src="js/websocket.js" defer></script>
@@ -74,12 +75,14 @@
   </div>
 </div>
 
+<div class = "fullscreen-warning-container">
     <div class="popup" id="warningPopup">
       <h2 id="warningTitle" class="pText">WARNING!</h2>
+      <span class="pText" id="disconnectWarningText"></span>
       <span class="pText" id="calibrationWarningText"></span>
       <span class="pText" id="levelWarningText"></span>
       <span class="pText" id="orientationWarningText"></span>
     </div>
-
+</div>
 </body>
 </html>

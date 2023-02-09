@@ -27,6 +27,8 @@ function pair() {
     socketHandler.sendMessage(message, destination, handleResponse);
 
     function handleResponse(response) {
+        submitButton.disabled = false;
+
         if (String(response.status) !== "SUCCESS") {
             output.innerHTML = "<b>Failed to pair with the Raspberry Pi.<br>Server Response: \"" + response.message +"\"</b>";
         }
@@ -49,8 +51,6 @@ function pair() {
             }).catch(function(){
                 output.innerHTML = "<b>Successfully paired to Raspberry Pi but could not reestablish connection to server.</b>";
             });
-
-            submitButton.disabled = false;
         }
     }
 }

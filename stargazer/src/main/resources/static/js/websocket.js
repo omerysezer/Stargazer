@@ -75,6 +75,9 @@ const socketHandler = function () {
             case "LEVEL_OK":
                 warningHandler.clearLevelWarning();
                 break;
+            case "PI_DISCONNECT":
+                warningHandler.handleDisconnect();
+                break;
         }
     }
 
@@ -98,6 +101,10 @@ const socketHandler = function () {
         client.onConnect = function (frame) {
             subscription = client.subscribe("/user/queue/session-" + sessionId, incomingMessageHandler)
         }
+
+        client.onDisconnect(() => {
+            warningHandler.handleDisconnect();
+        });
     }
 
     function waitForConnection() {
