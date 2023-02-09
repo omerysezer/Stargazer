@@ -24,7 +24,7 @@ function pointToObject(objectName, objectId, isInsideSolarSystem) {
         }
 
         output.innerHTML = "Failed to point to " + objectName + ".<br>" +
-            "Server Response: " + response.message;
+            "Server Response: \"" + response.message + "\"";
 
     }
 }
@@ -57,6 +57,6 @@ function switchLaser(on){
         }
 
         output.innerHTML = "Failed to turn laser " + laserState + ".<br>" +
-            "Server Response: " + response.message;
+            "Server Response: \"" + response.message + "\"";
     }
 }

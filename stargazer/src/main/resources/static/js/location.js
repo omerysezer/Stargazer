@@ -55,7 +55,7 @@ function saveLocation() {
 
     function responseHandler(response) {
         if (String(response.status) !== "SUCCESS") {
-            output.innerHTML = "<p>Failed to save user coordinates. " + response.message + "</p>";
+            output.innerHTML = "<p>Failed to save user coordinates. Server Response: \"" + response.message + "\"</p>";
             continueButton.disabled = true;
         } else {
             output.innerHTML = '<p>Coordinates saved. Press "Continue" to begin stargazing!</p>';
