@@ -48,6 +48,11 @@ public class WebToPiBridgeService {
     public void instructPiToPointLaserAtObject(ObjectToPointAt objectToPointTo, String sessionId){
         AstronomicalObject astronomicalObject;
         Session session = sessionManagerService.getSessionById(sessionId);
+
+        if(session == null){
+            throw new RuntimeException("Failed: Could not find session.");
+        }
+
         LocationCoordinates userLocation = session.getCoordinates();
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
 
@@ -85,7 +90,6 @@ public class WebToPiBridgeService {
     }
 
     public void instructPiToTurnOnLaser(String sessionId){
-        Session session = sessionManagerService.getSessionById(sessionId);
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(sessionId);
 
         if(rPiConnection == null){

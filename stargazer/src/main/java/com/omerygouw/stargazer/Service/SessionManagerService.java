@@ -24,11 +24,6 @@ public class SessionManagerService {
         sessionRepository.save(session);
     }
 
-    public LocationCoordinates getUserCoordinates(String sessionId){
-        Session session = sessionRepository.findSessionBySessionId(sessionId);
-        return session.getCoordinates();
-    }
-
     public void createNewSession(String sessionId){
         Session session = new Session();
         session.setSessionId(sessionId);
