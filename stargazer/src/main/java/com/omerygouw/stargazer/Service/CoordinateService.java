@@ -1,27 +1,17 @@
 package com.omerygouw.stargazer.Service;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import com.omerygouw.stargazer.DTO.LocationCoordinates;
 import com.omerygouw.stargazer.DTO.ObjectToPointAt;
-import org.springframework.core.io.ClassPathResource;
+import com.omerygouw.stargazer.Entity.AstronomicalObject;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
