@@ -69,7 +69,14 @@ public class CoordinateService {
                 ra,dec\n
                  */
 
-                String response = responseSpec.bodyToMono(String.class).block();
+                String response = null;
+                try{
+                        response = responseSpec.bodyToMono(String.class).block();
+                }catch (Exception e){
+                        throw new RuntimeException("Received error response from SIMBAD API. This may be due to an apostrophe in the requested object name.\n" +
+                                "Please try removing any apostrophes or using the objects catalogue ID instead.");
+                }
+
 
                 if(response == null){
                         throw new RuntimeException("Received no response from SIMBAD API.");
@@ -247,7 +254,7 @@ public class CoordinateService {
                                 throw new RuntimeException("Cannot point to object type: " + object.objectType());
                         }
                 } catch (Exception e){
-                        throw new RuntimeException(e);
+                        throw new RuntimeException(e.getMessage());
                 }
 
                 Map<String, Integer> relativeCoords = convertRightAscensionAndDeclinationToAzimuthAndAltitude(absoluteCoords.get("Right Ascension"),
