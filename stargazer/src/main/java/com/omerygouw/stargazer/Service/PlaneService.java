@@ -49,8 +49,7 @@ public class PlaneService{
         }
 
         JsonObject jsonResponse = JsonParser.parseString(response).getAsJsonObject();
-        boolean planeStatus = jsonResponse.get("states") != null;
-
+        boolean planeStatus = !jsonResponse.get("states").isJsonNull();
         sessionManagerService.updatePlaneCheck(sessionId, planeStatus, now);
         return planeStatus;
     }
