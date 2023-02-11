@@ -51,7 +51,7 @@ def main_server_communication():
 
         server_message = _get_server_message(s)
 
-        if server_message["instruction"] == "GIVE_ID":
+        if server_message["instruction"].strip() == "GIVE_ID":
             msg = {
                 "sessionId": pairing_id,
                 "messageType": "solicited",
@@ -66,7 +66,7 @@ def main_server_communication():
 
             server_message = _get_server_message(s)
 
-            while not server_message["instruction"] == "PROCEED":
+            while not server_message["instruction"].strip() == "PROCEED":
                 try:
                     _send_message_to_server(s, msg)
                 except ConnectionError:
@@ -75,12 +75,14 @@ def main_server_communication():
 
             connected = True
 
+    print(first_digit)
+    print(second_digit)
+    print(third_digit)
+    stop_displaying_number = laser_controller.display_pairing_number(first_digit, second_digit, third_digit)
+
     while session_id == -1:
-        laser_controller.sideways(first_digit)
-        laser_controller.up_down(second_digit)
-        laser_controller.blink_laser(third_digit)
         session_id_msg = _get_server_message(s)
-        if session_id_msg["instruction"] == "CHANGE_SESSION":
+        if session_id_msg["instruction"].strip() == "CHANGE_SESSION":
             session_id = session_id_msg["instructionData"]
             pairing_success_msg = {
                 "sessionId": session_id,
@@ -89,6 +91,7 @@ def main_server_communication():
                 "instructionId": session_id_msg["instructionId"]
             }
             _send_message_to_server(s, pairing_success_msg)
+            stop_displaying_number()
 
     while True:
         calibration_ok = False
@@ -151,7 +154,7 @@ def main_server_communication():
 
         instruction = _get_server_message(s)
 
-        if instruction["instruction"] == "LASER_ON":
+        if instruction["instruction"].strip() == "LASER_ON":
             try:
                 laser_controller.turn_laser_on(5)
             except:
@@ -168,7 +171,7 @@ def main_server_communication():
                 "message": "",
                 "instructionId": instruction["instructionId"]
             })
-        elif instruction["instruction"] == "LASER_OFF":
+        elif instruction["instruction"].strip() == "LASER_OFF":
             try:
                 laser_controller.turn_laser_off()
             except:
@@ -185,7 +188,7 @@ def main_server_communication():
                 "message": "",
                 "instructionId": instruction["instructionId"]
             })
-        elif instruction["instruction"] == "POINT":
+        elif instruction["instruction"].strip() == "POINT":
             coords = json.loads(instruction["instructionData"])
 
             try:
