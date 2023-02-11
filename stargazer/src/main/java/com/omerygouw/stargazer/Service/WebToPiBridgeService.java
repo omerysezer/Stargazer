@@ -19,7 +19,9 @@ public class WebToPiBridgeService {
     @Autowired
     private SessionManagerService sessionManagerService;
     @Autowired
-    public PlaneService planeService;
+    private PlaneService planeService;
+    @Autowired
+    private MagneticDeclinationService magneticDeclinationService;
 
     public void pairClientToRaspPi(String piId, String clientId) throws IOException {
         RPiConnection rPiConnection = rPiCommunicator.getPiWithSessionId(piId);
@@ -85,7 +87,7 @@ public class WebToPiBridgeService {
         }
 
         if(!result.messageType().equals("SUCCESS")){
-            throw new RuntimeException("Failed. \nRaspberry Pi failed to point to \"" + objectToPointTo.objectName() + "\"");
+            throw new RuntimeException("Failed: Raspberry Pi failed to point to \"" + objectToPointTo.objectName() + "\"");
         }
     }
 
@@ -110,7 +112,7 @@ public class WebToPiBridgeService {
         }
 
         if(!result.messageType().equals("SUCCESS")){
-            throw new RuntimeException("Failed. \nRaspberry Pi failed to turn on laser.");
+            throw new RuntimeException("Failed: Raspberry Pi failed to turn on laser.");
         }
     }
 
@@ -130,7 +132,7 @@ public class WebToPiBridgeService {
         }
 
         if(!result.messageType().equals("SUCCESS")){
-            throw new RuntimeException("Failed. \nRaspberry Pi failed to turn off laser.");
+            throw new RuntimeException("Failed: Raspberry Pi failed to turn off laser.");
         }
     }
 
@@ -139,7 +141,33 @@ public class WebToPiBridgeService {
             sessionManagerService.updateUserCoordinates(clientSessionId, location);
         }
         catch (Exception e){
-            throw new RuntimeException("Failed: " + e.getMessage());
+            throw new RuntimeException("Failed: Could not save your location.");
+        }
+
+        RPiConnection connection = rPiCommunicator.getPiWithSessionId(clientSessionId);
+
+        if(connection == null){
+            throw new RuntimeException("Failed: No raspberry pi is connected.");
+        }
+
+        double magneticDeclination = magneticDeclinationService.getMagneticDeclinationAtLocation(location);
+
+        try{
+            sessionManagerService.updateMagneticDeclination(clientSessionId, magneticDeclination);
+        }catch (Exception e){
+            throw new RuntimeException("Failed: Could not save magnetic declination at your location.");
+        }
+
+        FromPiToServerMessage response = null;
+
+        try{
+            response = connection.saveMagneticDeclination(magneticDeclination);
+        }catch (Exception e){
+            throw new RuntimeException("Failed: Could not send magnetic declination to Raspberry Pi.");
+        }
+
+        if(!response.messageType().equals("SUCCESS")){
+            throw new RuntimeException("Failed: Raspberry Pi failed to save magnetic declination.");
         }
     }
 }

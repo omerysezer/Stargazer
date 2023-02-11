@@ -157,6 +157,16 @@ public class RPiConnection extends Thread{
         return sendMessageToPiAndGetResponse(message);
     }
 
+    public FromPiToServerMessage saveMagneticDeclination(double magneticDeclination) throws IOException {
+        FromServerToPiMessage message = FromServerToPiMessage.builder()
+                .instruction("SET_MAGNETIC_DECLINATION")
+                .instructionData(String.valueOf(magneticDeclination))
+                .instructionId(String.valueOf(System.nanoTime()))
+                .build();
+
+        return sendMessageToPiAndGetResponse(message);
+    }
+
     private FromPiToServerMessage sendMessageToPiAndGetResponse(FromServerToPiMessage message) throws IOException {
         write(new Gson().toJson(message));
         awaitingResponses.put(message.instructionId(), null);

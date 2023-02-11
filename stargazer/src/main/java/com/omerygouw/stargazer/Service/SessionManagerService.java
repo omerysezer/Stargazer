@@ -40,4 +40,10 @@ public class SessionManagerService {
     public void deleteSessionById(String sessionId){
         sessionRepository.deleteById(sessionId);
     }
+
+    public void updateMagneticDeclination(String sessionId, double magneticDeclination) {
+        Session session = sessionRepository.findSessionBySessionId(sessionId);
+        session.setMagneticDeclination(magneticDeclination);
+        sessionRepository.save(session);
+    }
 }
