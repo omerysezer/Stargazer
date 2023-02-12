@@ -6,13 +6,16 @@ from gpiozero.pins.pigpio import PiGPIOFactory
 import threading
 
 
-def _start_required_programs():
-    subprocess.check_output(['pigpiod'])
+def _ensure_pigpiod_is_running():
+    pigpiod_status = ""
+    while "active (running)" not in pigpiod_status:
+        subprocess.run(['systemctl', 'start', 'pigpiod'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+        pigpiod_status = subprocess.run(['systemctl', 'status', 'pigpiod'], stdout=subprocess.PIPE, text=True).stdout
 
 
 class ServoLaserController:
     def __init__(self):
-        _start_required_programs()
+        _ensure_pigpiod_is_running()
         factory = PiGPIOFactory()
 
         self.pan_servo = AngularServo(pin=16, pin_factory=factory, min_angle=0, max_angle=180, initial_angle=90,
