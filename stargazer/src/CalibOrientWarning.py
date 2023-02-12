@@ -5,7 +5,6 @@ class CalibOrientWarning:
     def __init__(self):
         self.imu_controller = IMUController()
         self.magnetic_declination = None
-        self.magnet_declination_is_set = False
 
     def is_calibrated(self):
         return self.imu_controller.accel_is_calibrated() and self.imu_controller.magnet_is_calibrated()
@@ -14,10 +13,13 @@ class CalibOrientWarning:
         return self.is_facing_north() and self.is_level()
 
     def is_facing_north(self):
-        if not self.magnet_declination_is_set:
-            raise RuntimeError("Magnetic declination has not been set. True north cannot be found.")
+        heading = None
 
-        return 359 <= (self.imu_controller.get_magnetic_heading() + self.magnetic_declination) % 360 <= 1
+        while not heading:
+            heading = self.imu_controller.get_magnetic_heading()
+
+        heading += self.magnetic_declination
+        return 359 <= (heading % 360) <= 1
 
     def is_level(self):
         def value_is_in_margin(acceptable_error, expected_value, real_value):
@@ -27,9 +29,5 @@ class CalibOrientWarning:
         error = .3
         return value_is_in_margin(error, 0, gravity_vector[0]) and value_is_in_margin(error, 0, gravity_vector[1]) and value_is_in_margin(error, 9.8, gravity_vector[2])
 
-    def set_magnetic_declination(self, declination):
-        self.magnetic_declination = declination
-        self.magnet_declination_is_set = True
-
-
-
+    def set_magnetic_declination(self, magnetic_declination):
+        self.magnetic_declination = magnetic_declination

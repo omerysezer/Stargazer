@@ -94,6 +94,23 @@ def main_server_communication():
             stop_displaying_number()
 
     while True:
+        magnetic_declination_message = _get_server_message(s)
+
+        if magnetic_declination_message["instruction"].strip() == "SET_MAGNETIC_DECLINATION":
+            magnetic_declination = magnetic_declination_message["instructionData"]
+            calib_orient_warning.set_magnetic_declination(float(magnetic_declination))
+
+            magnetic_success_msg = {
+                "sessionId": session_id,
+                "messageType": "SUCCESS",
+                "message": "",
+                "instructionId": magnetic_declination_message["instructionId"]
+            }
+
+            _send_message_to_server(s, magnetic_success_msg)
+            break
+
+    while True:
         calibration_ok = False
         level_ok = False
         orientation_ok = False
