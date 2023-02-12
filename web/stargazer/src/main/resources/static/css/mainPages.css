@@ -1,0 +1,265 @@
+body {
+    font-family: "Lato", sans-serif;
+    background-color: black;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: Grey;
+}
+
+img:hover {
+    opacity: 0.6;
+}
+
+.popup{
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px 40px;
+    position: fixed;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: "Poppins",sans-serif;
+    display: none;
+    text-align: center;
+}
+
+.fullscreen-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(90, 90, 90, 0.5);
+    z-index: 9999;
+}
+
+.fullscreen-warning-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(90, 90, 90, 0.5);
+    z-index: 9999;
+}
+
+#popdiv {
+    height: 300px;
+    width: 420px;
+    background-color: #97ceaa;
+    position: fixed;
+    top: 50px;
+    left: 50px;
+}
+
+.button {
+    background-color: grey;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.popup h2{
+    margin-top: -20px;
+}
+.popup p{
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 25px;
+}
+
+.right {
+    float: right;
+}
+
+
+.menu-btn {
+    background-color: #040008;
+    color: white;
+    padding: 12px;
+    font-size: 15px;
+    /* font-weight: bolder; */
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    border: none;
+}
+.dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+.menu-content {
+    display: none;
+    position: absolute;
+    background-color: black;
+    min-width: 160px;
+    z-index: 1;
+}
+nav{
+    background-color: black;
+}
+.links,.links-hidden{
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    padding: 12px 16px;
+    text-decoration: none;
+    font-size: 15px;
+
+}
+.links-hidden{
+    display: block;
+}
+.links{
+    display: inline-block;
+}
+.links-hidden:hover,.links:hover {
+    background-color: grey;
+
+}
+.dropdown-menu:hover .menu-content {
+    display: block;
+}
+.dropdown-menu:hover .menu-btn {
+    background-color: grey;
+}
+
+.page_title {
+    font-weight: 300;
+    line-height: 120%;
+    margin: 20px 0;
+    text-shadow: 0 1px 5px rgba(0,0,0,.8);
+    text-transform: uppercase;
+}
+
+/* PEN STYLES ========== */
+.row {
+    margin: 0;
+}
+
+.test_box {
+    padding: 0;
+}
+.test_box .inner {
+    background: #333;
+    display: block;
+    margin: 10px;
+    overflow: hidden;
+}
+.test_box .inner .test_click {
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: rgba(0,0,0,.1);
+    color: #fff;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    height: 300px;
+    mix-blend-mode: normal;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+
+}
+.test_box .inner .test_click:hover {
+    background-color: rgba(0,0,0,.5);
+    mix-blend-mode: hard-light;
+}
+.flex_this {
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    display: inherit;
+    flex-wrap: inherit;
+    height: auto;
+    margin: 0;
+    padding: 10px;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+    width: 100%;
+
+}
+.test_box .inner .test_click:hover .flex_this {
+    margin-top: -5px;
+}
+
+.test_title {
+    display: block;
+    font-weight: 700;
+    margin: 0 0 20px;
+    width: 100%;
+}
+.test_link {
+    border: 2px solid #fff;
+    display: inline-block;
+    font-size: .8em;
+    font-weight: 700;
+    letter-spacing: .1em;
+    margin: 0 auto;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.box .inner {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: black;
+    background-size: contain;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+    margin-bottom: 20px;
+}
+
+.pText{
+    color : black;
+}
+
+.credit > a {
+    display: inline;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    padding: 0;
+}

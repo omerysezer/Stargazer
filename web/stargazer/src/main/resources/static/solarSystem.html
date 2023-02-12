@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Star-Gazer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="css/mainPages.css">
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="js/mainPages.js" defer></script>
+  <script src="js/warningHandler.js"></script>
+  <script src="js/websocket.js" defer></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <a class="links" href="stargazer.html">Home</a>
+  <a class="links" href="galaxy.html">Galaxies</a>
+  <a class="links" href="star.html">Stars</a>
+  <div class="dropdown-menu">
+    <button class="menu-btn active">Solar System</button>
+    <div class="menu-content">
+      <a class="links-hidden active" href="solarSystem.html">Solar System</a>
+      <a class="links-hidden" href="planet.html">Planets</a>
+      <a class="links-hidden" href="asteroid.html">Asteroids</a>
+      <a class="links-hidden" href="comet.html">Comets</a>
+    </div>
+  </div>
+</nav>
+
+<div class="w3-container w3-content w3-center w3-padding-64 w3-white" style="max-width:10000px">
+  <h2 class="w3-wide">SOLAR SYSTEM</h2>
+  <br>
+  <br>
+</div>
+
+<div class="w3-black">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide w3-center">Pick A Piece of The Solar System</h2>
+    <p class="w3-opacity w3-center"><i>And Explore The Neighborhood</i></p><br>
+
+    <div class="row">
+      <div class="container">
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('images/planet.jpg'); background-size: cover">
+            <a href="planet.html" class="test_click">
+              <div class="flex_this">
+                <span class="test_link">Planets</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('images/asteroid.jpg'); background-size: cover">
+            <a href="asteroid.html" class="test_click">
+              <div class="flex_this">
+                <span class="test_link">Asteroids</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="test_box box column">
+          <div class="inner" style="background-image: url('images/comet.jpg'); background-size: cover">
+            <a href="comet.html" class="test_click">
+              <div class="flex_this">
+                <span class="test_link">Comets</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = "fullscreen-warning-container">
+    <div class="popup" id="warningPopup">
+      <h2 id="warningTitle" class="pText">WARNING!</h2>
+      <span class="pText" id="disconnectWarningText"></span>
+      <span class="pText" id="calibrationWarningText"></span>
+      <span class="pText" id="levelWarningText"></span>
+      <span class="pText" id="orientationWarningText"></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

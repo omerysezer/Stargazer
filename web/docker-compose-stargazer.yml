@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  nginx-webserver:
+    container_name: nginx-container
+    build:
+      context: docker-files/stargazer
+      dockerfile: ../docker-files/stargazer/dockerfile_nginx
+    ports:
+      - "443:443"
+    links:
+      - "stargazer-server:stargazer-container"
+    volumes:
+      - /certbot/conf:/etc/letsencrypt
+      - /certbot/www:/var/www/certbot
+    restart: always
+  stargazer-server:
+    container_name: stargazer-container
+    build:
+      context: ..
+      dockerfile: ../docker-files/stargazer/dockerfile_server
+    ports:
+      - "8000:443"
+      - "5000:5000"
+    restart: always
+  redis-server:
+    container_name: redis-container
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Star-Gazer</title>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="js/buttonLoader.js" defer></script>
+  <script src="js/warningHandler.js"></script>
+  <script src="js/websocket.js" defer></script>
+  <script src="js/stargazer.js"></script>
+  <script src="js/mainPages.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="css/mainPages.css">
+  <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <a class="links " href="stargazer.html">Home</a>
+  <a class="links " href="galaxy.html">Galaxies</a>
+  <a class="links " href="star.html">Stars</a>
+  <div class="dropdown-menu">
+    <button class="menu-btn">Solar System</button>
+    <div class="menu-content">
+      <a class="links-hidden" href="solarSystem.html">Solar System</a>
+      <a class="links-hidden " href="planet.html">Planets</a>
+      <a class="links-hidden active" href="asteroid.html">Asteroids</a>
+      <a class="links-hidden" href="comet.html">Comets</a>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<div class="w3-container w3-content w3-center w3-padding-64 w3-white" style="max-width:10000px">
+  <h2 class="w3-wide">ASTEROIDS</h2>
+  <br>
+  <br>
+</div>
+
+
+<div class="w3-black">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide w3-center">Pluck an Asteroid</h2>
+    <p class="w3-opacity w3-center"><i>And Marvel</i></p><br>
+
+    <div class="wrap">
+      <div class="search">
+        <input type="text" class="searchTerm" placeholder="Search.." id="search">
+          <button type="submit" class="searchButton" id="searchBarSubmit">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div style="display: grid; gap: 150px;">
+        <div class="row">
+          <div class="container" id="buttonContainer">
+          </div>
+        </div>
+
+        <div id="creditHolder">
+          <h4 class="w3-wide; w3-center">Credits/Attributions</h4>
+          <ol id="credits"></ol>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class = "fullscreen-container">
+  <div class="popup" id="popup">
+    <button class = "button right" id="close" onclick="reset()">&times;</button>
+    <h2 id="popupTitle" class="pText">Let's Go!</h2>
+    <p class="pText" id="outputText">WEEEEEEEEEEEEEEE <br> </p>
+    <button id="laserOnButton" class="button" onclick = "turnOnLaser()">Start</button>
+    <button id="laserOffButton" class="button" onclick = "turnOffLaser()">Stop</button>
+  </div>
+</div>
+  <div class = "fullscreen-warning-container">
+    <div class="popup" id="warningPopup">
+      <button class = "button right" id="closeWarning">&times;</button>
+      <h2 id="warningTitle" class="pText">WARNING!</h2>
+      <span class="pText" id="disconnectWarningText"></span>
+      <span class="pText" id="calibrationWarningText"></span>
+      <span class="pText" id="levelWarningText"></span>
+      <span class="pText" id="orientationWarningText"></span>
+    </div>
+  </div>
+</body>
+</html>
+

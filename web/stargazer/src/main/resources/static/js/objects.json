@@ -1,0 +1,521 @@
+{
+  "planet.html": {
+    "fallbackBackgroundFillType": "contain",
+    "imageFolder": "../images/planets",
+    "objects": [
+      {
+        "name": "mercury",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/480px-Mercury_in_true_color.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Mercury_in_true_color.jpg\">NASA/Johns Hopkins University Applied Physics Laboratory/Arizona State University/Carnegie Institution of Washington</a>, Public domain, via Wikimedia Commons",
+        "id": "199"
+      },
+      {
+        "name": "venus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Venus_from_Mariner_10.jpg/480px-Venus_from_Mariner_10.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Venus_from_Mariner_10.jpg\">NASA/JPL-Caltech</a>, Public domain, via Wikimedia Commons",
+        "id": "299"
+      },
+      {
+        "name": "moon",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/505px-FullMoon2010.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:FullMoon2010.jpg\">Gregory H. Revera</a>, <a href=\"https://creativecommons.org/licenses/by-sa/3.0\">CC BY-SA 3.0</a>, via Wikimedia Commons",
+        "id": "301"
+      },
+      {
+        "name": "mars",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/480px-OSIRIS_Mars_true_color.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:OSIRIS_Mars_true_color.jpg\">ESA &amp; MPS for OSIRIS Team MPS/UPD/LAM/IAA/RSSD/INTA/UPM/DASP/IDA, CC BY-SA IGO 3.0</a>, <a style=\"display: inline\" href=\"https://creativecommons.org/licenses/by-sa/3.0/igo/deed.en\">CC BY-SA 3.0 IGO</a>, via Wikimedia Commons",
+        "id": "499"
+      },
+      {
+        "name": "jupiter",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg/501px-Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Jupiter,_image_taken_by_NASA%27s_Hubble_Space_Telescope,_June_2019_-_Edited.jpg\">NASA, ESA, and A. Simon (NASA Goddard), edited by PlanetUser</a>, Public domain, via Wikimedia Commons",
+        "id": "599"
+      },
+      {
+        "name": "saturn",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Saturn_during_Equinox_%28rot45%29.jpg/768px-Saturn_during_Equinox_%28rot45%29.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Saturn_during_Equinox_(rot45).jpg\">NASA / JPL / Space Science Institute</a>, Public domain, via Wikimedia Commons",
+        "id": "699"
+      },
+      {
+        "name": "uranus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Uranus_as_seen_by_NASA%27s_Voyager_2_%28remastered%29_-_JPEG_converted.jpg/480px-Uranus_as_seen_by_NASA%27s_Voyager_2_%28remastered%29_-_JPEG_converted.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Uranus_as_seen_by_NASA%27s_Voyager_2_(remastered)_-_JPEG_converted.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "799"
+      },
+      {
+        "name": "neptune",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Neptune_Full.jpg/480px-Neptune_Full.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Neptune_Full.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "899"
+      },
+      {
+        "name": "pluto",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pluto_in_True_Color_-_High-Res.jpg/480px-Pluto_in_True_Color_-_High-Res.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Pluto_in_True_Color_-_High-Res.jpg\">NASA/Johns Hopkins University Applied Physics Laboratory/Southwest Research Institute/Alex Parker</a>, Public domain, via Wikimedia Commons",
+        "id": "999"
+      }
+    ]
+  },
+  "star.html": {
+    "fallbackBackgroundFillType": "cover",
+    "imageFolder": "../images/stars",
+    "defaultImage": "star.jpg",
+    "objects": [
+      {
+        "name": "sirius",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Sirius_A_and_B_Hubble_photo.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Sirius_A_and_B_Hubble_photo.jpg\">NASA, ESA, H. Bond (STScI), and M. Barstow (University of Leicester)</a>, Public domain, via Wikimedia Commons",
+        "id": "alf CMa"
+      },
+      {
+        "name": "canopus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Canopus.jpg/640px-Canopus.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Canopus.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "alf Car"
+      },
+      {
+        "name": "alpha_centauri",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/The_bright_star_Alpha_Centauri_and_its_surroundings.jpg/479px-The_bright_star_Alpha_Centauri_and_its_surroundings.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:The_bright_star_Alpha_Centauri_and_its_surroundings.jpg\">ESO/DSS 2</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "alf Cen"
+      },
+      {
+        "name": "arcturus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Arcturus_%28optical%29.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Arcturus_(optical).png\">Mikulski Archive for Space Telescopes (MAST), STScI, and NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "alf Boo"
+      },
+      {
+        "name": "vega",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Vega_by_Stephen_Rahn.jpg/480px-Vega_by_Stephen_Rahn.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Vega_by_Stephen_Rahn.jpg\">Stephen Rahn</a>, CC0, via Wikimedia Commons",
+        "id": "alf Lyr"
+      },
+      {
+        "name": "capella",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Capella_DSS.png/640px-Capella_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Capella_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Aur"
+      },
+      {
+        "name": "rigel",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Rigel_DSS.png/640px-Rigel_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Rigel_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "bet Ori"
+      },
+      {
+        "name": "procyon",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Procyon_DSS.png/638px-Procyon_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Procyon_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf CMi"
+      },
+      {
+        "name": "achernar",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Achernar_DSS.png/640px-Achernar_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Achernar_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Eri"
+      },
+      {
+        "name": "betelgeuse",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Digitized_Sky_Survey_Image_of_Betelgeuse.jpg/640px-Digitized_Sky_Survey_Image_of_Betelgeuse.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Digitized_Sky_Survey_Image_of_Betelgeuse.jpg\">ESO/Digitized Sky Survey 2</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "alf Ori"
+      },
+      {
+        "name": "beta_centauri",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Alpha_Centauri_from_Paranal.jpg/640px-Alpha_Centauri_from_Paranal.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Alpha_Centauri_from_Paranal.jpg\">John Colosimo/ESO</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "bet Cen"
+      },
+      {
+        "name": "altair",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Altair.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Altair.jpg\">NASA/JPL/Caltech/Steve Golden</a>, Public domain, via Wikimedia Commons",
+        "id": "alf Aql"
+      },
+      {
+        "name": "acrux",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Wide-field_view_of_part_of_the_Coalsack_Nebula_-_Fixed_colors.jpg/640px-Wide-field_view_of_part_of_the_Coalsack_Nebula_-_Fixed_colors.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Wide-field_view_of_part_of_the_Coalsack_Nebula_-_Fixed_colors.jpg\">ESO</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Cru"
+      },
+      {
+        "name": "aldebaran",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Aldebaran.jpg/480px-Aldebaran.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Aldebaran.jpg\">NASA, ESA, and STScI</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Tau"
+      },
+      {
+        "name": "antares",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/VLTI_reconstructed_view_of_the_surface_of_Antares.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:VLTI_reconstructed_view_of_the_surface_of_Antares.jpg\">ESO/K. Ohnaka</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "alf Sco"
+      },
+      {
+        "name": "spica",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Spica_DSS.png/640px-Spica_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Spica_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Vir"
+      },
+      {
+        "name": "pollux",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/66/Pollux-Star.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Pollux-Star.jpg\">Murgor Multoface</a>, CC0, via Wikimedia Commons",
+        "id": "78 Gem"
+      },
+      {
+        "name": "fomalhaut",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Heic0821f.jpg/447px-Heic0821f.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Heic0821f.jpg\">Davide De Martin</a>, Public domain, via Wikimedia Commons",
+        "id": "alf PsA"
+      },
+      {
+        "name": "deneb",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Deneb_DSS.png/640px-Deneb_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Deneb_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Cyg"
+      },
+      {
+        "name": "mimosa",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Digitized_Sky_Survey_2_Image_of_NGC_4755.jpg/476px-Digitized_Sky_Survey_2_Image_of_NGC_4755.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Digitized_Sky_Survey_2_Image_of_NGC_4755.jpg\">ESO, ESA/Hubble and Digitized Sky Survey 2. Acknowledgment: Davide De Martin (ESA/Hubble)</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "bet Cru"
+      },
+      {
+        "name": "regulus",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Regulus_DSS.png/640px-Regulus_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Regulus_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "alf Leo"
+      },
+      {
+        "name": "adhara",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Epsilon_CMa_DSS.png/640px-Epsilon_CMa_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Epsilon_CMa_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "eps CMa"
+      },
+      {
+        "name": "castor",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Castor-Star.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Castor-Star.jpg\">Murgor Multoface</a>, CC0, via Wikimedia Commons",
+        "id": "alf Gem"
+      },
+      {
+        "name": "gacrux",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Gacrux.jpg/568px-Gacrux.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Gacrux.jpg\">Nova Dawn Astrophotography</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "gam Cru"
+      },
+      {
+        "name": "bellatrix",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Bellatrix_DSS.png/640px-Bellatrix_DSS.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Bellatrix_DSS.png\">Roberto Mura</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "gam Ori"
+      },
+      {
+        "name": "polaris",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/99/Polaris_in_Ursa_Minor.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Polaris_in_Ursa_Minor.png\">Morigan221</a>, <a href=\"https://creativecommons.org/licenses/by-sa/3.0\">CC BY-SA 3.0</a>, via Wikimedia Commons",
+        "id": "alf UMi"
+      },
+      {
+        "name": "eta_canus_majoris",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Eta_CMa.jpg/524px-Eta_CMa.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Eta_CMa.jpg\">Sephirohq</a>, <a href=\"https://creativecommons.org/licenses/by-sa/3.0\">CC BY-SA 3.0</a>, via Wikimedia Commons",
+        "id": "eta CMa"
+      }
+    ]
+  },
+  "galaxy.html": {
+    "fallbackBackgroundFillType": "cover",
+    "imageFolder": "../images/galaxies",
+    "objects": [
+      {
+        "name": "andromeda_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Andromeda_Galaxy_560mm_FL.jpg/640px-Andromeda_Galaxy_560mm_FL.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_560mm_FL.jpg\">David (Deddy) Dayag</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "M31"
+      },
+      {
+        "name": "large_magellanic_cloud",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Magellanic_Cloud.jpg/480px-Magellanic_Cloud.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Magellanic_Cloud.jpg\">NASA/JPL-Caltech/M. Meixner (STScI) &amp; the SAGE Legacy Team</a>, Public domain, via Wikimedia Commons",
+        "id": "LMC"
+      },
+      {
+        "name": "small_magellanic_cloud",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/614863main_pia15255-portal-full_full.jpg/640px-614863main_pia15255-portal-full_full.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:614863main_pia15255-portal-full_full.jpg\">ESA/NASA/JPL-Caltech/STScI</a>, Public domain, via Wikimedia Commons",
+        "id": "SMC"
+      },
+      {
+        "name": "triangulum_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg/402px-VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg\">ESO</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "M33"
+      },
+      {
+        "name": "antennae_galaxies",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Antennae_Galaxies_composite_of_ALMA_and_Hubble_observations.jpg/482px-Antennae_Galaxies_composite_of_ALMA_and_Hubble_observations.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Antennae_Galaxies_composite_of_ALMA_and_Hubble_observations.jpg\">ALMA (ESO/NAOJ/NRAO). Visible light image: the NASA/ESA Hubble Space Telescope</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "NGC 4038/9"
+      },
+      {
+        "name": "backward_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/NGC_4622HSTFull.jpg/422px-NGC_4622HSTFull.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:NGC_4622HSTFull.jpg\">NASA and The Hubble Heritage Team (STScI/AURA)</a>, Public domain, via Wikimedia Commons",
+        "id": "NGC 4622"
+      },
+      {
+        "name": "black_eye_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Black_eye_galaxy.png/480px-Black_eye_galaxy.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Black_eye_galaxy.png\">Pablo Carlos Budassi</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "M64"
+      },
+      {
+        "name": "stephan's_quintet",
+        "imageUrl": "https://stsci-opo.org/STScI-01G8H4DRM2C010PX6T3DPEEDAW.png",
+        "credit": "<a href=\"https://webbtelescope.org/contents/media/images/2022/034/01G7DA5ADA2WDSK1JJPQ0PTG4A?keyword=stephans%20quintet\">NASA, ESA, CSA, STScI</a>",
+        "id": "HCG 92"
+      },
+      {
+        "name": "cartwheel_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Cartwheel_Galaxy_JWST_NIRCam%2BMIRI_Full_Res.png/522px-Cartwheel_Galaxy_JWST_NIRCam%2BMIRI_Full_Res.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Cartwheel_Galaxy_JWST_NIRCam%2BMIRI_Full_Res.png\">NASA, ESA, CSA, STScI</a>, Public domain, via Wikimedia Commons",
+        "id": "ESO 350-40"
+      },
+      {
+        "name": "coma_pinwheel_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Messier_99_NGC_4254.jpg/559px-Messier_99_NGC_4254.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Messier_99_NGC_4254.jpg\">ESO</a>, Public domain, via Wikimedia Commons",
+        "id": "M99"
+      },
+      {
+        "name": "eye_of_sauron_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Messier51_sRGB.jpg/1920px-Messier51_sRGB.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Messier51_sRGB.jpg\">NASA and European Space Agency</a>, Public domain, via Wikimedia Commons",
+        "id": "NGC 4151"
+      },
+      {
+        "name": "pinwheel_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA15630/PIA15630~small.jpg",
+        "credit": "<a href=\"https://images.nasa.gov/details-PIA15630\">NASA, ESA, CXC, JPL, Caltech and STScI</a>",
+        "id": "M101"
+      },
+      {
+        "name": "hockey_stick_galaxies",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/The_Hockey_Stick_Galaxy.jpg/512px-The_Hockey_Stick_Galaxy.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:The_Hockey_Stick_Galaxy.jpg\">ESA/Hubble</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "NGC 4656"
+      },
+      {
+        "name": "sunflower_galaxy",
+        "imageUrl": "https://images-assets.nasa.gov/image/PIA13900/PIA13900~small.jpg",
+        "credit": "<a href=\"https://images.nasa.gov/details-PIA13900\">NASA/JPL-Caltech/SINGS Team</a>",
+        "id": "M63"
+      },
+      {
+        "name": "whirlpool_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Messier51_sRGB.jpg/1920px-Messier51_sRGB.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Messier51_sRGB.jpg\">NASA and European Space Agency</a>, Public domain, via Wikimedia Commons",
+        "id": "NGC 5194"
+      },
+      {
+        "name": "sombrero_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/M104_ngc4594_sombrero_galaxy_hi-res.jpg/2560px-M104_ngc4594_sombrero_galaxy_hi-res.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:M104_ngc4594_sombrero_galaxy_hi-res.jpg\">NASA/ESA and The Hubble Heritage Team (STScI/AURA)</a>, Public domain, via Wikimedia Commons",
+        "id": "M104"
+      },
+      {
+        "name": "fireworks_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/NGC_6946.jpg/1280px-NGC_6946.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:NGC_6946.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "NGC 6946"
+      },
+      {
+        "name": "hoag's_object",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hoag%27s_object.jpg/785px-Hoag%27s_object.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Hoag%27s_object.jpg\">NASA and The Hubble Heritage Team (STScI/AURA); Acknowledgment: Ray A. Lucas (STScI/AURA)</a>, Public domain, via Wikimedia Commons",
+        "id": "PRC D-51"
+      },
+      {
+        "name": "bode's_galaxy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Messier_81_HST.jpg/640px-Messier_81_HST.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Messier_81_HST.jpg\">NASA, ESA and the Hubble Heritage Team (STScI/AURA)</a>, Public domain, via Wikimedia Commons",
+        "id": "M81"
+      },
+      {
+        "name": "NGC1300",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg/640px-Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg\">NASA, ESA, and The Hubble Heritage Team STScI/AURA)</a>, Public domain, via Wikimedia Commons",
+        "id": "NGC1300"
+      },
+      {
+        "name": "centaurus_a",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Black_Hole_Outflows_From_Centaurus_A.jpg/474px-Black_Hole_Outflows_From_Centaurus_A.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Black_Hole_Outflows_From_Centaurus_A.jpg\">ESO/WFI (Optical); MPIfR/ESO/APEX/A.Weiss et al. (Submillimetre); NASA/CXC/CfA/R.Kraft et al. (X-ray)Derivative work including grading and crop: Julian Herzog</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "NGC 5128"
+      }
+    ]
+  },
+  "asteroid.html":{
+    "fallbackBackgroundFillType": "contain",
+    "imageFolder": "../images/asteroids",
+    "objects": [
+      {
+        "name": "1_CERES",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/489px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg\">Justin Cowart</a>, Public domain, via Wikimedia Commons",
+        "id": "'1;'"
+      },
+      {
+        "name": "2_PALLAS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Potw1749a_Pallas_crop.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Potw1749a_Pallas_crop.png\">Credit: ESO/Vernazza et al.</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "'2;'"
+      },
+      {
+        "name": "10_HYGIEA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/SPHERE_image_of_Hygiea.jpg/480px-SPHERE_image_of_Hygiea.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:SPHERE_image_of_Hygiea.jpg\">ESO/P. Vernazza et al./MISTRAL algorithm (ONERA/CNRS)</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "'10;"
+      },
+      {
+        "name": "4_VESTA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Vesta_in_natural_color.jpg/480px-Vesta_in_natural_color.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Vesta_in_natural_color.jpg\">NASA / JPL / MPS / DLR / IDA / Björn Jónsson</a>, Public domain, via Wikimedia Commons",
+        "id": "'4;'"
+      },
+      {
+        "name": "21_LUTETIA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Rosetta_triumphs_at_asteroid_Lutetia.jpg/486px-Rosetta_triumphs_at_asteroid_Lutetia.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Rosetta_triumphs_at_asteroid_Lutetia.jpg\">ESA 2010 MPS for OSIRIS Team MPS/UPD/LAM/IAA/RSSD/INTA/UPM/DASP/IDA</a>, <a href=\"https://creativecommons.org/licenses/by-sa/2.0\">CC BY-SA 2.0</a>, via Wikimedia Commons",
+        "id": "'21;'"
+      },
+      {
+        "name": "253_MATHILDE",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3b/%28253%29_mathilde.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:(253)_mathilde.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "'253;'"
+      },
+      {
+        "name": "'243_IDA'",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/243_Ida_large.jpg/640px-243_Ida_large.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:243_Ida_large.jpg\">NASA/JPL</a>, Public domain, via Wikimedia Commons",
+        "id": "'243;'"
+      },
+      {
+        "name": "486958_ARROKOTH",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/UltimaThule_CA06_color_vertical_%28rotated%29.png/537px-UltimaThule_CA06_color_vertical_%28rotated%29.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:UltimaThule_CA06_color_vertical_(rotated).png\">NASA/Johns Hopkins University Applied Physics Laboratory/Southwest Research Institute/Roman Tkachenko.</a>, Public domain, via Wikimedia Commons",
+        "id": "'486958;'"
+      },
+      {
+        "name": "433_EROS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Eros_-_PIA02923_%28color%29.jpg/435px-Eros_-_PIA02923_%28color%29.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Eros_-_PIA02923_(color).jpg\">NASA/JPL/JHUAPL</a>, Public domain, via Wikimedia Commons",
+        "id": "'433;'"
+      },
+      {
+        "name": "951_GASPRA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/951_Gaspra.jpg/546px-951_Gaspra.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:951_Gaspra.jpg\">English:  NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "'951;'"
+      },
+      {
+        "name": "2867_STEINS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/2867_%C5%A0teins_by_Rosetta_%28reprocessed%29.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:2867_%C5%A0teins_by_Rosetta_(reprocessed).png\">ESA 2008 MPS for OSIRIS Team MPS/UPD/LAM/IAA/RSSD/INTA/UPM/DASP/IDA; processing by T. Stryk.</a>, <a href=\"https://creativecommons.org/licenses/by-sa/2.0\">CC BY-SA 2.0</a>, via Wikimedia Commons",
+        "id": "'2867;'"
+      },
+      {
+        "name": "5535_ANNEFRANK",
+        "imageUrl": "https://www.nasa.gov/images/content/137519main_PIA02885-330.jpg",
+        "credit": "<a href=\"https://www.nasa.gov/mission_pages/stardust/news/stardustf-20021104.html\">NASA JPL-Caltech",
+        "id": "'5535;'"
+      },
+      {
+        "name": "4179_TOUTATIS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Asteroid_4179_Toutatis_close-up.jpg/480px-Asteroid_4179_Toutatis_close-up.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Asteroid_4179_Toutatis_close-up.jpg\">Yun Jiang, Jianghui Ji, Jiangchuan Huang, Simone Marchi, Yuan Li &amp; Wing-Huen Ip</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "'4179;'"
+      },
+      {
+        "name": "9969_BRAILLE",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/PIA01345.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:PIA01345.jpg\">NASA/JPL-Caltech/UMD</a>, Public domain, via Wikimedia Commons",
+        "id": "'9969;'"
+      },
+      {
+        "name": "162173_RYUGU",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Ryugu_colored.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Ryugu_colored.jpg\">ISAS/JAXA</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "'162173;'"
+      },
+      {
+        "name": "101955_BENNU",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BennuAsteroid.jpg/508px-BennuAsteroid.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:BennuAsteroid.jpg\">NASA/Goddard/University of Arizona</a>, Public domain, via Wikimedia Commons",
+        "id": "'101955;'"
+      },
+      {
+        "name": "25143_ITOKAWA",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/48/Itokawa06_hayabusa.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Itokawa06_hayabusa.jpg\">ISAS/JAXA</a>, <a href=\"https://creativecommons.org/licenses/by/4.0\">CC BY 4.0</a>, via Wikimedia Commons",
+        "id": "'25143;'"
+      },
+      {
+        "name": "DIDYMOS/DIMORPHOS",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/05/Didymos-Dimorphos_true_orientation.png",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Didymos-Dimorphos_true_orientation.png\">NASA/Johns Hopkins APL</a>, Public domain, via Wikimedia Commons",
+        "id": "'65803;'"
+      }
+    ]
+  },
+  "comet.html": {
+    "fallbackBackgroundFillType": "cover",
+    "imageFolder": "../images/comets",
+    "objects": [
+      {
+        "name": "halley's_comet",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Comet_Halley_close_up-cropped.jpg/480px-Comet_Halley_close_up-cropped.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_Halley_close_up-cropped.jpg\">ESA/MPS, CC BY-SA IGO 3.0</a>, <a href=\"https://creativecommons.org/licenses/by-sa/3.0/igo/deed.en\">CC BY-SA 3.0 IGO</a>, via Wikimedia Commons",
+        "id": "'DES=1000036;CAP;'"
+      },
+      {
+        "name": "wild_2",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Wild2_3.jpg/480px-Wild2_3.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Wild2_3.jpg\">NASA</a>, Public domain, via Wikimedia Commons",
+        "id": "'DES=1000107;CAP;'"
+      },
+      {
+        "name": "borelly",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Comet_Borrelly_Nucleus.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_Borrelly_Nucleus.jpg\">NASA/JPL</a>, Public domain, via Wikimedia Commons",
+        "id": "'DES=1000005;CAP;'"
+      },
+      {
+        "name": "tempel_1",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/PIA02142_Tempel_1_bottom_sharped.jpg/768px-PIA02142_Tempel_1_bottom_sharped.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:PIA02142_Tempel_1_bottom_sharped.jpg\">NASA / Jet Propulsion Laboratory / University of Maryland</a>, Public domain, via Wikimedia Commons",
+        "id": "'DES=1000093;CAP;'",
+        "backgroundFillType": "contain"
+      },
+      {
+        "name": "hartley_2",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Comet_Hartley_2.jpg/640px-Comet_Hartley_2.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_Hartley_2.jpg\">NASA/JPL-Caltech/UMD</a>, Public domain, via Wikimedia Commons",
+        "id": "'DES=1000041;CAP;'"
+      },
+      {
+        "name": "67P/C–G",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Comet_67P_True_color.jpg/480px-Comet_67P_True_color.jpg",
+        "credit": "<a href=\"https://commons.wikimedia.org/wiki/File:Comet_67P_True_color.jpg\">ESA/Rosetta/MPS for OSIRIS Team MPS/UPD/LAM/IAA/SSO/INTA/UPM/DASP/IDA</a>, <a href=\"https://creativecommons.org/licenses/by-sa/4.0\">CC BY-SA 4.0</a>, via Wikimedia Commons",
+        "id": "'DES=1000012;CAP;'",
+        "backgroundFillType": "contain"
+      }
+    ]
+  }
+}
