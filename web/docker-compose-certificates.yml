@@ -5,7 +5,7 @@ services:
     container_name: nginx-certificates-container
     build:
       context: docker-files/certificates
-      dockerfile: ../docker-files/certificates/dockerfile_nginx
+      dockerfile: ./docker-files/certificates/dockerfile_nginx
     ports:
       - "80:80"
     volumes:

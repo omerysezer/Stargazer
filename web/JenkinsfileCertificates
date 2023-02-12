@@ -4,7 +4,7 @@ pipeline {
 	stages{
 		stage("Run Dockerfile"){
 			steps{
-			    sh("docker compose -f docker-compose-certificates.yml up --force-recreate --build -d")
+			    sh("docker compose -f web/docker-compose-certificates.yml up --force-recreate --build -d")
 			}
 		}
 	}

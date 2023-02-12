@@ -1,4 +1,4 @@
 FROM nginx:latest
 
 RUN rm -f /etc/nginx/conf.d/default.conf
-COPY stargazer.conf /etc/nginx/conf.d/stargazer.conf
+COPY ./docker-files/stargazer/stargazer.conf /etc/nginx/conf.d/stargazer.conf
