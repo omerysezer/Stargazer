@@ -42,17 +42,17 @@ function getWarningHandler() {
                 disconnectWarningActive = true;
                 break;
             case "CALIBRATION":
-                message = "WARNING: THE RASPBERRY PI IS NOT CALIBRATED! THIS WILL AFFECT ITS ACCURACY!<br>";
+                message = "WARNING: THE RASPBERRY PI IS NOT CALIBRATED!<br>";
                 elementName = "calibrationWarningText";
                 calibrationWarningActive = true;
                 break;
             case "LEVEL":
-                message = "WARNING: THE RASPBERRY PI IS NOT LEVEL ON THE GROUND! THIS WILL AFFECT ITS ACCURACY!<br>";
+                message = "WARNING: THE RASPBERRY PI IS NOT LEVEL ON THE GROUND!<br>";
                 elementName = "levelWarningText";
                 levelWarningActive = true;
                 break;
             case "ORIENTATION":
-                message = "WARNING: THE RASPBERRY PI IS NOT FACING NORTH! THIS WILL AFFECT ITS ACCURACY<br>";
+                message = "WARNING: THE RASPBERRY PI IS NOT FACING NORTH!<br>";
                 elementName = "orientationWarningText";
                 orientationWarningActive = true;
                 break;
