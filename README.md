@@ -21,10 +21,10 @@ The server rejects requests to point to objects if it has seen any aircraft with
 ## Use Images
 <table>
 <tr>
-<td><img alt="Stargazer pointing to Merak in Ursa Major" src="readme-resources/big_dipper.jpg" title="Pointing to Sirius In First Test" width="100%"/></td>
-<td><img alt="Stargazer pointing to Alnilam in Orion" src="readme-resources/orion.jpg" title="Pointing to Pollux" width="100%"/></td>
-<td><img alt="Stargazer being setup outside for the first time." src="readme-resources/stargazer_in_field.jpg" title="Pointing to Sirius In First Test" width="100%"/></td>
-<td><img alt="Stargazer pointing to a star which we forgot to write down, and we can't tell from the picture." src="readme-resources/unkown_star.jpg" title="Pointing to Pollux" width="100%"/></td>
+<td><img alt="Stargazer pointing to Merak in Ursa Major" src="readme-resources/big_dipper.jpg" title="Stargazer pointing to Merak in Ursa Major" width="100%"/></td>
+<td><img alt="Stargazer pointing to Alnilam in Orion" src="readme-resources/orion.jpg" title="Stargazer pointing to Alnilam in Orion" width="100%"/></td>
+<td><img alt="Stargazer being setup outside for a demo" src="readme-resources/stargazer_in_field.jpg" title="Stargazer being setup outside for a demo" width="100%"/></td>
+<td><img alt="Stargazer pointing to a star which we forgot to write down, and we can't tell from the picture" src="readme-resources/unkown_star.jpg" title="Stargazer pointing to a star which we forgot to write down, and we can't tell from the picture" width="100%"/></td>
 </tr>
 </table>
 
