@@ -1,13 +1,38 @@
-# Stargazer: Your guide to the sky
+# <center> Stargazer: Your Guide to The Sky </center>
 
+<p align = "center">
+<img src="readme-resources/stargazer_main_page.png" title="Galaxies Page of Website" width="90%" height="90%"/>
+</p>
+
+## Overview
 Stargazer is a project done in collaboration between Omer Sezer and Georges Ouweijan during the winter break between the Fall 2022 and Spring 2023 semesters.
-It allows users to go to a website, pair with a raspberry pi controlling two servos and a laser, and instruct it to point at any object in the sky, from stars to planets to asteroids to galaxies.
+It allows users to go to a website, pair with a Raspberry Pi controlling two servo motors and a laser, and instruct it to point at any object in the night sky from stars to planets to asteroids to galaxies.
 
-The application is broken into three main components: the server which is implemented utilizing Java Spring, the website which is implemented in HTML and vanilla JavaScript, and the code controlling the motors and laser which is implemented in Python.
+The server was written using the Java Spring framework, while the website was created with vanilla JavaScript, HTML, and CSS, and the Raspberry Pi ran Python.
+
+When a user searches or clicks on an astronomical body they wish to see, the website sends a message containing the name and id (if it is known) of the object to the server via a WebSocket.
+The server then searches for the coordinates of that object using the JPL Horizons API for bodies within our solar system, or SIMBAD API for extrasolar objects, and converts those absolute coordinates into the coordinates in the sky for the user's location.
+Then the server instructs the Raspberry Pi to point to those coordinates and the magic happens!
+
+The device is able to point to an object within a few degrees, enabling users to understand where everything is in the sky!
+
+The server rejects requests to point to objects if it has seen any aircraft within the past five minutes, improving safety.
 
 ## Use Images
-<img alt="This image shows the first field test in which we attempted to point to Sirius, the brightest star in the sky." height="500" src="readme-resources/laser_pointing_at_sirius.jpg" title="Pointing to Sirius In First Test" width="281"/>
-<img alt="Another image from the first tests of Stargazer where we point to Pollux." height="500" src="readme-resources/laser_pointing_at_pollux.jpg" title="Pointing to Pollux" width="281"/>
+<table>
+<tr>
+<td><img alt="Stargazer pointing to Merak in Ursa Major" src="readme-resources/big_dipper.jpg" title="Pointing to Sirius In First Test" width="100%"/></td>
+<td><img alt="Stargazer pointing to Alnilam in Orion" src="readme-resources/orion.jpg" title="Pointing to Pollux" width="100%"/></td>
+<td><img alt="Stargazer being setup outside for the first time." src="readme-resources/stargazer_in_field.jpg" title="Pointing to Sirius In First Test" width="100%"/></td>
+<td><img alt="Stargazer pointing to a star which we forgot to write down, and we can't tell from the picture." src="readme-resources/unkown_star.jpg" title="Pointing to Pollux" width="100%"/></td>
+</tr>
+</table>
 
-## Website Images
-<img height="422" src="readme-resources/stargazer_main_page.png" title="Galaxies Page of Website" width="750"/>
+## Website GIFs
+
+### Site Tour
+![](/readme-resources/tour.gif)
+<br>
+### Site Usage
+![](/readme-resources/planets.gif)
+
