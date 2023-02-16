@@ -36,3 +36,113 @@ The server rejects requests to point to objects if it has seen any aircraft with
 ### Site Usage
 ![](/readme-resources/planets.gif)
 
+## Code Tree
+```
+README.md
+pi
+   |-- .gitignore
+   |-- Jenkinsfile
+   |-- stargazer
+   |   |-- requirements.txt
+   |   |-- src
+   |   |   |-- CalibOrientWarning.py
+   |   |   |-- IMUController.py
+   |   |   |-- NetworkHandler.py
+   |   |   |-- ServerCommunication.py
+   |   |   |-- ServoLaserController.py
+   |   |   |-- main.py
+readme-resources
+   |-- asteroids.gif
+   |-- big_dipper.jpg
+   |-- comets.gif
+   |-- galaxies.gif
+   |-- orion.jpg
+   |-- planets.gif
+   |-- stargazer_in_field.jpg
+   |-- stargazer_main_page.png
+   |-- stars.gif
+   |-- tour.gif
+   |-- unkown_star.jpg
+web
+   |-- JenkinsfileCertificates
+   |-- JenkinsfileStargazer
+   |-- docker-compose-certificates.yml
+   |-- docker-compose-stargazer.yml
+   |-- docker-files
+   |   |-- certificates
+   |   |   |-- certificates.conf
+   |   |   |-- dockerfile_nginx
+   |   |-- stargazer
+   |   |   |-- dockerfile_nginx
+   |   |   |-- dockerfile_server
+   |   |   |-- stargazer.conf
+   |-- stargazer
+   |   |-- .gitignore
+   |   |-- .mvn
+   |   |   |-- wrapper
+   |   |   |   |-- maven-wrapper.jar
+   |   |   |   |-- maven-wrapper.properties
+   |   |-- mvnw
+   |   |-- mvnw.cmd
+   |   |-- pom.xml
+   |   |-- src
+   |   |   |-- main
+   |   |   |   |-- java
+   |   |   |   |   |-- com
+   |   |   |   |   |   |-- omerygouw
+   |   |   |   |   |   |   |-- stargazer
+   |   |   |   |   |   |   |   |-- Config
+   |   |   |   |   |   |   |   |   |-- RedisConfig.java
+   |   |   |   |   |   |   |   |   |-- WebSocketConfiguration.java
+   |   |   |   |   |   |   |   |-- Controller
+   |   |   |   |   |   |   |   |   |-- RPiCommunication.java
+   |   |   |   |   |   |   |   |   |-- WebSocketController.java
+   |   |   |   |   |   |   |   |-- DTO
+   |   |   |   |   |   |   |   |   |-- FromPiToServerMessage.java
+   |   |   |   |   |   |   |   |   |-- FromServerToPiMessage.java
+   |   |   |   |   |   |   |   |   |-- LocationCoordinates.java
+   |   |   |   |   |   |   |   |   |-- Message.java
+   |   |   |   |   |   |   |   |   |-- ObjectCoordinates.java
+   |   |   |   |   |   |   |   |   |-- ObjectToPointAt.java
+   |   |   |   |   |   |   |   |   |-- SessionIdWrapper.java
+   |   |   |   |   |   |   |   |   |-- Status.java
+   |   |   |   |   |   |   |   |-- Entity
+   |   |   |   |   |   |   |   |   |-- AstronomicalObject.java
+   |   |   |   |   |   |   |   |   |-- RPiConnection.java
+   |   |   |   |   |   |   |   |   |-- Session.java
+   |   |   |   |   |   |   |   |-- Repository
+   |   |   |   |   |   |   |   |   |-- SessionRepository.java
+   |   |   |   |   |   |   |   |-- Service
+   |   |   |   |   |   |   |   |   |-- CoordinateService.java
+   |   |   |   |   |   |   |   |   |-- MagneticDeclinationService.java
+   |   |   |   |   |   |   |   |   |-- PiToWebBridgeService.java
+   |   |   |   |   |   |   |   |   |-- PlaneService.java
+   |   |   |   |   |   |   |   |   |-- SessionManagerService.java
+   |   |   |   |   |   |   |   |   |-- WebToPiBridgeService.java
+   |   |   |   |   |   |   |   |-- StargazerApplication.java
+   |   |   |   |-- resources
+   |   |   |   |   |-- application.properties
+   |   |   |   |   |-- static
+   |   |   |   |   |   |-- asteroid.html
+   |   |   |   |   |   |-- comet.html
+   |   |   |   |   |   |-- css
+   |   |   |   |   |   |   |-- mainPages.css
+   |   |   |   |   |   |   |-- search.css
+   |   |   |   |   |   |   |-- welcomePages.css
+   |   |   |   |   |   |-- galaxy.html
+   |   |   |   |   |   |-- images
+   |   |   |   |   |   |   |-- asteroid.jpg
+   |   |   |   |   |   |   |-- background.jpg
+   |   |   |   |   |   |   |-- comet.jpg
+   |   |   |   |   |   |   |-- galaxy.jpg
+   |   |   |   |   |   |   |-- planet.jpg
+   |   |   |   |   |   |   |-- solarSystem.jpg
+   |   |   |   |   |   |-- stargazer.html
+   |   |   |-- test
+   |   |   |   |-- java
+   |   |   |   |   |-- com
+   |   |   |   |   |   |-- omerygouw
+   |   |   |   |   |   |   |-- stargazer
+   |   |   |   |   |   |   |   |-- StargazerApplicationTests.java
+
+```
